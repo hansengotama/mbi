@@ -38,8 +38,8 @@ class UserService implements UserServiceInterface {
             'email' => 'required|email|unique',
             'birthday_of_data' => 'required|date',
             'phone_number' => 'required',
-            'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:6',
-            'password_confirmation' => 'required|min:6'
+            'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
+            'password_confirmation' => 'required|min:8'
         ]);
 
         if($validator->fails()) throw new HttpRequestException(422, $validator->errors(), null);

@@ -4,19 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Deceased extends Model
+class Pandita extends Model
 {
     protected $fillable = [
         'vihara_id',
         'name',
-        'close_age',
-        'buried_date',
-        'deceased_date',
-        'buried_at',
-        'type'
+        'phone_number'
     ];
 
     public function vihara() {
-        $this->hasOne(Vihara::class);
+        return $this->hasOne(Vihara::class);
     }
 }

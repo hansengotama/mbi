@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vihara extends Model
 {
-    //
+    protected $fillable = [
+        'region_id',
+        'name',
+        'phone_number',
+        'address'
+    ];
+
+    public function region() {
+        return $this->hasOne(Region::class);
+    }
 }

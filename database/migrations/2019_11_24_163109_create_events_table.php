@@ -15,6 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('vihara_id');
             $table->foreign('vihara_id')->references('id')->on('viharas')->onDelete('cascade');
             $table->string('name');
             $table->longText('description');
@@ -22,7 +23,6 @@ class CreateEventsTable extends Migration
             $table->timestamp('date_from');
             $table->timestamp('date_until');
             $table->string('poster_url');
-            $table->unsignedBigInteger('vihara_id');
             $table->timestamps();
 
         });
