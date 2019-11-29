@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deceased extends Model
 {
     protected $fillable = [
-        'vihara_id',
+        'region_id',
         'name',
         'close_age',
         'buried_date',
@@ -16,7 +16,7 @@ class Deceased extends Model
         'type'
     ];
 
-    public function vihara() {
-        $this->hasOne(Vihara::class);
+    public function region() {
+        $this->hasOne(Region::class);
     }
 }

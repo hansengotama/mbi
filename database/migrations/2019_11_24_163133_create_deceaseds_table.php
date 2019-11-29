@@ -15,8 +15,6 @@ class CreateDeceasedsTable extends Migration
     {
         Schema::create('deceaseds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('vihara_id');
-            $table->foreign('vihara_id')->references('id')->on('viharas')->onDelete('cascade');
             $table->string('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name');

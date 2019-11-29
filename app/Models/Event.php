@@ -11,8 +11,6 @@ class Event extends Model
         'name',
         'description',
         'address',
-        'date_from',
-        'date_until',
         'poster_url'
     ];
 

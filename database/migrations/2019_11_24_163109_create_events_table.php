@@ -20,8 +20,6 @@ class CreateEventsTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->longText('address');
-            $table->timestamp('date_from');
-            $table->timestamp('date_until');
             $table->string('poster_url');
             $table->timestamps();
 
