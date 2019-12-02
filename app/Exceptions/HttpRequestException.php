@@ -7,7 +7,7 @@ use Exception;
 class HttpRequestException extends Exception
 {
     protected $httpCode;
-    protected $message;
+    protected $success = false;
     protected $errors;
     protected $headers;
     protected $data;

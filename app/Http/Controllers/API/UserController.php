@@ -24,6 +24,64 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $this->userService->create($request);
+        $data = $this->userService->create($request);
+
+        return $this->apiHelper->response(
+            $data['success'],
+            $data['code'],
+            $data['message'],
+            $data['data']
+        );
+    }
+
+    public function get()
+    {
+        $data = $this->userService->get();
+
+        return $this->apiHelper->response(
+            $data['success'],
+            $data['code'],
+            $data['message'],
+            $data['data']
+        );
+    }
+
+    public function find($id)
+    {
+        $id = intval($id);
+        $data = $this->userService->find($id);
+
+        return $this->apiHelper->response(
+            $data['success'],
+            $data['code'],
+            $data['message'],
+            $data['data']
+        );
+    }
+
+    public function update($id, Request $request)
+    {
+        $id = intval($id);
+        $data = $this->userService->update($id, $request);
+
+        return $this->apiHelper->response(
+            $data['success'],
+            $data['code'],
+            $data['message'],
+            $data['data']
+        );
+    }
+
+    public function delete($id)
+    {
+        $id = intval($id);
+        $data = $this->userService->delete($id);
+
+        return $this->apiHelper->response(
+            $data['success'],
+            $data['code'],
+            $data['message'],
+            $data['data']
+        );
     }
 }

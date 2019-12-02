@@ -17,7 +17,7 @@ class CreateRequestKtubsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('accepted_admin_id')->nullable();
+            $table->unsignedBigInteger('accepted_admin_id')->nullable();
             $table->foreign('accepted_admin_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('id_number');
             $table->integer('family_card_number');

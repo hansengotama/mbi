@@ -15,12 +15,12 @@ class CreateDeceasedsTable extends Migration
     {
         Schema::create('deceaseds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('region_id');
+            $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name');
             $table->integer('close_age');
-            $table->timestamp('buried_date');
-            $table->timestamp('deceased_date');
+            $table->date('buried_date');
+            $table->date('deceased_date');
             $table->string('buried_at');
             $table->string('type');
             $table->timestamps();

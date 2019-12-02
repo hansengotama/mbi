@@ -4,13 +4,13 @@ namespace App\Helpers;
 
 class ApiHelper{
 
-    public function response(bool $success,int $code,$response = [],string $message)
+    public function response(bool $success ,int $code ,string $message ,$response = [])
     {
         return response()->json([
-            'success'=>$success,
-            'code'   =>$code,
-            'result' =>$response,
-            'message'=>$message
+            'success' => $success,
+            'code'    => $code,
+            'message' => $message,
+            'result'  => $response
         ], 200);
     }
 }

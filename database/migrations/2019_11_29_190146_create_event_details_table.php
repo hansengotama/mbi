@@ -15,10 +15,10 @@ class CreateEventDetailsTable extends Migration
     {
         Schema::create('event_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->time('event_id')->nullable();
+            $table->unsignedBigInteger('event_id')->nullable();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->timestamp('date_from');
-            $table->timestamp('date_until');
+            $table->date('date_from');
+            $table->date('date_until');
             $table->time('time_from')->nullable();
             $table->time('time_until')->nullable();
             $table->timestamps();
