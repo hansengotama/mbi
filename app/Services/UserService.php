@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Exceptions\HttpRequestException;
-use App\Helpers\ApiHelper;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use function GuzzleHttp\Promise\all;
+use Laravel\Passport\Passport;
 
 class UserService implements UserServiceInterface
 {
@@ -24,15 +21,42 @@ class UserService implements UserServiceInterface
 
     public function login(Request $request)
     {
+        $response = [];
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        if ($validator->fails()) throw new HttpRequestException(422, $validator->errors(), null);
-        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) throw new HttpRequestException(422, 'User not Found!', null);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'code' => 422,
+                'message' => 'Error Validation',
+                'data' => $validator->errors()
+            ];
+        }else {
+            $credentials = $request->only('email', 'password');
 
-        return 1;
+            if (!Auth::attempt($credentials)) {
+                $response = [
+                    'success' => false,
+                    'code' => 404,
+                    'message' => 'User not Found!',
+                    'data' => null
+                ];
+            }else {
+                $user = Auth::user();
+
+                $response = [
+                    'success' => false,
+                    'code' => 200,
+                    'message' => 'Login Success',
+                    'data' => null
+                ];
+            }
+        }
+
+        return $response;
     }
 
     public function create(Request $request)
@@ -50,7 +74,7 @@ class UserService implements UserServiceInterface
         if ($validator->fails()) {
             $response = [
                 'success' => false,
-                'code' => 400,
+                'code' => 422,
                 'message' => 'Error Validation',
                 'data' => $validator->errors()
             ];
@@ -84,6 +108,7 @@ class UserService implements UserServiceInterface
     {
         $response = [];
         $user = $this->userRepository->find($id);
+
         $validate = [
             'name' => 'required',
             'birthday_of_date' => 'required|date',
@@ -92,30 +117,40 @@ class UserService implements UserServiceInterface
             'password_confirmation' => 'required|min:8'
         ];
 
-        if ($user->email != $request->email)
-            $validate = array_merge($validate, ['email' => 'required|email|unique:users']);
-        else
-            $validate = array_merge($validate, ['email' => 'required|email']);
+        if($user != null) {
+            if ($user->email != $request->email)
+                $validate = array_merge($validate, ['email' => 'required|email|unique:users']);
+            else
+                $validate = array_merge($validate, ['email' => 'required|email']);
 
-        $validator = Validator::make($request->all(), $validate);
+            $validator = Validator::make($request->all(), $validate);
 
-        if ($validator->fails()) {
+            if ($validator->fails()) {
+                $response = [
+                    'success' => false,
+                    'code' => 422,
+                    'message' => 'Error Validation',
+                    'data' => $validator->errors()
+                ];
+            } else {
+                $data = $this->userRepository->update($id, $request->all());
+
+                $response = [
+                    'success' => true,
+                    'code' => 200,
+                    'message' => 'User Updated',
+                    'data' => $data
+                ];
+            }
+        }else {
             $response = [
                 'success' => false,
-                'code' => 400,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        } else {
-            $data = $this->userRepository->update($id, $request->all());
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'User Updated',
-                'data' => $data
+                'code' => 404,
+                'message' => 'User Not Found',
+                'data' => null
             ];
         }
+
 
         return $response;
     }

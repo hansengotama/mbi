@@ -2,48 +2,48 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\ApiHelper;
 use App\Http\Controllers\Controller;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use function App\Helpers\api_response;
 
 class UserController extends Controller
 {
+
     private $userService;
 
     function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
-        $this->apiHelper = new ApiHelper();
     }
 
     public function login(Request $request)
     {
-        $this->userService->login($request);
+        $data = $this->userService->login($request);
+
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+    }
+
+    public function logout()
+    {
+        if (Auth::check()) {
+            Auth::user()->OauthAccessToken()->delete();
+        }
     }
 
     public function create(Request $request)
     {
         $data = $this->userService->create($request);
 
-        return $this->apiHelper->response(
-            $data['success'],
-            $data['code'],
-            $data['message'],
-            $data['data']
-        );
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 
     public function get()
     {
         $data = $this->userService->get();
 
-        return $this->apiHelper->response(
-            $data['success'],
-            $data['code'],
-            $data['message'],
-            $data['data']
-        );
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 
     public function find($id)
@@ -51,12 +51,7 @@ class UserController extends Controller
         $id = intval($id);
         $data = $this->userService->find($id);
 
-        return $this->apiHelper->response(
-            $data['success'],
-            $data['code'],
-            $data['message'],
-            $data['data']
-        );
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 
     public function update($id, Request $request)
@@ -64,12 +59,7 @@ class UserController extends Controller
         $id = intval($id);
         $data = $this->userService->update($id, $request);
 
-        return $this->apiHelper->response(
-            $data['success'],
-            $data['code'],
-            $data['message'],
-            $data['data']
-        );
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 
     public function delete($id)
@@ -77,11 +67,6 @@ class UserController extends Controller
         $id = intval($id);
         $data = $this->userService->delete($id);
 
-        return $this->apiHelper->response(
-            $data['success'],
-            $data['code'],
-            $data['message'],
-            $data['data']
-        );
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 }

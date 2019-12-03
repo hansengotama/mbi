@@ -2,7 +2,8 @@
 
 namespace App\Repositories\Interfaces;
 
-interface UserRepositoryInterface {
+interface UserRepositoryInterface
+{
 
     public function create(array $data);
     public function get();
