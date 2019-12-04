@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface DonationRepositoryInterface {
+interface CompanyVacancyRepositoryInterface {
 
     public function get();
     public function find(int $id);

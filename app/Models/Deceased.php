@@ -13,7 +13,8 @@ class Deceased extends Model
         'buried_date',
         'deceased_date',
         'buried_at',
-        'type'
+        'type',
+        'photo_url'
     ];
 
     public function region() {

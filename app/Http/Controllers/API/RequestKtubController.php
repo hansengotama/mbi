@@ -17,8 +17,41 @@ class RequestKtubController extends Controller
         $this->requestKtubService = $requestKtubService;
     }
 
+    public function get()
+    {
+        $data = $this->requestKtubService->get();
+
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+    }
+
+    public function find($id)
+    {
+        $id = intval($id);
+        $data = $this->requestKtubService->find($id);
+
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+    }
+
     public function create(Request $request)
     {
+        $data = $this->requestKtubService->create($request);
 
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+    }
+
+    public function update($id, Request $request)
+    {
+        $id = intval($id);
+        $data = $this->requestKtubService->update($id, $request);
+
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+    }
+
+    public function delete($id)
+    {
+        $id = intval($id);
+        $data = $this->requestKtubService->delete($id);
+
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 }

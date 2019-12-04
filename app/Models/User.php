@@ -14,7 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'birthday_of_data',
+        'birth_of_date',
         'phone_number',
         'role',
         'place_of_birth',
@@ -29,6 +29,6 @@ class User extends Authenticatable
     ];
 
     public function OauthAccessToken(){
-        return $this->hasMany('\App\OauthAccessToken');
+        return $this->hasMany('\App\Models\OauthAccessToken');
     }
 }

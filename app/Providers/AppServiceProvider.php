@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repositories\CompanyVacancyRepository;
 use App\Repositories\DeceasedRepository;
 use App\Repositories\DonationRepository;
 use App\Repositories\EventRepository;
+use App\Repositories\Interfaces\CompanyVacancyRepositoryInterface;
 use App\Repositories\Interfaces\DeceasedRepositoryInterface;
 use App\Repositories\Interfaces\DonationRepositoryInterface;
 use App\Repositories\Interfaces\EventRepositoryInterface;
@@ -18,9 +20,11 @@ use App\Repositories\RegionRepository;
 use App\Repositories\RequestKtubRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\ViharaRepository;
+use App\Services\CompanyVacancyService;
 use App\Services\DeceasedService;
 use App\Services\DonationService;
 use App\Services\EventService;
+use App\Services\Interfaces\CompanyVacancyServiceInterface;
 use App\Services\Interfaces\DeceasedServiceInterface;
 use App\Services\Interfaces\DonationServiceInterface;
 use App\Services\Interfaces\EventServiceInterface;
@@ -79,5 +83,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ViharaRepositoryInterface::class, ViharaRepository::class);
         $this->app->bind(ViharaServiceInterface::class, ViharaService::class);
+
+        $this->app->bind(CompanyVacancyRepositoryInterface::class, CompanyVacancyRepository::class);
+        $this->app->bind(CompanyVacancyServiceInterface::class, CompanyVacancyService::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\ViharaRepositoryInterface;
 use App\Services\Interfaces\ViharaServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,6 +15,16 @@ class ViharaService implements ViharaServiceInterface {
     function __construct(ViharaRepositoryInterface $viharaRepository)
     {
         $this->viharaRepository = $viharaRepository;
+    }
+
+    private function modelMapping(array $request) {
+        $formData = [];
+        $formData['name'] = $request['name'];
+        $formData['region_id'] = $request['region_id'];
+        $formData['phone_number'] = $request['phone_number'];
+        $formData['address'] = $request['address'];
+
+        return $formData;
     }
 
     public function get()
@@ -65,7 +76,8 @@ class ViharaService implements ViharaServiceInterface {
                 'data' => $validator->errors()
             ];
         }else {
-            $data = $this->viharaRepository->create($request->all());
+            $formData = $this->modelMapping($request->all());
+            $data = $this->viharaRepository->create($formData);
 
             $response = [
                 'success' => true,
@@ -98,7 +110,8 @@ class ViharaService implements ViharaServiceInterface {
                     'data' => $validator->errors()
                 ];
             }else {
-                $data = $this->viharaRepository->update($id, $request->all());
+                $formData = $this->modelMapping($request->all());
+                $data = $this->viharaRepository->update($id, $formData);
 
                 $response = [
                     'success' => true,

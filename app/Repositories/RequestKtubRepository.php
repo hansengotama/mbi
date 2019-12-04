@@ -2,33 +2,59 @@
 
 namespace App\Repositories;
 
+use App\Models\RequestKtub;
 use App\Repositories\Interfaces\RequestKtubRepositoryInterface;
 
 class RequestKtubRepository implements RequestKtubRepositoryInterface {
 
-    public function all()
+    public function get()
     {
-
+        return RequestKtub::get();
     }
 
-    public function update(array $data, $id)
+    public function find(int $id)
     {
-
-    }
-
-    public function show($id)
-    {
-
+        return RequestKtub::find($id);
     }
 
     public function create(array $data)
     {
-
+        return RequestKtub::create([
+            'user_id' => $data['user_id'],
+            'id_number' => $data['id_number'],
+            'family_card_number' => $data['family_card_number'],
+            'last_education' => $data['last_education'],
+            'photo_url' => $data['photo_url'],
+            'visudhi_name' => $data['visudhi_name'],
+            'visudhi_place' => $data['visudhi_place'],
+            'visudhi_teacher' => $data['visudhi_teacher'],
+            'visudhi_role' => $data['visudhi_role'],
+            'business_name' => $data['business_name']
+        ]);
     }
 
-    public function delete($id)
+    public function update(int $id, array $data)
     {
+        $requestKtub = $this->find($id);
 
+        return $requestKtub->update([
+            'user_id' => $data['user_id'],
+            'id_number' => $data['id_number'],
+            'family_card_number' => $data['family_card_number'],
+            'last_education' => $data['last_education'],
+            'photo_url' => $data['photo_url'],
+            'visudhi_name' => $data['visudhi_name'],
+            'visudhi_place' => $data['visudhi_place'],
+            'visudhi_teacher' => $data['visudhi_teacher'],
+            'visudhi_role' => $data['visudhi_role'],
+            'business_name' => $data['business_name']
+        ]);
     }
 
+    public function delete(int $id)
+    {
+        $requestKtub = $this->find($id);
+
+        return $requestKtub->delete();
+    }
 }

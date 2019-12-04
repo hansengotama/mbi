@@ -4,7 +4,7 @@ namespace App\Services\Interfaces;
 
 use Illuminate\Http\Request;
 
-interface RequestKtubServiceInterface
+interface CompanyVacancyServiceInterface
 {
 
     public function get();

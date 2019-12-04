@@ -2,11 +2,12 @@
 
 namespace App\Repositories\Interfaces;
 
-interface EventRepositoryInterface {
+interface EventRepositoryInterface
+{
 
-    public function all();
+    public function get();
     public function create(array $data);
-    public function update(array $data, $id);
-    public function show($id);
-    public function delete($id);
+    public function update(int $id, array $data);
+    public function find(int $id);
+    public function delete(int $id);
 }

@@ -13,7 +13,7 @@ class UserRepository implements UserRepositoryInterface {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'birthday_of_date' => $data['birthday_of_date'],
+            'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password'])
         ]);
@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryInterface {
         return $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            'birthday_of_date' => $data['birthday_of_date'],
+            'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password'])
         ]);

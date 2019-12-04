@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -17,6 +18,17 @@ class UserService implements UserServiceInterface
     function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
+    }
+
+    private function modelMapping(array $request) {
+        $formData = [];
+        $formData['name'] = $request['name'];
+        $formData['email'] = $request['email'];
+        $formData['birth_of_date'] = Carbon::parse($request['birth_of_date'])->format('Y-m-d H:i:s');
+        $formData['phone_number'] = $request['phone_number'];
+        $formData['password'] = $request['password'];
+
+        return $formData;
     }
 
     public function login(Request $request)
@@ -65,7 +77,7 @@ class UserService implements UserServiceInterface
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'birthday_of_date' => 'required|date',
+            'birth_of_date' => 'required|date',
             'phone_number' => 'required',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
             'password_confirmation' => 'required|min:8'
@@ -79,7 +91,8 @@ class UserService implements UserServiceInterface
                 'data' => $validator->errors()
             ];
         } else {
-            $data = $this->userRepository->create($request->all());
+            $formData = $this->modelMapping($request->all());
+            $data = $this->userRepository->create($formData);
 
             $response = [
                 'success' => true,
@@ -111,7 +124,7 @@ class UserService implements UserServiceInterface
 
         $validate = [
             'name' => 'required',
-            'birthday_of_date' => 'required|date',
+            'birth_of_date' => 'required|date',
             'phone_number' => 'required',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
             'password_confirmation' => 'required|min:8'
@@ -133,7 +146,8 @@ class UserService implements UserServiceInterface
                     'data' => $validator->errors()
                 ];
             } else {
-                $data = $this->userRepository->update($id, $request->all());
+                $formData = $this->modelMapping($request->all());
+                $data = $this->userRepository->update($id, $formData);
 
                 $response = [
                     'success' => true,

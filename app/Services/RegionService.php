@@ -7,13 +7,21 @@ use App\Services\Interfaces\RegionServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RegionService implements RegionServiceInterface {
+class RegionService implements RegionServiceInterface
+{
 
     private $regionRepository;
 
     function __construct(RegionRepositoryInterface $regionRepository)
     {
         $this->regionRepository = $regionRepository;
+    }
+
+    private function modelMapping(array $request) {
+        $formData = [];
+        $formData['name'] = $request['name'];
+
+        return $formData;
     }
 
     public function get()
@@ -62,7 +70,8 @@ class RegionService implements RegionServiceInterface {
                 'data' => $validator->errors()
             ];
         }else {
-            $data = $this->regionRepository->create($request->all());
+            $formData = $this->modelMapping($request->all());
+            $data = $this->regionRepository->create($formData);
 
             $response = [
                 'success' => true,
@@ -92,7 +101,8 @@ class RegionService implements RegionServiceInterface {
                     'data' => $validator->errors()
                 ];
             }else {
-                $data = $this->regionRepository->update($id, $request->all());
+                $formData = $this->modelMapping($request->all());
+                $data = $this->regionRepository->update($id, $formData);
 
                 $response = [
                     'success' => true,

@@ -30,7 +30,7 @@ Route::middleware('auth:api')->namespace('API')->group(function () {
         Route::get('/{id}', 'RegionController@find');
         Route::post('/create', 'RegionController@create');
         Route::post('/update/{id}', 'RegionController@update');
-        Route::post('delete/{id}', 'RegionController@delete');
+        Route::post('/delete/{id}', 'RegionController@delete');
     });
 
     Route::prefix('vihara')->group(function () {
@@ -38,6 +38,54 @@ Route::middleware('auth:api')->namespace('API')->group(function () {
         Route::get('/{id}', 'ViharaController@find');
         Route::post('/create', 'ViharaController@create');
         Route::post('/update/{id}', 'ViharaController@update');
-        Route::post('delete/{id}', 'ViharaController@delete');
+        Route::post('/delete/{id}', 'ViharaController@delete');
+    });
+
+    Route::prefix('request-ktub')->group(function () {
+        Route::get('/', 'RequestKtubController@get');
+        Route::get('/{id}', 'RequestKtubController@find');
+        Route::post('/create', 'RequestKtubController@create');
+        Route::post('/update/{id}', 'RequestKtubController@update');
+        Route::post('/delete/{id}', 'RequestKtubController@delete');
+    });
+
+    Route::prefix('donation')->group(function () {
+        Route::post('/create', 'DonationController@create');
+        Route::post('/update/{id}', 'DonationController@update');
+        Route::post('/delete/{id}', 'DonationController@delete');
+        Route::get('/', 'DonationController@get');
+        Route::get('/{id}', 'DonationController@find');
+    });
+
+    Route::prefix('event')->group(function () {
+        Route::post('/create', 'EventController@create');
+        Route::post('/update/{id}', 'EventController@update');
+        Route::post('/delete/{id}', 'EventController@delete');
+        Route::get('/', 'EventController@get');
+        Route::get('/{id}', 'EventController@find');
+    });
+
+    Route::prefix('deceased')->group(function () {
+        Route::post('/create', 'DeceasedController@create');
+        Route::post('/update/{id}', 'DeceasedController@update');
+        Route::post('/delete/{id}', 'DeceasedController@delete');
+        Route::get('/', 'DeceasedController@get');
+        Route::get('/{id}', 'DeceasedController@find');
+    });
+
+    Route::prefix('company-vacancy')->group(function () {
+        Route::post('/create', 'CompanyVacancyController@create');
+        Route::post('/update/{id}', 'CompanyVacancyController@update');
+        Route::post('/delete/{id}', 'CompanyVacancyController@delete');
+        Route::get('/', 'CompanyVacancyController@get');
+        Route::get('/{id}', 'CompanyVacancyController@find');
+    });
+
+    Route::prefix('pandita')->group(function () {
+        Route::post('/create', 'PanditaController@create');
+        Route::post('/update/{id}', 'PanditaController@update');
+        Route::post('/delete/{id}', 'PanditaController@delete');
+        Route::get('/', 'PanditaController@get');
+        Route::get('/{id}', 'PanditaController@find');
     });
 });

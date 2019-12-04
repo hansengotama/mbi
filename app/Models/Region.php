@@ -11,6 +11,6 @@ class Region extends Model
     ];
 
     public function viharas() {
-        return $this->hasMany(Region::class);
+        return $this->hasMany(Vihara::class);
     }
 }
