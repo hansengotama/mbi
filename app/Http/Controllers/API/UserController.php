@@ -40,9 +40,9 @@ class UserController extends Controller
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->userService->get();
+        $data = $this->userService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }
@@ -67,6 +67,26 @@ class UserController extends Controller
     {
         $id = intval($id);
         $data = $this->userService->delete($id);
+
+        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+    }
+
+    public function check()
+    {
+        $data = [];
+        $user = Auth::user();
+
+        if($user == null) {
+            $data['success'] = false;
+            $data['code'] = 401;
+            $data['message'] = 'Unauthorized';
+            $data['data'] = null;
+        }else {
+            $data['success'] = true;
+            $data['code'] = 200;
+            $data['message'] = 'Success';
+            $data['data'] = $user;
+        }
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

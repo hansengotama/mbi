@@ -4,12 +4,17 @@ namespace App\Repositories;
 
 use App\Models\Vihara;
 use App\Repositories\Interfaces\ViharaRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 class ViharaRepository implements ViharaRepositoryInterface {
 
-    public function get()
+    public function get(string $text, int $page, int $per_page)
     {
-        return Vihara::get();
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        return Vihara::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
     }
 
     public function find(int $id)

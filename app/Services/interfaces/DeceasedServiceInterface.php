@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 interface DeceasedServiceInterface
 {
 
-    public function get();
+    public function get(Request $request);
     public function find(int $id);
     public function create(Request $request);
     public function update(int $id, Request $request);

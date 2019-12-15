@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface {
@@ -15,7 +16,8 @@ class UserRepository implements UserRepositoryInterface {
             'email' => $data['email'],
             'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'role' => $data['role']
         ]);
     }
 
@@ -33,13 +35,18 @@ class UserRepository implements UserRepositoryInterface {
             'email' => $data['email'],
             'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'role' => $data['role']
         ]);
     }
 
-    public function get()
+    public function get(string $text, int $page, int $per_page)
     {
-        return User::get();
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        return User::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
     }
 
     public function delete(int $id)

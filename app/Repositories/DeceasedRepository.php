@@ -4,13 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Deceased;
 use App\Repositories\Interfaces\DeceasedRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 class DeceasedRepository implements DeceasedRepositoryInterface
 {
 
-    public function get()
+    public function get(string $text, int $page, int $per_page)
     {
-        return Deceased::get();
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        return Deceased::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
     }
 
     public function find(int $id)

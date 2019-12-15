@@ -4,13 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Pandita;
 use App\Repositories\Interfaces\PanditaRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 class PanditaRepository implements PanditaRepositoryInterface
 {
 
-    public function get()
+    public function get(string $text, int $page, int $per_page)
     {
-        return Pandita::get();
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        return Pandita::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
     }
 
     public function find(int $id)
