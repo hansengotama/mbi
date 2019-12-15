@@ -4,12 +4,17 @@ namespace App\Repositories;
 
 use App\Models\RequestKtub;
 use App\Repositories\Interfaces\RequestKtubRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 class RequestKtubRepository implements RequestKtubRepositoryInterface {
 
-    public function get()
+    public function get(string $text, int $page, int $per_page)
     {
-        return RequestKtub::get();
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        return RequestKtub::where('visudhi_name', 'LIKE', '%'.$text.'%')->paginate($per_page);
     }
 
     public function find(int $id)

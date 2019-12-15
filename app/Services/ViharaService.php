@@ -27,9 +27,15 @@ class ViharaService implements ViharaServiceInterface {
         return $formData;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->viharaRepository->get();
+        $filter = $request->filter;
+
+        $text = ($filter['text'] == null) ? "" : $filter['text'];
+        $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
+        $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
+
+        $data = $this->viharaRepository->get($text, $page, $per_page);
 
         return [
             'success' => true,

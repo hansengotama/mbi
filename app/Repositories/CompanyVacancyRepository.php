@@ -4,12 +4,17 @@ namespace App\Repositories;
 
 use App\Models\CompanyVacancy;
 use App\Repositories\Interfaces\CompanyVacancyRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 class CompanyVacancyRepository implements CompanyVacancyRepositoryInterface {
 
-    public function get()
+    public function get(string $text, int $page, int $per_page)
     {
-        return CompanyVacancy::get();
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        return CompanyVacancy::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
     }
 
     public function find(int $id)

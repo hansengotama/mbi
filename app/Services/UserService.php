@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +25,7 @@ class UserService implements UserServiceInterface
         $formData = [];
         $formData['name'] = $request['name'];
         $formData['email'] = $request['email'];
+        $formData['role'] = (isset($request['role'])) ? $request['role'] : "user";
         $formData['birth_of_date'] = Carbon::parse($request['birth_of_date'])->format('Y-m-d H:i:s');
         $formData['phone_number'] = $request['phone_number'];
         $formData['password'] = $request['password'];
@@ -57,13 +59,14 @@ class UserService implements UserServiceInterface
                     'data' => null
                 ];
             }else {
-                $user = Auth::user();
+                $user = $request->user();
+                $user['access_token'] = $user->createToken('Personal Access Token')->accessToken;
 
                 $response = [
-                    'success' => false,
+                    'success' => true,
                     'code' => 200,
                     'message' => 'Login Success',
-                    'data' => null
+                    'data' => $user
                 ];
             }
         }
@@ -105,9 +108,15 @@ class UserService implements UserServiceInterface
         return $response;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->userRepository->get();
+        $filter = $request->filter;
+
+        $text = ($filter['text'] == null) ? "" : $filter['text'];
+        $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
+        $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
+
+        $data = $this->userRepository->get($text, $page, $per_page);
 
         return [
             'success' => true,
