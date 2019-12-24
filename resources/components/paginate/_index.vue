@@ -77,6 +77,7 @@
         methods: {
             initPaginate() {
                 this.current.page = this.data.current_page
+
                 this.pages = []
 
                 if(this.data.current_page > 1) {

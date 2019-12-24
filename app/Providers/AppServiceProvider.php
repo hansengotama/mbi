@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Repositories\CompanyVacancyRepository;
 use App\Repositories\DeceasedRepository;
+use App\Repositories\DistrictRepository;
 use App\Repositories\DonationRepository;
 use App\Repositories\EventRepository;
 use App\Repositories\Interfaces\CompanyVacancyRepositoryInterface;
 use App\Repositories\Interfaces\DeceasedRepositoryInterface;
+use App\Repositories\Interfaces\DistrictRepositoryInterface;
 use App\Repositories\Interfaces\DonationRepositoryInterface;
 use App\Repositories\Interfaces\EventRepositoryInterface;
 use App\Repositories\Interfaces\PanditaRepositoryInterface;
@@ -22,10 +24,12 @@ use App\Repositories\UserRepository;
 use App\Repositories\ViharaRepository;
 use App\Services\CompanyVacancyService;
 use App\Services\DeceasedService;
+use App\Services\DistrictService;
 use App\Services\DonationService;
 use App\Services\EventService;
 use App\Services\Interfaces\CompanyVacancyServiceInterface;
 use App\Services\Interfaces\DeceasedServiceInterface;
+use App\Services\Interfaces\DistrictServiceInterface;
 use App\Services\Interfaces\DonationServiceInterface;
 use App\Services\Interfaces\EventServiceInterface;
 use App\Services\Interfaces\PanditaServiceInterface;
@@ -62,6 +66,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
+
+        $this->app->bind(DistrictRepositoryInterface::class, DistrictRepository::class);
+        $this->app->bind(DistrictServiceInterface::class, DistrictService::class);
 
         $this->app->bind(DeceasedRepositoryInterface::class, DeceasedRepository::class);
         $this->app->bind(DeceasedServiceInterface::class, DeceasedService::class);

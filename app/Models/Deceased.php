@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deceased extends Model
 {
     protected $fillable = [
+        'district_id',
         'region_id',
         'name',
         'close_age',

@@ -17,9 +17,9 @@ class RegionController extends Controller
         $this->regionService = $regionService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->regionService->get();
+        $data = $this->regionService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

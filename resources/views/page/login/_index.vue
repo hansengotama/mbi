@@ -2,7 +2,7 @@
     <div id="login">
         <div class="form-container">
             <div class="logo-container">
-                <img src="images/admin/logo.jpeg">
+                <img src="../../../../public/images/admin/logo.jpeg">
                 <div>Majelis Buddhayana Indonesia</div>
             </div>
             <div class="title-border"></div>
@@ -32,7 +32,7 @@
 
                 <div class="red error-message" v-if="!loading">{{ error.message.global }}</div>
                 <div class="loading" v-else>
-                    <img src="images/admin/loading.gif" height="30px">
+                    <img src="../../../../public/images/admin/loading.gif" height="30px">
                 </div>
             </div>
         </div>
@@ -71,6 +71,16 @@
                 loading: false
             }
         },
+        computed: {
+            userLogin: {
+                get() {
+                    return this.$store.getters["getUserLogin"]
+                },
+                set(value) {
+                    this.$store.commit("setUserLogin", value)
+                }
+            }
+        },
         methods: {
             validateForm() {
                 let validateEmail = this.validateEmail()
@@ -90,17 +100,18 @@
                     this.loading = false
 
                     if(response.data.code == 200) {
-                        if(response.data.result.role != "admin")
-                            this.error.message.global = "Mohon maaf, anda bukan admin"
-                        else {
+                        if(response.data.result.role == "admin" || response.data.result.role == "super_admin"  || response.data.result.role == "pic_kecamatan" ){
                             this.error.message.global = ""
 
                             VueCookie.set('access_token', response.data.result.access_token)
-                            this.$emit('checkIsLogin')
+                            this.$emit('isLogin', true)
+                            this.userLogin = response.data.result
+
                             this.$router.push({
                                 name: 'Home'
                             })
-                        }
+                        }else
+                            this.error.message.global = "Mohon maaf, anda bukan admin"
                     } else
                         this.error.message.global = response.data.message
                 })
@@ -177,6 +188,7 @@
         display flex
         flex-direction column
         padding 2em
+        background white
 
     .form-container > .title-border
         border-bottom 2px solid #eaeaea
