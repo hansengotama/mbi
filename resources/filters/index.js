@@ -9,3 +9,5 @@ Vue.filter('numberFormat',(value) => {
     value = (value/1).toFixed(0).replace('.', ',')
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
 })
+
+export default {}

@@ -17,9 +17,9 @@ class ViharaController extends Controller
         $this->viharaService = $viharaService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->viharaService->get();
+        $data = $this->viharaService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

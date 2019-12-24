@@ -6,34 +6,77 @@ export default {
             title: 'Home',
             path: '/',
             icon: "fa fa-home",
-            name: 'home',
+            name: 'Home',
+            roles: ['super_admin', 'admin', 'pic_kecamatan'],
             active: false,
+            show: false,
             component: () => import('../../views/page/home/_index.vue')
         },
         {
             path: '/login',
             name: 'Login',
+            roles: ['super_admin', 'admin', 'pic_kecamatan'],
             component: () => import('../../views/page/login/_index')
         },
         {
             path: '/logout',
             name: 'Logout',
+            roles: ['super_admin', 'admin', 'pic_kecamatan']
+        },
+        {
+            title: 'Kabupaten',
+            path: '/district',
+            icon: "fa fa-globe",
+            roles: ['super_admin'],
+            active: false,
+            show: false,
+            component: Content,
+            children: [
+                {
+                    path: 'add',
+                    name: 'Add District',
+                    title: 'Tambahkan',
+                    meta: {
+                        parentTitle: 'Kabupaten'
+                    },
+                    component: () => import('../../views/page/district/add/_index.vue')
+                },
+                {
+                    path: 'edit',
+                    name: 'Edit District',
+                    meta: {
+                        parentTitle: 'Kabupaten'
+                    },
+                    component: () => import('../../views/page/district/edit/_index.vue')
+                },
+                {
+                    path: 'management',
+                    name: 'District Management',
+                    title: 'Kelola',
+                    meta: {
+                        parentTitle: 'Kabupaten'
+                    },
+                    component: () => import('../../views/page/district/management/_index.vue')
+                }
+            ]
         },
         {
             title: 'Pengguna',
             path: '/user',
             icon: "fas fa-users",
+            roles: ['admin'],
             active: false,
+            show: false,
             component: Content,
             children: [
                 {
-                    path: 'add',
-                    name: 'Add User',
-                    title: 'Tambahkan',
+                    path: 'add-admin',
+                    name: 'Add User Admin',
+                    title: 'Tambahkan Admin',
                     meta: {
                         parentTitle: 'Pengguna'
                     },
-                    component: () => import('../../views/page/user/add/_index.vue')
+                    component: () => import('../../views/page/user/add-admin/_index.vue')
                 },
                 {
                     path: 'management',
@@ -50,7 +93,9 @@ export default {
             title: 'Kecamatan',
             path: '/region',
             icon: "fa fa-globe",
+            roles: ['admin'],
             active: false,
+            show: false,
             component: Content,
             children: [
                 {
@@ -77,7 +122,9 @@ export default {
             title: 'Vihara',
             path: '/vihara',
             icon: "fas fa-vihara",
+            roles: ['admin', 'pic_kecamatan'],
             active: false,
+            show: false,
             component: Content,
             children: [
                 {
@@ -104,7 +151,9 @@ export default {
             title: 'Kegiatan',
             path: '/event',
             icon: "fa fa-calendar",
+            roles: ['admin', 'pic_kecamatan'],
             active: false,
+            show: false,
             component: Content,
             children: [
                 {
@@ -131,7 +180,9 @@ export default {
             title: 'Orang Meninggal',
             path: '/deceased',
             icon: "fas fa-book-dead",
+            roles: ['admin', 'pic_kecamatan'],
             active: false,
+            show: false,
             component: Content,
             children: [
                 {
@@ -158,7 +209,9 @@ export default {
             title: 'Donasi',
             path: '/donation',
             icon: "fas fa-donate",
+            roles: ['admin'],
             active: false,
+            show: false,
             component: Content,
             children: [
                 {
@@ -185,18 +238,11 @@ export default {
             title: 'Permohonan KTUB',
             path: '/request-ktub',
             icon: "fa fa-id-card",
+            roles: ['admin'],
             active: false,
+            show: false,
             component: Content,
             children: [
-                {
-                    path: 'add',
-                    name: 'Add Request KTUB',
-                    title: 'Tambahkan',
-                    meta: {
-                        parentTitle: 'Permohonan KTUB'
-                    },
-                    component: () => import('../../views/page/request_ktub/add/_index.vue')
-                },
                 {
                     path: 'management',
                     name: 'Request KTUB Management',

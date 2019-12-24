@@ -17,9 +17,9 @@ class DeceasedController extends Controller
         $this->deceasedService = $deceasedService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->deceasedService->get();
+        $data = $this->deceasedService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

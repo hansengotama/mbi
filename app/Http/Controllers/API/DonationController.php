@@ -17,9 +17,9 @@ class DonationController extends Controller
         $this->donationService = $donationService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->donationService->get();
+        $data = $this->donationService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

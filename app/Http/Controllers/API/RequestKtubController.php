@@ -17,9 +17,9 @@ class RequestKtubController extends Controller
         $this->requestKtubService = $requestKtubService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->requestKtubService->get();
+        $data = $this->requestKtubService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

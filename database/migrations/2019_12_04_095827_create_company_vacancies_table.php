@@ -15,6 +15,8 @@ class CreateCompanyVacanciesTable extends Migration
     {
         Schema::create('company_vacancies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('district_id');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name');

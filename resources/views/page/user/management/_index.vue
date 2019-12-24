@@ -6,6 +6,7 @@
                 <div class="table-container">
                     <table>
                         <tr>
+                            <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Tanggal Lahir</th>
@@ -15,27 +16,31 @@
                             <th>Jenis Kelamin</th>
                             <th>No. KTUB</th>
                         </tr>
-                        <tr v-for="user in user.data">
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.birth_of_date | dateFormat('DD MMMM YYYY') }}</td>
+                        <tr v-if="user.data.length == 0">
+                            <td colspan="100%" align="center" bgcolor="#f0f0f0">Tidak ada data</td>
+                        </tr>
+                        <tr v-for="(data, index) in user.data" v-else>
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.email }}</td>
+                            <td>{{ data.birth_of_date | dateFormat('DD MMMM YYYY') }}</td>
                             <td>
-                                <span v-if="user.place_of_birth">
-                                    {{ user.place_of_birth }}
+                                <span v-if="data.place_of_birth">
+                                    {{ data.place_of_birth }}
                                 </span>
                                 <span v-else>-</span>
                             </td>
-                            <td>{{ user.phone_number }}</td>
-                            <td>{{ user.role }}</td>
+                            <td>{{ data.phone_number }}</td>
+                            <td>{{ data.role }}</td>
                             <td>
-                                <span v-if="user.blood_type">
-                                    {{ user.blood_type }}
+                                <span v-if="data.blood_type">
+                                    {{ data.blood_type }}
                                 </span>
                                 <span v-else>-</span>
                             </td>
                             <td>
-                                <span v-if="user.ktub_number">
-                                    {{ user.ktub_number }}
+                                <span v-if="data.ktub_number">
+                                    {{ data.ktub_number }}
                                 </span>
                                 <span v-else>-</span>
                             </td>
@@ -60,7 +65,9 @@
         },
         data() {
             return {
-                user: {},
+                user: {
+                    data: []
+                },
                 filter: {
                     text: "",
                     page: 1,

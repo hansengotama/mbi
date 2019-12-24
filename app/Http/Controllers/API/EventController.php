@@ -17,9 +17,9 @@ class EventController extends Controller
         $this->eventService = $eventService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->eventService->get();
+        $data = $this->eventService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

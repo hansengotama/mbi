@@ -17,9 +17,9 @@ class CompanyVacancyController extends Controller
         $this->companyVacancyService = $companyVacancyService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->companyVacancyService->get();
+        $data = $this->companyVacancyService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

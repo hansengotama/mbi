@@ -2,12 +2,15 @@
     <div class="header">
         <div class="logo-container">
             <i class="fa fa-bars"></i>
-            <div>MBI <span class="orange">ADMIN</span></div>
+            <div>MBI <span class="orange">{{ label }}</span></div>
         </div>
-        <div class="profile-container">
+        <div class="profile-container" @mouseover="openLogout()" @mouseleave="closeLogout()">
             <img src="../../../../public/images/admin/profile-picture.jpg">
             <div class="text">{{ user.name }}</div>
             <i class="fas fa-caret-down"></i>
+            <div class="logout-container" v-if="showLogout">
+                <div class="logout-text" @click="logout()">Logout</div>
+            </div>
         </div>
     </div>
 </template>
@@ -15,9 +18,40 @@
 <script>
     export default {
         props: ['user'],
+        data() {
+            return {
+                label: "",
+                showLogout: false
+            }
+        },
         mounted() {
+            this.setLabel()
+        },
+        methods: {
+            setLabel() {
+                if(this.user.role == "admin")
+                    this.label = "KABUPATEN ADMIN"
 
-        }
+                if(this.user.role == "super_admin")
+                    this.label = "SUPER ADMIN"
+
+                if(this.user.role == "pic_kecamatan")
+                    this.label = "KECAMATAN ADMIN"
+            },
+            openLogout() {
+                this.showLogout = true
+            },
+            closeLogout() {
+                this.showLogout = false
+            },
+            logout() {
+                this.$emit('isLogin', false)
+
+                this.$router.push({
+                    name: "Logout"
+                })
+            }
+        },
     }
 </script>
 
@@ -31,7 +65,7 @@
         border-bottom 1px solid #eaeaea
         position fixed
         justify-content space-between
-        z-index 9999
+        z-index 10
         background white
 
     .header > .logo-container
@@ -53,6 +87,22 @@
         align-items center
         padding 5px
         cursor pointer
+
+    .header > .profile-container > .logout-container
+        position absolute
+        top 49px
+        right 14px
+
+    .header > .profile-container > .logout-container > .logout-text
+        background white
+        padding 10px 50px
+        border-bottom-left-radius 5px
+        border-bottom-right-radius 5px
+        border 1px solid #eaeaea
+
+    .header > .profile-container > .logout-container > .logout-text:hover
+        background $orange
+        color white
 
     .header > .profile-container > img
         width 33px

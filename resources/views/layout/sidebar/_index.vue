@@ -1,5 +1,11 @@
 <template>
         <div class="sidebar">
+            <div class="search-container" v-show="user.role != 'super_admin'">
+                <select name="" id="">
+                    <option value="Riau Tengah">Riau Tengah</option>
+                </select>
+            </div>
+
             <div v-for="(data, index) in menu" v-if="data.title && !data.children" class="menu-container">
                 <div class="menu" @click="goToSubmenu('Home', 'Home')" :class="(selectedMenuTitle == data.title) ? 'active' : ''">
                     <div class="left">
@@ -10,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div v-for="(data, index) in menu" v-if="data.title &&  data.children" class="menu-container">
+            <div v-for="(data, index) in menu" v-if="data.title && data.children && data.show" class="menu-container">
                 <div class="menu" @click="selectMenu(index)" :class="(selectedMenuTitle == data.title) ? 'active' : ''">
                     <div class="left">
                         <div class="icon">
@@ -28,6 +34,7 @@
                          :key="index + indexSubmenu"
                          class="submenu"
                          @click="goToSubmenu(submenu.name, data.title)"
+                         v-if="submenu.title"
                     >
                         <router-link :to="{ name: submenu.name }"
                                      v-text="submenu.title"
@@ -42,9 +49,10 @@
     import menu from '../../../js/router/menu.js'
 
     export default {
+        props: ['regionId', 'listRegion', 'user'],
         data() {
             return {
-                menu: menu.data,
+                menu: [],
                 selectedMenuTitle: ""
             }
         },
@@ -54,13 +62,18 @@
             },
             goToSubmenu(name, title) {
                 this.selectedMenuTitle = title
-                this.$router.push({
-                    name: name
-                })
+                if(this.$router.history.current.name != name) this.$router.push({ name: name })
             }
         },
         created() {
-            if(this.$router.app._route.matched[0] && this.$router.app._route.matched[0].name == 'home')
+            for(let i = 0; i < menu.data.length; i++) {
+                if(menu.data[i].roles.includes(this.user.role))
+                    menu.data[i].show = true
+            }
+
+            this.menu = menu.data
+
+            if(this.$router.app._route.matched.length == 0 || (this.$router.app._route.matched[0] && this.$router.app._route.matched[0].name == 'Home'))
                 this.selectedMenuTitle = "Home"
             else {
                 this.selectedMenuTitle = this.$router.app._route.matched[1].meta.parentTitle
@@ -87,10 +100,21 @@
         height 100vh
         position fixed
         background white
-        z-index 99999
+        z-index 10
         padding-top 0.8em
         overflow-y auto
         padding-bottom 5em
+
+    .sidebar > .search-container
+        margin-left 10px
+        width 90%
+        margin-bottom 1em
+
+    .sidebar > .search-container > select
+        width 100%
+        background white
+        padding 8px 4px
+        border-radius 5px
 
     .sidebar > .menu-container > .menu
         display flex

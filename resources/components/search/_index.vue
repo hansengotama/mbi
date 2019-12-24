@@ -1,6 +1,6 @@
 <template>
     <div class="filter-container">
-        <input type="text" class="filter-search" placeholder="Cari..." v-model="text" @keyup.enter="search()">
+        <input type="text" class="filter-search" placeholder="Cari berdasarkan nama..." v-model="text" @keyup.enter="search()">
         <div class="search-icon" @click="search()">
             <i class="fa fa-search"></i>
         </div>

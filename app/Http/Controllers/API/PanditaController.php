@@ -17,9 +17,9 @@ class PanditaController extends Controller
         $this->panditaService = $panditaService;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $data = $this->panditaService->get();
+        $data = $this->panditaService->get($request);
 
         return api_response($data['success'], $data['code'], $data['message'], $data['data']);
     }

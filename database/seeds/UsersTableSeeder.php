@@ -13,10 +13,10 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Admin',
-            'role' => 'user',
+            'name' => 'Super Admin',
+            'role' => 'super_admin',
             'birth_of_date' => Carbon::parse('12/12/1998')->format('Y-m-d H:i:s'),
-            'email' => 'admin@mbi.com',
+            'email' => 'superadmin@mbi.com',
             'password' => bcrypt('password'),
             'phone_number' => '081219432066'
         ]);
