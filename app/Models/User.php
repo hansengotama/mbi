@@ -12,6 +12,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'district_id',
+        'region_id',
         'name',
         'email',
         'password',

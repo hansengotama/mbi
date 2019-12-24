@@ -26,7 +26,8 @@ class DonationRepository implements DonationRepositoryInterface {
     {
         return Donation::create([
             'donors_name' => $data['donors_name'],
-            'amount' => $data['amount']
+            'amount' => $data['amount'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -36,7 +37,8 @@ class DonationRepository implements DonationRepositoryInterface {
 
         return $donation->update([
             'donors_name' => $data['donors_name'],
-            'amount' => $data['amount']
+            'amount' => $data['amount'],
+            'district_id' => $data['district_id']
         ]);
     }
 

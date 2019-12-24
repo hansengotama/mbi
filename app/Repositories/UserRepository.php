@@ -17,7 +17,8 @@ class UserRepository implements UserRepositoryInterface {
             'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role']
+            'role' => $data['role'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -36,7 +37,8 @@ class UserRepository implements UserRepositoryInterface {
             'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role']
+            'role' => $data['role'],
+            'district_id' => $data['district_id']
         ]);
     }
 

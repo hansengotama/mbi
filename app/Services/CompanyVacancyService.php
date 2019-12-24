@@ -21,6 +21,7 @@ class CompanyVacancyService implements CompanyVacancyServiceInterface
     private function modelMapping(array $request) {
         $formData = [];
         $formData['region_id'] = $request['region_id'];
+        $formData['district_id'] = $request['district_id'];
         $formData['name'] = $request['name'];
         $formData['logo_url'] = $request['logo_url'];
         $formData['city'] = $request['city'];
@@ -44,144 +45,30 @@ class CompanyVacancyService implements CompanyVacancyServiceInterface
         $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
         $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
 
-        $data = $this->companyVacancyRepository->get($text, $page, $per_page);
-
-        return [
-            'success' => true,
-            'code' => 200,
-            'message' => 'Get Company Vacancy',
-            'data' => $data
-        ];
+        return $this->companyVacancyRepository->get($text, $page, $per_page);
     }
 
     public function find(int $id)
     {
-        $data = $this->companyVacancyRepository->find($id);
-        $message = 'Company Vacancy Found';
-        $code = 200;
-
-        if ($data == null) {
-            $message = 'Company Vacancy not Found';
-            $code = 404;
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->companyVacancyRepository->find($id);
     }
 
     public function create(Request $request)
     {
-        $response = [];
-        $validator = Validator::make($request->all(), [
-            'region_id' => 'required',
-            'name' => 'required',
-            'logo_url' => 'required',
-            'city' => 'required',
-            'position' => 'required',
-            'field' => 'required',
-            'detail' => 'required',
-            'from' => 'required|date',
-            'until' => 'required|date',
-            'pic_name' => 'required',
-            'pic_email' => 'required|email',
-            'pic_phone_number' => 'required',
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'code' => 422,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        }else {
-            $formData = $this->modelMapping($request->all());
-            $data = $this->companyVacancyRepository->create($formData);
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'Company Vacancy Created',
-                'data' => $data
-            ];
-        }
-
-        return $response;
+        return $this->companyVacancyRepository->create($formData);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = [];
-        $companyVacancy = $this->companyVacancyRepository->find($id);
-        $validator = Validator::make($request->all(), [
-            'region_id' => 'required',
-            'name' => 'required',
-            'logo_url' => 'required',
-            'city' => 'required',
-            'position' => 'required',
-            'field' => 'required',
-            'detail' => 'required',
-            'from' => 'required|date',
-            'until' => 'required|date',
-            'pic_name' => 'required',
-            'pic_email' => 'required|email',
-            'pic_phone_number' => 'required',
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if($companyVacancy != null) {
-            if ($validator->fails()) {
-                $response = [
-                    'success' => false,
-                    'code' => 422,
-                    'message' => 'Error Validation',
-                    'data' => $validator->errors()
-                ];
-            }else {
-                $formData = $this->modelMapping($request->all());
-                $data = $this->companyVacancyRepository->update($id, $formData);
-
-                $response = [
-                    'success' => true,
-                    'code' => 200,
-                    'message' => 'Company Vacancy Updated',
-                    'data' => $data
-                ];
-            }
-        }else {
-            $response = [
-                'success' => true,
-                'code' => 404,
-                'message' => 'Company Vacancy not found',
-                'data' => null
-            ];
-        }
-
-        return $response;
+        return $this->companyVacancyRepository->update($id, $formData);
     }
 
     public function delete(int $id)
     {
-        $companyVacancy = $this->companyVacancyRepository->find($id);
-        $data = null;
-        $message = 'Company Vacancy Deleted';
-        $code = 200;
-
-        if($companyVacancy == null) {
-            $message = 'Company Vacancy not Found';
-            $code = 404;
-        }else {
-            $data = $this->companyVacancyRepository->delete($id);
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $data = $this->companyVacancyRepository->delete($id);
     }
 }

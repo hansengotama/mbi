@@ -34,7 +34,8 @@ class RequestKtubRepository implements RequestKtubRepositoryInterface {
             'visudhi_place' => $data['visudhi_place'],
             'visudhi_teacher' => $data['visudhi_teacher'],
             'visudhi_role' => $data['visudhi_role'],
-            'business_name' => $data['business_name']
+            'business_name' => $data['business_name'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -52,7 +53,8 @@ class RequestKtubRepository implements RequestKtubRepositoryInterface {
             'visudhi_place' => $data['visudhi_place'],
             'visudhi_teacher' => $data['visudhi_teacher'],
             'visudhi_role' => $data['visudhi_role'],
-            'business_name' => $data['business_name']
+            'business_name' => $data['business_name'],
+            'district_id' => $data['district_id']
         ]);
     }
 

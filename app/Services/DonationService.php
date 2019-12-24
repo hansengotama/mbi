@@ -20,6 +20,7 @@ class DonationService implements DonationServiceInterface {
         $formData = [];
         $formData['donors_name'] = $request['donors_name'];
         $formData['amount'] = $request['amount'];
+        $formData['district_id'] = $request['district_id'];
 
         return $formData;
     }
@@ -32,124 +33,30 @@ class DonationService implements DonationServiceInterface {
         $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
         $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
 
-        $data = $this->donationRepository->get($text, $page, $per_page);
-
-        return [
-            'success' => true,
-            'code' => 200,
-            'message' => 'Get Donation',
-            'data' => $data
-        ];
+        return $this->donationRepository->get($text, $page, $per_page);
     }
 
     public function find(int $id)
     {
-        $data = $this->donationRepository->find($id);
-        $message = 'Donation Found';
-        $code = 200;
-
-        if ($data == null) {
-            $message = 'Donation not Found';
-            $code = 404;
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->donationRepository->find($id);
     }
 
     public function create(Request $request)
     {
-        $response = [];
-        $validator = Validator::make($request->all(), [
-            'donors_name' => 'required',
-            'amount' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'code' => 422,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        }else {
-            $formData = $this->modelMapping($request->all());
-            $data = $this->donationRepository->create($formData);
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'Donation Created',
-                'data' => $data
-            ];
-        }
-
-        return $response;
+        return $this->donationRepository->create($formData);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = [];
-        $donation = $this->donationRepository->find($id);
-        $validator = Validator::make($request->all(), [
-            'donors_name' => 'required',
-            'amount' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if($donation != null) {
-            if ($validator->fails()) {
-                $response = [
-                    'success' => false,
-                    'code' => 422,
-                    'message' => 'Error Validation',
-                    'data' => $validator->errors()
-                ];
-            }else {
-                $formData = $this->modelMapping($request->all());
-                $data = $this->donationRepository->update($id, $formData);
-
-                $response = [
-                    'success' => true,
-                    'code' => 200,
-                    'message' => 'Donation Updated',
-                    'data' => $data
-                ];
-            }
-        }else {
-            $response = [
-                'success' => true,
-                'code' => 404,
-                'message' => 'Donation not found',
-                'data' => null
-            ];
-        }
-
-        return $response;
+        return $this->donationRepository->update($id, $formData);
     }
 
     public function delete(int $id)
     {
-        $donation = $this->donationRepository->find($id);
-        $data = null;
-        $message = 'Donation Deleted';
-        $code = 200;
-
-        if($donation == null) {
-            $message = 'Donation not Found';
-            $code = 404;
-        }else {
-            $data = $this->donationRepository->delete($id);
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->donationRepository->delete($id);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\DistrictRepositoryInterface;
 use App\Services\Interfaces\DistrictServiceInterface;
+use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,10 +12,12 @@ class DistrictService implements DistrictServiceInterface
 {
 
     private $districtRepository;
+    private $userService;
 
-    function __construct(DistrictRepositoryInterface $districtRepository)
+    function __construct(DistrictRepositoryInterface $districtRepository, UserServiceInterface $userService)
     {
         $this->districtRepository = $districtRepository;
+        $this->userService = $userService;
     }
 
     private function modelMapping(array $request) {
@@ -36,126 +39,30 @@ class DistrictService implements DistrictServiceInterface
         $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
         $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
 
-        $data = $this->districtRepository->get($text, $page, $per_page);
-
-        return [
-            'success' => true,
-            'code' => 200,
-            'message' => 'Get District',
-            'data' => $data
-        ];
+        return $this->districtRepository->get($text, $page, $per_page);
     }
 
     public function find(int $id)
     {
-        $data = $this->districtRepository->find($id);
-        $message = 'District Found';
-        $code = 200;
-
-        if ($data == null) {
-            $message = 'District not Found';
-            $code = 404;
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->districtRepository->find($id);
     }
 
     public function create(Request $request)
     {
-        $response = [];
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'account_number_1' => 'required',
-            'account_name_1' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'code' => 422,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        }else {
-            $formData = $this->modelMapping($request->all());
-            $data = $this->districtRepository->create($formData);
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'District Created',
-                'data' => $data
-            ];
-        }
-
-        return $response;
+        return $this->districtRepository->create($formData);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = [];
-        $district = $this->districtRepository->find($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'account_number_1' => 'required',
-            'account_name_1' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if($district != null) {
-            if ($validator->fails()) {
-                $response = [
-                    'success' => false,
-                    'code' => 422,
-                    'message' => 'Error Validation',
-                    'data' => $validator->errors()
-                ];
-            }else {
-                $formData = $this->modelMapping($request->all());
-                $data = $this->districtRepository->update($id, $formData);
-
-                $response = [
-                    'success' => true,
-                    'code' => 200,
-                    'message' => 'District Updated',
-                    'data' => $data
-                ];
-            }
-        }else {
-            $response = [
-                'success' => true,
-                'code' => 404,
-                'message' => 'District not found',
-                'data' => null
-            ];
-        }
-
-        return $response;
+        return $this->districtRepository->update($id, $formData);
     }
 
     public function delete(int $id)
     {
-        $district = $this->districtRepository->find($id);
-        $data = null;
-        $message = 'District Deleted';
-        $code = 200;
-
-        if($district == null) {
-            $message = 'District not Found';
-            $code = 404;
-        }else {
-            $data = $this->districtRepository->delete($id);
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->districtRepository->delete($id);
     }
 }

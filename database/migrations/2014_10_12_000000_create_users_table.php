@@ -15,8 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('district_id')->nullable();
+            $table->unsignedBigInteger('district_id');
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->unsignedBigInteger('region_id')->nullable();
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
             $table->date('birth_of_date');

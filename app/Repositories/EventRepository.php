@@ -25,7 +25,9 @@ class EventRepository implements EventRepositoryInterface
             'vihara_id' => $data['vihara_id'],
             'description' => $data['description'],
             'address' => $data['address'],
-            'poster_url' => $data['poster_url']
+            'poster_url' => $data['poster_url'],
+            'district_id' => $data['district_id'],
+            'region_id' => $data['region_id']
         ]);
     }
 
@@ -38,7 +40,9 @@ class EventRepository implements EventRepositoryInterface
             'vihara_id' => $data['vihara_id'],
             'description' => $data['description'],
             'address' => $data['address'],
-            'poster_url' => $data['poster_url']
+            'poster_url' => $data['poster_url'],
+            'district_id' => $data['district_id'],
+            'region_id' => $data['region_id']
         ]);
     }
 

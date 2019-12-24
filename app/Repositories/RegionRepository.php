@@ -20,7 +20,8 @@ class RegionRepository implements RegionRepositoryInterface {
     public function create(array $data)
     {
         return Region::create([
-            'name' => $data['name']
+            'name' => $data['name'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -29,7 +30,8 @@ class RegionRepository implements RegionRepositoryInterface {
         $region = $this->find($id);
 
         return $region->update([
-            'name' => $data['name']
+            'name' => $data['name'],
+            'district_id' => $data['district_id']
         ]);
     }
 
