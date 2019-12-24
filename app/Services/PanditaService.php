@@ -34,126 +34,30 @@ class PanditaService implements PanditaServiceInterface
         $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
         $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
 
-        $data = $this->panditaRepository->get($text, $page, $per_page);
-
-        return [
-            'success' => true,
-            'code' => 200,
-            'message' => 'Get Pandita',
-            'data' => $data
-        ];
+        return $this->panditaRepository->get($text, $page, $per_page);
     }
 
     public function find(int $id)
     {
-        $data = $this->panditaRepository->find($id);
-        $message = 'Pandita Found';
-        $code = 200;
-
-        if ($data == null) {
-            $message = 'Pandita not Found';
-            $code = 404;
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->panditaRepository->find($id);
     }
 
     public function create(Request $request)
     {
-        $response = [];
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'vihara_id' => 'required',
-            'phone_number' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'code' => 422,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        }else {
-            $formData = $this->modelMapping($request->all());
-            $data = $this->panditaRepository->create($formData);
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'Pandita Created',
-                'data' => $data
-            ];
-        }
-
-        return $response;
+        return $this->panditaRepository->create($formData);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = [];
-        $pandita = $this->panditaRepository->find($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'vihara_id' => 'required',
-            'phone_number' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if($pandita != null) {
-            if ($validator->fails()) {
-                $response = [
-                    'success' => false,
-                    'code' => 422,
-                    'message' => 'Error Validation',
-                    'data' => $validator->errors()
-                ];
-            }else {
-                $formData = $this->modelMapping($request->all());
-                $data = $this->panditaRepository->update($id, $formData);
-
-                $response = [
-                    'success' => true,
-                    'code' => 200,
-                    'message' => 'Pandita Updated',
-                    'data' => $data
-                ];
-            }
-        }else {
-            $response = [
-                'success' => true,
-                'code' => 404,
-                'message' => 'Pandita not found',
-                'data' => null
-            ];
-        }
-
-        return $response;
+        return $this->panditaRepository->update($id, $formData);
     }
 
     public function delete(int $id)
     {
-        $pandita = $this->panditaRepository->find($id);
-        $data = null;
-        $message = 'Pandita Deleted';
-        $code = 200;
-
-        if($pandita == null) {
-            $message = 'Pandita not Found';
-            $code = 404;
-        }else {
-            $data = $this->panditaRepository->delete($id);
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->panditaRepository->delete($id);
     }
 }

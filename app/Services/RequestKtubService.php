@@ -29,6 +29,7 @@ class RequestKtubService implements RequestKtubServiceInterface {
         $formData['visudhi_teacher'] = $request['visudhi_teacher'];
         $formData['visudhi_role'] = $request['visudhi_role'];
         $formData['business_name'] = $request['business_name'];
+        $formData['district_id'] = $request['district_id'];
 
         return $formData;
     }
@@ -41,138 +42,30 @@ class RequestKtubService implements RequestKtubServiceInterface {
         $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
         $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
 
-        $data = $this->requestKtubRepository->get($text, $page, $per_page);
-
-        return [
-            'success' => true,
-            'code' => 200,
-            'message' => 'Get Request Ktub',
-            'data' => $data
-        ];
+        return $this->requestKtubRepository->get($text, $page, $per_page);
     }
 
     public function find(int $id)
     {
-        $data = $this->requestKtubRepository->find($id);
-        $message = 'Request Ktub Found';
-        $code = 200;
-
-        if ($data == null) {
-            $message = 'Request Ktub not Found';
-            $code = 404;
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->requestKtubRepository->find($id);
     }
 
     public function create(Request $request)
     {
-        $response = [];
-        $validator = Validator::make($request->all(), [
-            'id_number' => 'required',
-            'family_card_number' => 'required',
-            'last_education' => 'required',
-            'photo_url' => 'required',
-            'visudhi_name' => 'required',
-            'visudhi_place' => 'required',
-            'visudhi_teacher' => 'required',
-            'visudhi_role' => 'required',
-            'business_name' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'code' => 422,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        }else {
-            $formData = $this->modelMapping($request->all());
-            $data = $this->requestKtubRepository->create($formData);
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'Request Ktub Created',
-                'data' => $data
-            ];
-        }
-
-        return $response;
+        return $this->requestKtubRepository->create($formData);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = [];
-        $requestKtub = $this->requestKtubRepository->find($id);
-        $validator = Validator::make($request->all(), [
-            'id_number' => 'required',
-            'family_card_number' => 'required',
-            'last_education' => 'required',
-            'photo_url' => 'required',
-            'visudhi_name' => 'required',
-            'visudhi_place' => 'required',
-            'visudhi_teacher' => 'required',
-            'visudhi_role' => 'required',
-            'business_name' => 'required'
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if($requestKtub != null) {
-            if ($validator->fails()) {
-                $response = [
-                    'success' => false,
-                    'code' => 422,
-                    'message' => 'Error Validation',
-                    'data' => $validator->errors()
-                ];
-            }else {
-                $formData = $this->modelMapping($request->all());
-                $data = $this->requestKtubRepository->update($id, $formData);
-
-                $response = [
-                    'success' => true,
-                    'code' => 200,
-                    'message' => 'Request Ktub Updated',
-                    'data' => $data
-                ];
-            }
-        }else {
-            $response = [
-                'success' => true,
-                'code' => 404,
-                'message' => 'Request Ktub not found',
-                'data' => null
-            ];
-        }
-
-        return $response;
+        return $this->requestKtubRepository->update($id, $formData);
     }
 
     public function delete(int $id)
     {
-        $requestKtub = $this->requestKtubRepository->find($id);
-        $data = null;
-        $message = 'Request Ktub Deleted';
-        $code = 200;
-
-        if($requestKtub == null) {
-            $message = 'Request Ktub not Found';
-            $code = 404;
-        }else {
-            $data = $this->requestKtubRepository->delete($id);
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->requestKtubRepository->delete($id);
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 interface UserServiceInterface
 {
 
-    public function login(Request $request);
     public function get(Request $request);
     public function find(int $id);
     public function create(Request $request);

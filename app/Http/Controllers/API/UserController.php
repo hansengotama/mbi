@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use function App\Helpers\api_response;
 
 class UserController extends Controller
@@ -18,11 +19,56 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    private function checkUserNull(int $id)
+    {
+        $data = $this->userService->find($id);
+
+        if ($data == null) return true;
+        else return false;
+    }
+
+    private function responseUserNull()
+    {
+        return [
+            'message' => $message = 'User not Found',
+            'code' => $code = 404,
+            'data' => null,
+            'success' => false
+        ];
+    }
+
     public function login(Request $request)
     {
-        $data = $this->userService->login($request);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'code' => 422,
+                'message' => 'Error Validation',
+                'data' => $validator->errors()
+            ];
+        }else {
+            $credentials = $request->only('email', 'password');
+
+            if (!Auth::attempt($credentials)) $response = $this->responseUserNull();
+            else {
+                $user = $request->user();
+                $user['access_token'] = $user->createToken('Personal Access Token')->accessToken;
+
+                $response = [
+                    'success' => true,
+                    'code' => 200,
+                    'message' => 'Login Success',
+                    'data' => $user
+                ];
+            }
+        }
+
+        return api_response($response['success'], $response['code'], $response['message'], $response['data']);
     }
 
     public function logout()
@@ -35,59 +81,132 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $data = $this->userService->create($request);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'birth_of_date' => 'required|date',
+            'phone_number' => 'required',
+            'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
+            'password_confirmation' => 'required|min:8',
+            'district_id' => 'required|exists:districts,id'
+        ]);
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'code' => 422,
+                'message' => 'Error Validation',
+                'data' => $validator->errors()->messages()
+            ];
+        } else {
+            $data = $this->userService->create($request);
+            $response = [
+                'success' => true,
+                'code' => 200,
+                'message' => 'User Created',
+                'data' => $data
+            ];
+        }
+
+        return api_response($response['success'], $response['code'], $response['message'], $response['data']);
     }
 
     public function get(Request $request)
     {
         $data = $this->userService->get($request);
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        return api_response(true, 200, 'Get User', $data);
     }
 
     public function find($id)
     {
         $id = intval($id);
-        $data = $this->userService->find($id);
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        $checkUserNull = $this->checkUserNull($id);
+        if($checkUserNull) return $this->responseUserNull();
+        else {
+            $data = $this->userService->find($id);
+
+            return api_response(true, 200, 'User Found', $data);
+        }
     }
 
     public function update($id, Request $request)
     {
         $id = intval($id);
-        $data = $this->userService->update($id, $request);
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        $checkUserNull = $this->checkUserNull($id);
+        if($checkUserNull) return $this->responseUserNull();
+        else {
+            $user = $this->userService->find($id);
+            $validate = [
+                'name' => 'required',
+                'birth_of_date' => 'required|date',
+                'phone_number' => 'required',
+                'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
+                'password_confirmation' => 'required|min:8',
+                'district_id' => 'required|exists:districts,id'
+            ];
+
+            if ($user->email != $request->email)
+                $validate = array_merge($validate, ['email' => 'required|email|unique:users']);
+            else
+                $validate = array_merge($validate, ['email' => 'required|email']);
+
+            $validator = Validator::make($request->all(), $validate);
+
+            if ($validator->fails()) {
+                $response = [
+                    'success' => false,
+                    'code' => 422,
+                    'message' => 'Error Validation',
+                    'data' => $validator->errors()->messages()
+                ];
+            } else {
+                $data = $this->userService->update($id, $request);
+
+                $response = [
+                    'success' => true,
+                    'code' => 200,
+                    'message' => 'User Updated',
+                    'data' => $data
+                ];
+            }
+
+            return api_response($response['success'], $response['code'], $response['message'], $response['data']);
+        }
     }
 
     public function delete($id)
     {
         $id = intval($id);
-        $data = $this->userService->delete($id);
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        $checkUserNull = $this->checkUserNull($id);
+        if($checkUserNull) return $this->responseUserNull();
+        else {
+            $data = $this->userService->delete($id);
+
+            return api_response(true, 200, 'User Deleted', $data);
+        }
     }
 
     public function check()
     {
-        $data = [];
+        $response = [];
         $user = Auth::user();
 
         if($user == null) {
-            $data['success'] = false;
-            $data['code'] = 401;
-            $data['message'] = 'Unauthorized';
-            $data['data'] = null;
+            $response['success'] = false;
+            $response['code'] = 401;
+            $response['message'] = 'Unauthorized';
+            $response['data'] = null;
         }else {
-            $data['success'] = true;
-            $data['code'] = 200;
-            $data['message'] = 'Success';
-            $data['data'] = $user;
+            $response['success'] = true;
+            $response['code'] = 200;
+            $response['message'] = 'Success';
+            $response['data'] = $user;
         }
 
-        return api_response($data['success'], $data['code'], $data['message'], $data['data']);
+        return api_response($response['success'], $response['code'], $response['message'], $response['data']);
     }
 }

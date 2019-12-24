@@ -37,6 +37,7 @@ class CompanyVacancyRepository implements CompanyVacancyRepositoryInterface {
             'pic_name' => $data['pic_name'],
             'pic_email' => $data['pic_email'],
             'pic_phone_number' => $data['pic_phone_number'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -57,6 +58,7 @@ class CompanyVacancyRepository implements CompanyVacancyRepositoryInterface {
             'pic_name' => $data['pic_name'],
             'pic_email' => $data['pic_email'],
             'pic_phone_number' => $data['pic_phone_number'],
+            'district_id' => $data['district_id']
         ]);
     }
 

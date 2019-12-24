@@ -24,6 +24,8 @@ class EventService implements EventServiceInterface
         $formData['description'] = $request['description'];
         $formData['address'] = $request['address'];
         $formData['poster_url'] = $request['poster_url'];
+        $formData['district_id'] = $request['district_id'];
+        $formData['region_id'] = $request['region_id'];
 
         return $formData;
     }
@@ -36,130 +38,30 @@ class EventService implements EventServiceInterface
         $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
         $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
 
-        $data = $this->eventRepository->get($text, $page, $per_page);
-
-        return [
-            'success' => true,
-            'code' => 200,
-            'message' => 'Get Event',
-            'data' => $data
-        ];
+        return $this->eventRepository->get($text, $page, $per_page);
     }
 
     public function find(int $id)
     {
-        $data = $this->eventRepository->find($id);
-        $message = 'Event Found';
-        $code = 200;
-
-        if ($data == null) {
-            $message = 'Event not Found';
-            $code = 404;
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->eventRepository->find($id);
     }
 
     public function create(Request $request)
     {
-        $response = [];
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'vihara_id' => 'required',
-            'description' => 'required',
-            'address' => 'required',
-            'poster_url' => 'required',
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'code' => 422,
-                'message' => 'Error Validation',
-                'data' => $validator->errors()
-            ];
-        }else {
-            $formData = $this->modelMapping($request->all());
-            $data = $this->eventRepository->create($formData);
-
-            $response = [
-                'success' => true,
-                'code' => 200,
-                'message' => 'Event Created',
-                'data' => $data
-            ];
-        }
-
-        return $response;
+        return $this->eventRepository->create($formData);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = [];
-        $event = $this->eventRepository->find($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'vihara_id' => 'required',
-            'description' => 'required',
-            'address' => 'required',
-            'poster_url' => 'required',
-        ]);
+        $formData = $this->modelMapping($request->all());
 
-        if($event != null) {
-            if ($validator->fails()) {
-                $response = [
-                    'success' => false,
-                    'code' => 422,
-                    'message' => 'Error Validation',
-                    'data' => $validator->errors()
-                ];
-            }else {
-                $formData = $this->modelMapping($request->all());
-                $data = $this->eventRepository->update($id, $formData);
-
-                $response = [
-                    'success' => true,
-                    'code' => 200,
-                    'message' => 'Event Updated',
-                    'data' => $data
-                ];
-            }
-        }else {
-            $response = [
-                'success' => true,
-                'code' => 404,
-                'message' => 'Event not found',
-                'data' => null
-            ];
-        }
-
-        return $response;
+        return $this->eventRepository->update($id, $formData);
     }
 
     public function delete(int $id)
     {
-        $event = $this->eventRepository->find($id);
-        $data = null;
-        $message = 'Event Deleted';
-        $code = 200;
-
-        if($event == null) {
-            $message = 'Event not Found';
-            $code = 404;
-        }else {
-            $data = $this->eventRepository->delete($id);
-        }
-
-        return [
-            'success' => true,
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
+        return $this->eventRepository->delete($id);
     }
 }

@@ -28,7 +28,8 @@ class ViharaRepository implements ViharaRepositoryInterface {
             'region_id' => $data['region_id'],
             'name' => $data['name'],
             'phone_number' => $data['phone_number'],
-            'address' => $data['address']
+            'address' => $data['address'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -40,7 +41,8 @@ class ViharaRepository implements ViharaRepositoryInterface {
             'region_id' => $data['region_id'],
             'name' => $data['name'],
             'phone_number' => $data['phone_number'],
-            'address' => $data['address']
+            'address' => $data['address'],
+            'district_id' => $data['district_id']
         ]);
     }
 

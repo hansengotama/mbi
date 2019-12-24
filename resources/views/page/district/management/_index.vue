@@ -12,21 +12,24 @@
                             <th>Nama Rekening</th>
                             <th>Nomor Rekening (2)</th>
                             <th>Nama Rekening (2)</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                         <tr v-if="district.data.length == 0">
                             <td colspan="100%" align="center" bgcolor="#f0f0f0">Tidak ada data</td>
                         </tr>
                         <tr v-for="(data, index) in district.data" v-else>
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.account_number_1 }}</td>
-                            <td>{{ data.account_name_1 }}</td>
-                            <td>
+                            <td @click="selectDistrict(data)">
+                                <span v-if="selectedDistrict.id == data.id" class="circle">{{ index + 1 }}</span>
+                                <span v-else>{{ index + 1 }}</span>
+                            </td>
+                            <td @click="selectDistrict(data)">{{ data.name }}</td>
+                            <td @click="selectDistrict(data)">{{ data.account_number_1 }}</td>
+                            <td @click="selectDistrict(data)">{{ data.account_name_1 }}</td>
+                            <td @click="selectDistrict(data)">
                                 <span v-if="data.account_number_2">{{ data.account_number_2 }}</span>
                                 <span v-else>-</span>
                             </td>
-                            <td>
+                            <td @click="selectDistrict(data)">
                                 <span v-if="data.account_name_2">{{ data.account_name_2 }}</span>
                                 <span v-else>-</span>
                             </td>
@@ -37,7 +40,30 @@
                         </tr>
                     </table>
                 </div>
-                <paginate :data="district" @changePaginate="changePaginate"></paginate>
+                <paginate :data="district" @changePaginate="changePaginateDistrict"></paginate>
+            </template>
+        </panel>
+        <panel :title="'Admin ' + selectedDistrict.name">
+            <template slot="body">
+                <button class="add-button">+ Tambah</button>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Nomor Telepon</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                        <tr v-if="admin.data.length == 0">
+                            <td colspan="100%" align="center" bgcolor="#f0f0f0">Tidak ada data</td>
+                        </tr>
+                        <tr v-else>
+
+                        </tr>
+                    </table>
+                </div>
+                <paginate :data="admin" @changePaginate="changePaginateAdmin"></paginate>
             </template>
         </panel>
     </div>
@@ -59,8 +85,18 @@
                 district: {
                     data: []
                 },
-                filter: {
+                districtFilter: {
                     text: "",
+                    page: 1,
+                    per_page: 10
+                },
+                selectedDistrict: {
+                    name: ""
+                },
+                admin: {
+                    data: []
+                },
+                adminFilter: {
                     page: 1,
                     per_page: 10
                 }
@@ -72,9 +108,13 @@
         methods: {
             getDistrict() {
                 if(this.accessToken) {
-                    request.get('/api/district?filter[text]='+ this.filter.text + '&filter[page]='+ this.filter.page +'&filter[per_page]=' + this.filter.per_page, this.accessToken)
+                    request.get('/api/district?filter[text]='+ this.districtFilter.text + '&filter[page]='+ this.districtFilter.page +'&filter[per_page]=' + this.districtFilter.per_page, this.accessToken)
                     .then((response) => {
-                        this.district = response.data.result
+                        if(response.data.success) {
+                            this.district = response.data.result
+                            this.selectedDistrict = response.data.result.data[0]
+                            this.getAdmin()
+                        }
                     })
                 }
             },
@@ -83,9 +123,9 @@
 
                 this.getDistrict()
             },
-            changePaginate(data) {
-                this.filter.page = data.page
-                this.filter.per_page = data.per_page
+            changePaginateDistrict(data) {
+                this.districtFilter.page = data.page
+                this.districtFilter.per_page = data.per_page
 
                 this.getDistrict()
             },
@@ -111,6 +151,20 @@
                     name: "Edit District",
                     params: {data: data}
                 })
+            },
+            selectDistrict(data) {
+                if(this.selectedDistrict.id != data.id) {
+                    this.selectedDistrict = data
+                }
+            },
+            changePaginateAdmin(data) {
+                this.adminFilter.page = data.page
+                this.adminFilter.per_page = data.per_page
+
+                this.getAdmin()
+            },
+            getAdmin() {
+
             }
         }
     }
@@ -138,4 +192,20 @@
 
     td > .fa-trash
         background red
+
+    td
+        cursor pointer
+
+    .circle
+        color $orange
+        font-weight 600
+
+    .add-button
+        background $orange
+        border none
+        border-bottom 3px solid darkgoldenrod
+        color white
+        padding 5px 18px
+        border-radius 5px
+        cursor pointer
 </style>

@@ -33,7 +33,8 @@ class DeceasedRepository implements DeceasedRepositoryInterface
             'buried_date' => $data['buried_date'],
             'deceased_date' => $data['deceased_date'],
             'buried_at' => $data['buried_at'],
-            'type' => $data['type']
+            'type' => $data['type'],
+            'district_id' => $data['district_id']
         ]);
     }
 
@@ -49,7 +50,8 @@ class DeceasedRepository implements DeceasedRepositoryInterface
             'buried_date' => $data['buried_date'],
             'deceased_date' => $data['deceased_date'],
             'buried_at' => $data['buried_at'],
-            'type' => $data['type']
+            'type' => $data['type'],
+            'district_id' => $data['district_id']
         ]);
     }
 

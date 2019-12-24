@@ -56,6 +56,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -76,8 +102,18 @@ __webpack_require__.r(__webpack_exports__);
       district: {
         data: []
       },
-      filter: {
+      districtFilter: {
         text: "",
+        page: 1,
+        per_page: 10
+      },
+      selectedDistrict: {
+        name: ""
+      },
+      admin: {
+        data: []
+      },
+      adminFilter: {
         page: 1,
         per_page: 10
       }
@@ -91,8 +127,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (this.accessToken) {
-        _helper_request__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/district?filter[text]=' + this.filter.text + '&filter[page]=' + this.filter.page + '&filter[per_page]=' + this.filter.per_page, this.accessToken).then(function (response) {
-          _this.district = response.data.result;
+        _helper_request__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/district?filter[text]=' + this.districtFilter.text + '&filter[page]=' + this.districtFilter.page + '&filter[per_page]=' + this.districtFilter.per_page, this.accessToken).then(function (response) {
+          if (response.data.success) {
+            _this.district = response.data.result;
+            _this.selectedDistrict = response.data.result.data[0];
+
+            _this.getAdmin();
+          }
         });
       }
     },
@@ -100,9 +141,9 @@ __webpack_require__.r(__webpack_exports__);
       this.filter.text = text;
       this.getDistrict();
     },
-    changePaginate: function changePaginate(data) {
-      this.filter.page = data.page;
-      this.filter.per_page = data.per_page;
+    changePaginateDistrict: function changePaginateDistrict(data) {
+      this.districtFilter.page = data.page;
+      this.districtFilter.per_page = data.per_page;
       this.getDistrict();
     },
     confirmationDeleteDistrict: function confirmationDeleteDistrict(data) {
@@ -130,7 +171,18 @@ __webpack_require__.r(__webpack_exports__);
           data: data
         }
       });
-    }
+    },
+    selectDistrict: function selectDistrict(data) {
+      if (this.selectedDistrict.id != data.id) {
+        this.selectedDistrict = data;
+      }
+    },
+    changePaginateAdmin: function changePaginateAdmin(data) {
+      this.adminFilter.page = data.page;
+      this.adminFilter.per_page = data.per_page;
+      this.getAdmin();
+    },
+    getAdmin: function getAdmin() {}
   }
 });
 
@@ -148,7 +200,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-209507b5] {\n  color: #f77321;\n}\n.blue[data-v-209507b5] {\n  color: #0000f5;\n}\n.soft-blue[data-v-209507b5] {\n  color: #0076bd;\n}\n.red[data-v-209507b5] {\n  color: #f00;\n}\n.display-flex[data-v-209507b5] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-209507b5] {\n  display: block;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-209507b5]:active,\ninput[data-v-209507b5]:focus,\nbutton[data-v-209507b5]:active,\nbutton[data-v-209507b5]:focus,\nselect[data-v-209507b5]:active,\nselect[data-v-209507b5]:focus {\n  outline: none;\n}\ninput.error[data-v-209507b5] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-209507b5],\ntr[data-v-209507b5] {\n  width: 100%;\n}\ntable > tr > th[data-v-209507b5] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-209507b5] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-209507b5] {\n  overflow-x: auto;\n}\n.text-center[data-v-209507b5] {\n  text-align: center;\n}\n#district-management[data-v-209507b5] {\n  padding-top: 15px;\n}\n.table-container[data-v-209507b5] {\n  margin-top: 2em;\n  margin-bottom: 1em;\n}\ntd > .fa[data-v-209507b5] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n}\ntd > .fa-edit[data-v-209507b5] {\n  margin-right: 4px;\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\ntd > .fa-trash[data-v-209507b5] {\n  background: #f00;\n  -webkit-background: #f00;\n  -moz-background: #f00;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-209507b5] {\n  color: #f77321;\n}\n.blue[data-v-209507b5] {\n  color: #0000f5;\n}\n.soft-blue[data-v-209507b5] {\n  color: #0076bd;\n}\n.red[data-v-209507b5] {\n  color: #f00;\n}\n.display-flex[data-v-209507b5] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-209507b5] {\n  display: block;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-209507b5]:active,\ninput[data-v-209507b5]:focus,\nbutton[data-v-209507b5]:active,\nbutton[data-v-209507b5]:focus,\nselect[data-v-209507b5]:active,\nselect[data-v-209507b5]:focus {\n  outline: none;\n}\ninput.error[data-v-209507b5] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-209507b5],\ntr[data-v-209507b5] {\n  width: 100%;\n}\ntable > tr > th[data-v-209507b5] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-209507b5] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-209507b5] {\n  overflow-x: auto;\n}\n.text-center[data-v-209507b5] {\n  text-align: center;\n}\n#district-management[data-v-209507b5] {\n  padding-top: 15px;\n}\n.table-container[data-v-209507b5] {\n  margin-top: 2em;\n  margin-bottom: 1em;\n}\ntd > .fa[data-v-209507b5] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n}\ntd > .fa-edit[data-v-209507b5] {\n  margin-right: 4px;\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\ntd > .fa-trash[data-v-209507b5] {\n  background: #f00;\n  -webkit-background: #f00;\n  -moz-background: #f00;\n}\ntd[data-v-209507b5] {\n  cursor: pointer;\n}\n.circle[data-v-209507b5] {\n  color: #f77321;\n  font-weight: 600;\n}\n.add-button[data-v-209507b5] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -231,9 +283,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("th", [_vm._v("Nama Rekening (2)")]),
                       _vm._v(" "),
-                      _c("th", { staticClass: "text-center" }, [
-                        _vm._v("Action")
-                      ])
+                      _c("th", { staticClass: "text-center" }, [_vm._v("Aksi")])
                     ]),
                     _vm._v(" "),
                     _vm.district.data.length == 0
@@ -252,29 +302,95 @@ var render = function() {
                         ])
                       : _vm._l(_vm.district.data, function(data, index) {
                           return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectDistrict(data)
+                                  }
+                                }
+                              },
+                              [
+                                _vm.selectedDistrict.id == data.id
+                                  ? _c("span", { staticClass: "circle" }, [
+                                      _vm._v(_vm._s(index + 1))
+                                    ])
+                                  : _c("span", [_vm._v(_vm._s(index + 1))])
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(data.name))]),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectDistrict(data)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(data.name))]
+                            ),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(data.account_number_1))]),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectDistrict(data)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(data.account_number_1))]
+                            ),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(data.account_name_1))]),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectDistrict(data)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(data.account_name_1))]
+                            ),
                             _vm._v(" "),
-                            _c("td", [
-                              data.account_number_2
-                                ? _c("span", [
-                                    _vm._v(_vm._s(data.account_number_2))
-                                  ])
-                                : _c("span", [_vm._v("-")])
-                            ]),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectDistrict(data)
+                                  }
+                                }
+                              },
+                              [
+                                data.account_number_2
+                                  ? _c("span", [
+                                      _vm._v(_vm._s(data.account_number_2))
+                                    ])
+                                  : _c("span", [_vm._v("-")])
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("td", [
-                              data.account_name_2
-                                ? _c("span", [
-                                    _vm._v(_vm._s(data.account_name_2))
-                                  ])
-                                : _c("span", [_vm._v("-")])
-                            ]),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectDistrict(data)
+                                  }
+                                }
+                              },
+                              [
+                                data.account_name_2
+                                  ? _c("span", [
+                                      _vm._v(_vm._s(data.account_name_2))
+                                    ])
+                                  : _c("span", [_vm._v("-")])
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "td",
@@ -313,7 +429,60 @@ var render = function() {
               _vm._v(" "),
               _c("paginate", {
                 attrs: { data: _vm.district },
-                on: { changePaginate: _vm.changePaginate }
+                on: { changePaginate: _vm.changePaginateDistrict }
+              })
+            ],
+            1
+          )
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "panel",
+        { attrs: { title: "Admin " + _vm.selectedDistrict.name } },
+        [
+          _c(
+            "template",
+            { slot: "body" },
+            [
+              _c("button", { staticClass: "add-button" }, [_vm._v("+ Tambah")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-container" }, [
+                _c("table", [
+                  _c("tr", [
+                    _c("th", [_vm._v("No.")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Nama")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Nomor Telepon")]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "text-center" }, [_vm._v("Aksi")])
+                  ]),
+                  _vm._v(" "),
+                  _vm.admin.data.length == 0
+                    ? _c("tr", [
+                        _c(
+                          "td",
+                          {
+                            attrs: {
+                              colspan: "100%",
+                              align: "center",
+                              bgcolor: "#f0f0f0"
+                            }
+                          },
+                          [_vm._v("Tidak ada data")]
+                        )
+                      ])
+                    : _c("tr")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("paginate", {
+                attrs: { data: _vm.admin },
+                on: { changePaginate: _vm.changePaginateAdmin }
               })
             ],
             1

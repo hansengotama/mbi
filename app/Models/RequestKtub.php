@@ -18,7 +18,8 @@ class RequestKtub extends Model
         'visudhi_teacher',
         'visudhi_role',
         'business_name',
-        'is_accepted'
+        'is_accepted',
+        'district_id'
     ];
 
     public function user() {
