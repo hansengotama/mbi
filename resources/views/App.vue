@@ -24,7 +24,6 @@
         data() {
             return {
                 isLogined: false,
-                accessToken: "",
                 listRegion: [],
                 regionId: null
             }
@@ -36,6 +35,14 @@
                 },
                 set(value) {
                     this.$store.commit("setUserLogin", value)
+                }
+            },
+            accessToken: {
+                get() {
+                    return this.$store.getters["getAccessToken"]
+                },
+                set(value) {
+                    this.$store.commit("setAccessToken", value)
                 }
             }
         },

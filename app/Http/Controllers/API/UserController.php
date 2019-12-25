@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use function App\Helpers\api_response;
 
@@ -99,7 +100,16 @@ class UserController extends Controller
                 'data' => $validator->errors()->messages()
             ];
         } else {
-            $data = $this->userService->create($request);
+            $tempData = [];
+            $tempData['name'] = $request->name;
+            $tempData['email'] = $request->email;
+            $tempData['role'] = $request->role;
+            $tempData['birth_of_date'] = $request->birth_of_date;
+            $tempData['phone_number'] = $request->phone_number;
+            $tempData['password'] = Hash::make($request->password);
+            $tempData['district_id'] = $request->district_id;
+
+            $data = $this->userService->create($tempData);
             $response = [
                 'success' => true,
                 'code' => 200,
@@ -143,8 +153,6 @@ class UserController extends Controller
                 'name' => 'required',
                 'birth_of_date' => 'required|date',
                 'phone_number' => 'required',
-                'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
-                'password_confirmation' => 'required|min:8',
                 'district_id' => 'required|exists:districts,id'
             ];
 
@@ -163,7 +171,16 @@ class UserController extends Controller
                     'data' => $validator->errors()->messages()
                 ];
             } else {
-                $data = $this->userService->update($id, $request);
+                $tempData = [];
+                $tempData['name'] = $request->name;
+                $tempData['email'] = $request->email;
+                $tempData['role'] = $request->role;
+                $tempData['birth_of_date'] = $request->birth_of_date;
+                $tempData['phone_number'] = $request->phone_number;
+                $tempData['district_id'] = $request->district_id;
+                $tempData['password'] = ($request->password == null) ? $user->password : Hash::make($request->password);
+
+                $data = $this->userService->update($id, $tempData);
 
                 $response = [
                     'success' => true,

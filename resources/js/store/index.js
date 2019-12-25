@@ -6,15 +6,15 @@ Vue.use(Vuex)
 
 const state = {
     userLogin: {},
-    region: {}
+    accessToken: null
 }
 
 const getters = {
     getUserLogin (state) {
         return state.userLogin
     },
-    getRegion (state) {
-        return state.region
+    getAccessToken (state) {
+        return state.accessToken
     }
 }
 
@@ -22,8 +22,8 @@ const mutations = {
     setUserLogin(state, data) {
         state.userLogin = data
     },
-    setRegion(state, data) {
-        state.region = data
+    setAccessToken(state, data) {
+        state.accessToken = data
     }
 }
 

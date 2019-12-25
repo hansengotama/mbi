@@ -1,6 +1,6 @@
 <template>
-    <div>
-        123
+    <div class="home-admin">
+        WELCOME TO ADMIN PANEL MBI
     </div>
 </template>
 
@@ -15,4 +15,7 @@
 <style lang="stylus" scoped>
     @import "../../../stylus/app.styl"
 
+    .home-admin
+        padding 15px
+        font-weight 700
 </style>
