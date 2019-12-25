@@ -2,19 +2,27 @@ import Swal from 'sweetalert2'
 
 export default {
     loading() {
-        return Swal.loading()
+        Swal.showLoading()
+        $('.swal2-html-container').show()
+        $('.swal2-html-container').text('Mohon Tunggu')
     },
     success() {
+        Swal.hideLoading()
+
         return Swal.fire({
             title: 'Success!',
             icon: 'success',
-            confirmButtonText: 'Ok'
+            confirmButtonText: 'Ok',
+            allowOutsideClick: false
         })
     },
-    error() {
+    error(message = null) {
+        Swal.hideLoading()
+
         return Swal.fire({
             title: 'Error!',
             icon: 'error',
+            text: message,
             confirmButtonText: 'Ok'
         })
     },

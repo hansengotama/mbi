@@ -61,6 +61,35 @@ export default {
             ]
         },
         {
+            title: 'Admin',
+            path: '/admin',
+            icon: 'fas fa-users',
+            roles: ['super_admin'],
+            active: false,
+            show: false,
+            component: Content,
+            children: [
+                {
+                    path: 'add',
+                    name: 'Add Admin',
+                    title: 'Tambahkan',
+                    meta: {
+                        parentTitle: 'Admin'
+                    },
+                    component: () => import('../../views/page/admin/add/_index.vue')
+                },
+                {
+                    path: 'management',
+                    name: 'Admin Management',
+                    title: 'Kelola',
+                    meta: {
+                        parentTitle: 'Admin'
+                    },
+                    component: () => import('../../views/page/admin/management/_index.vue')
+                }
+            ]
+        },
+        {
             title: 'Pengguna',
             path: '/user',
             icon: "fas fa-users",
@@ -69,15 +98,6 @@ export default {
             show: false,
             component: Content,
             children: [
-                {
-                    path: 'add-admin',
-                    name: 'Add User Admin',
-                    title: 'Tambahkan Admin',
-                    meta: {
-                        parentTitle: 'Pengguna'
-                    },
-                    component: () => import('../../views/page/user/add-admin/_index.vue')
-                },
                 {
                     path: 'management',
                     name: 'User Management',
@@ -115,6 +135,35 @@ export default {
                         parentTitle: 'Kecamatan'
                     },
                     component: () => import('../../views/page/region/management/_index.vue')
+                }
+            ]
+        },
+        {
+            title: 'PIC Kecamatan',
+            path: '/pic-region',
+            icon: "fa fa-users",
+            roles: ['admin'],
+            active: false,
+            show: false,
+            component: Content,
+            children: [
+                {
+                    path: 'add',
+                    name: 'Add PIC Region',
+                    title: 'Tambahkan',
+                    meta: {
+                        parentTitle: 'PIC Kecamatan'
+                    },
+                    component: () => import('../../views/page/pic_region/add/_index.vue')
+                },
+                {
+                    path: 'management',
+                    name: 'PIC Region Management',
+                    title: 'Kelola',
+                    meta: {
+                        parentTitle: 'PIC Kecamatan'
+                    },
+                    component: () => import('../../views/page/pic_region/management/_index.vue')
                 }
             ]
         },

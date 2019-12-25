@@ -79,6 +79,14 @@
                 set(value) {
                     this.$store.commit("setUserLogin", value)
                 }
+            },
+            accessToken: {
+                get() {
+                    return this.$store.getters["getAccessToken"]
+                },
+                set(value) {
+                    this.$store.commit("setAccessToken", value)
+                }
             }
         },
         methods: {
@@ -103,6 +111,7 @@
                         if(response.data.result.role == "admin" || response.data.result.role == "super_admin"  || response.data.result.role == "pic_kecamatan" ){
                             this.error.message.global = ""
 
+                            this.accessToken = response.data.result.access_token
                             VueCookie.set('access_token', response.data.result.access_token)
                             this.$emit('isLogin', true)
                             this.userLogin = response.data.result
