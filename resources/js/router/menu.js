@@ -64,7 +64,7 @@ export default {
             title: 'Admin',
             path: '/admin',
             icon: 'fas fa-users',
-            roles: ['super_admin', 'admin'],
+            roles: ['super_admin'],
             active: false,
             show: false,
             component: Content,
