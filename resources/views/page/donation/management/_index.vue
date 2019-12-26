@@ -50,15 +50,28 @@
                 }
             }
         },
+        computed: {
+            userLogin: {
+                get() {
+                    return this.$store.getters["getUserLogin"]
+                },
+                set(value) {
+                    this.$store.commit("setUserLogin", value)
+                }
+            }
+        },
         mounted() {
             this.getDonation()
         },
         methods: {
-            getDonation() {
-                request.get('/api/donation?filter[text]='+ this.filter.text + '&filter[page]='+ this.filter.page +'&filter[per_page]=' + this.filter.per_page, this.accessToken)
-                .then((response) => {
-                    this.donation = response.data.result
-                })
+            getDonation() { + '&filter[district_id]=' + this.userLogin.district_id
+                if(this.accessToken) {
+                    request.get('/api/donation?filter[text]=' + this.filter.text + '&filter[page]=' + this.filter.page + '&filter[per_page]=' + this.filter.per_page + '&filter[district_id]=' + this.userLogin.district_id, this.accessToken)
+                    .then((response) => {
+                        if(response.data.success)
+                            this.donation = response.data.result
+                    })
+                }
             },
             search(text) {
                 this.filter.text = text

@@ -6,7 +6,12 @@ Vue.use(Vuex)
 
 const state = {
     userLogin: {},
-    accessToken: null
+    accessToken: null,
+    region: [],
+    selectedRegion: {
+        id: null,
+        name: null
+    }
 }
 
 const getters = {
@@ -15,6 +20,12 @@ const getters = {
     },
     getAccessToken (state) {
         return state.accessToken
+    },
+    getRegion(state) {
+        return state.region
+    },
+    getSelectedRegion(state) {
+        return state.selectedRegion
     }
 }
 
@@ -24,6 +35,12 @@ const mutations = {
     },
     setAccessToken(state, data) {
         state.accessToken = data
+    },
+    setRegion(state, data) {
+        state.region = data
+    },
+    setSelectedRegion(state, data) {
+        state.selectedRegion = data
     }
 }
 

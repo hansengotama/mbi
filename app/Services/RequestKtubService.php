@@ -38,11 +38,12 @@ class RequestKtubService implements RequestKtubServiceInterface {
     {
         $filter = $request->filter;
 
-        $text = ($filter['text'] == null) ? "" : $filter['text'];
-        $page = ($filter['page'] == null) ? 1 : (int)$filter['page'];
-        $per_page = ($filter['per_page'] == null) ? 10 : (int)$filter['per_page'];
+        $text = (!isset($filter['text'])) ? "" : $filter['text'];
+        $page = (!isset($filter['page'])) ? 1 : (int)$filter['page'];
+        $per_page = (!isset($filter['per_page'])) ? 10 : (int)$filter['per_page'];
+        $district_id = (!isset($filter['district_id'])) ? null : (int)$filter['district_id'];
 
-        return $this->requestKtubRepository->get($text, $page, $per_page);
+        return $this->requestKtubRepository->get($text, $page, $per_page, $district_id);
     }
 
     public function find(int $id)

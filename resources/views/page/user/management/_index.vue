@@ -80,10 +80,13 @@
         },
         methods: {
             getUser() {
-                request.get('/api/user?filter[text]='+ this.filter.text + '&filter[page]='+ this.filter.page +'&filter[per_page]=' + this.filter.per_page, this.accessToken)
+                if(this.accessToken) {
+                    request.get('/api/user?filter[text]=' + this.filter.text + '&filter[page]=' + this.filter.page + '&filter[per_page]=' + this.filter.per_page, this.accessToken)
                     .then((response) => {
-                        this.user = response.data.result
+                        if(response.data.success)
+                            this.user = response.data.result
                     })
+                }
             },
             search(text) {
                 this.filter.text = text

@@ -9,13 +9,21 @@ use Illuminate\Pagination\Paginator;
 class EventRepository implements EventRepositoryInterface
 {
 
-    public function get(string $text, int $page, int $per_page)
+    public function get(string $text, int $page, int $per_page, $district_id, $region_id)
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
 
-        return Event::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
+        $event = Event::where('name', 'LIKE', '%'.$text.'%');
+
+        if($district_id != null)
+            $event->where("district_id", $district_id);
+
+        if($region_id != null)
+            $event->where("region_id", $region_id);
+
+        return $event->paginate($per_page);
     }
 
     public function create(array $data)

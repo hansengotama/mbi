@@ -1,8 +1,8 @@
 <template>
         <div class="sidebar">
             <div class="search-container" v-show="user.role != 'super_admin'">
-                <select name="" id="">
-                    <option value="Riau Tengah">Riau Tengah</option>
+                <select v-model="selectedRegion">
+                    <option v-for="data in region" :value="data">{{ data.name }}</option>
                 </select>
             </div>
 
@@ -49,11 +49,21 @@
     import menu from '../../../js/router/menu.js'
 
     export default {
-        props: ['regionId', 'listRegion', 'user'],
+        props: ['region', 'user'],
         data() {
             return {
                 menu: [],
                 selectedMenuTitle: ""
+            }
+        },
+        computed: {
+            selectedRegion: {
+                get() {
+                    return this.$store.getters["getSelectedRegion"]
+                },
+                set(value) {
+                    this.$store.commit("setSelectedRegion", value)
+                }
             }
         },
         methods: {

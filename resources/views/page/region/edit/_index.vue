@@ -1,16 +1,15 @@
 <template>
-    <div id="edit-district">
+    <div id="edit-region">
         <div class="back-to-management" @click="backToManagement()">
             <i class="fa fa-arrow-left"></i> KEMBALI
         </div>
-        <panel title="Ubah Kabupaten">
+        <panel title="Ubah Kecamatan">
             <template slot="body">
-                <district-form :formData="formData"
-                               :loading="loading"
-                               :activeSecondAccountNumber="activeSecondAccountNumber"
-                               @saveDistrict="saveDistrict"
-                               ref="form"
-                ></district-form>
+                <region-form :formData="formData"
+                             :loading="loading"
+                             @saveRegion="saveRegion"
+                             ref="form"
+                ></region-form>
             </template>
         </panel>
     </div>
@@ -26,16 +25,9 @@
             return {
                 formData: {
                     name: "",
-                    account_number_1: "",
-                    account_name_1: "",
-                    account_number_2: "",
-                    account_name_2: ""
                 },
                 loading: false,
-                activeSecondAccountNumber: {
-                    status: false
-                },
-                selectedDistrict: null
+                selectedRegion: null
             }
         },
         mounted() {
@@ -43,7 +35,7 @@
         },
         components: {
             Panel: () => import('../../../../components/panel/_index'),
-            DistrictForm: () => import('../form/_index')
+            RegionForm: () => import('../form/_index')
         },
         methods: {
             setData() {
@@ -53,20 +45,14 @@
                     return false
                 }
 
-                this.selectedDistrict = data.id
+                this.selectedRegion = data.id
                 this.formData.name = data.name
-                this.formData.account_number_1 = data.account_number_1
-                this.formData.account_name_1 = data.account_name_1
-                this.formData.account_number_2 = data.account_number_2
-                this.formData.account_name_2 = data.account_name_2
-
-                if(data.account_number_2)
-                    this.activeSecondAccountNumber.status = true
+                this.formData.district_id = data.district_id
             },
-            saveDistrict() {
+            saveRegion() {
                 this.loading = true
 
-                request.post('/api/district/update/'+ this.selectedDistrict, this.formData, this.accessToken)
+                request.post('/api/region/update/'+ this.selectedRegion, this.formData, this.accessToken)
                 .then((response) => {
                     this.loading = false
                     if(response.data.success) {
@@ -79,7 +65,7 @@
             },
             backToManagement() {
                 this.$router.push({
-                    name: "District Management"
+                    name: "Region Management"
                 })
             }
         }
@@ -89,7 +75,7 @@
 <style lang="stylus" scoped>
     @import "./../../../../stylus/app.styl"
 
-    #edit-district
+    #edit-region
         padding-top 15px
 
     .back-to-management

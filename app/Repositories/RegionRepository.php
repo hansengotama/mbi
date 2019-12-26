@@ -8,13 +8,18 @@ use Illuminate\Pagination\Paginator;
 
 class RegionRepository implements RegionRepositoryInterface {
 
-    public function get(string $text, int $page, int $per_page)
+    public function get(string $text, int $page, int $per_page, $district_id)
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
 
-        return Region::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
+        $region = Region::where('name', 'LIKE', '%'.$text.'%');
+
+        if($district_id != null)
+            $region->where("district_id", $district_id);
+
+        return $region->paginate($per_page);
     }
 
     public function create(array $data)

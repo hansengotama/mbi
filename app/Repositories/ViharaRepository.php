@@ -8,13 +8,21 @@ use Illuminate\Pagination\Paginator;
 
 class ViharaRepository implements ViharaRepositoryInterface {
 
-    public function get(string $text, int $page, int $per_page)
+    public function get(string $text, int $page, int $per_page, $district_id, $region_id)
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
 
-        return Vihara::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
+        $vihara = Vihara::where('name', 'LIKE', '%'.$text.'%');
+
+        if($district_id != null)
+            $vihara->where("district_id", $district_id);
+
+        if($region_id != null)
+            $vihara->where("region_id", $region_id);
+
+        return $vihara->paginate($per_page);
     }
 
     public function find(int $id)

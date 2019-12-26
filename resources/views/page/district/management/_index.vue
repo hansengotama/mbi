@@ -91,7 +91,7 @@
                 this.getDistrict()
             },
             confirmationDeleteDistrict(data) {
-                alert.confirmation('Apakah kamu yakin untuk menghapus kecamatan ' + data.name + ' ?', 'Hapus', 'Tidak')
+                alert.confirmation('Apakah kamu yakin untuk menghapus kabupaten ' + data.name + ' ?', 'Hapus', 'Tidak')
                 .then((dialog) => {
                     if(dialog.value)
                         this.deleteDistrict(data.id)
@@ -142,8 +142,4 @@
 
     td > .fa-trash
         background red
-
-    .circle
-        color $orange
-        font-weight 600
 </style>
