@@ -8,13 +8,18 @@ use Illuminate\Pagination\Paginator;
 
 class RequestKtubRepository implements RequestKtubRepositoryInterface {
 
-    public function get(string $text, int $page, int $per_page)
+    public function get(string $text, int $page, int $per_page, $district_id)
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
 
-        return RequestKtub::where('visudhi_name', 'LIKE', '%'.$text.'%')->paginate($per_page);
+        $request_ktub = RequestKtub::where('visudhi_name', 'LIKE', '%'.$text.'%');
+
+        if($district_id != null)
+            $request_ktub->where("district_id", $district_id);
+
+        return $request_ktub->paginate($per_page);
     }
 
     public function find(int $id)

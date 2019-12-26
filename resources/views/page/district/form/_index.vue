@@ -91,7 +91,14 @@
                 if(!this.validateSecondAccountNumber()) validate = false
                 if(!this.validateSecondAccountName()) validate = false
 
-                if(validate == true) this.$emit('saveDistrict')
+                if(validate) {
+                    if(!this.activeSecondAccountNumber.status) {
+                        this.formData.account_number_2 = ""
+                        this.formData.account_name_2 = ""
+                    }
+
+                    this.$emit('saveDistrict')
+                }
             },
             validateName() {
                 let validate = true

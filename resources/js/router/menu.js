@@ -128,6 +128,14 @@ export default {
                     component: () => import('../../views/page/region/add/_index.vue')
                 },
                 {
+                    path: 'edit',
+                    name: 'Edit Region',
+                    meta: {
+                        parentTitle: 'Kecamatan'
+                    },
+                    component: () => import('../../views/page/region/edit/_index.vue')
+                },
+                {
                     path: 'management',
                     name: 'Region Management',
                     title: 'Kelola',
@@ -184,6 +192,14 @@ export default {
                         parentTitle: 'Vihara'
                     },
                     component: () => import('../../views/page/vihara/add/_index.vue')
+                },
+                {
+                    path: 'edit',
+                    name: 'Edit Vihara',
+                    meta: {
+                        parentTitle: 'Vihara'
+                    },
+                    component: () => import('../../views/page/vihara/edit/_index.vue')
                 },
                 {
                     path: 'management',

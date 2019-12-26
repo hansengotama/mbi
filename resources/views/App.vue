@@ -3,7 +3,7 @@
         <div v-if="isLogined">
             <layout-header :user="userLogin" @isLogin="isLogin"></layout-header>
             <div class="content-container">
-                <layout-sidebar :listRegion="listRegion" :regionId="regionId" :user="userLogin"></layout-sidebar>
+                <layout-sidebar :user="userLogin" :region="region"></layout-sidebar>
                 <div class="content">
                     <router-view :accessToken="accessToken"></router-view>
                 </div>
@@ -24,8 +24,6 @@
         data() {
             return {
                 isLogined: false,
-                listRegion: [],
-                regionId: null
             }
         },
         computed: {
@@ -43,6 +41,22 @@
                 },
                 set(value) {
                     this.$store.commit("setAccessToken", value)
+                }
+            },
+            region: {
+                get() {
+                    return this.$store.getters["getRegion"]
+                },
+                set(value) {
+                    this.$store.commit("setRegion", value)
+                }
+            },
+            selectedRegion: {
+                get() {
+                    return this.$store.getters["getSelectedRegion"]
+                },
+                set(value) {
+                    this.$store.commit("setSelectedRegion", value)
                 }
             }
         },
@@ -67,7 +81,7 @@
                             this.isLogin(true)
                         } else
                             this.$router.push({
-                                name: 'Login'
+                                name: 'Logout'
                             })
                     })
                 }else
@@ -75,8 +89,28 @@
             },
             isLogin(status) {
                 this.isLogined = status
+                if(this.userLogin.role == "pic_kecamatan")
+                    this.getUserRegion()
+                else if(this.userLogin.role == "admin")
+                    this.getRegion()
 
                 this.$forceUpdate()
+            },
+            getUserRegion() {
+                request.get('/api/region/' + this.userLogin.region_id, this.accessToken)
+                .then((response) => {
+                    if(response.data.success)
+                        this.region = response.data.result.data
+                })
+            },
+            getRegion() {
+                request.get('/api/region?filter[district_id]=' + this.userLogin.district_id, this.accessToken)
+                .then((response) => {
+                    if(response.data.success) {
+                        this.region = response.data.result.data
+                        this.selectedRegion = response.data.result.data[0]
+                    }
+                })
             }
         }
     }

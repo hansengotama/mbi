@@ -1,6 +1,9 @@
 <template>
-    <div id="add-vihara">
-        <panel title="Tambah Vihara">
+    <div id="edit-vihara">
+        <div class="back-to-management" @click="backToManagement()">
+            <i class="fa fa-arrow-left"></i> KEMBALI
+        </div>
+        <panel title="Ubah Vihara">
             <template slot="body">
                 <vihara-form :formData="formData"
                              :loading="loading"
@@ -26,22 +29,18 @@
                     phone_number: "",
                     address: ""
                 },
-                loading: false
+                loading: false,
+                selectedVihara: null
             }
+        },
+        mounted() {
+            this.setData()
         },
         components: {
             Panel: () => import('../../../../components/panel/_index'),
             ViharaForm: () => import('../form/_index')
         },
         computed: {
-            userLogin: {
-                get() {
-                    return this.$store.getters["getUserLogin"]
-                },
-                set(value) {
-                    this.$store.commit("setUserLogin", value)
-                }
-            },
             selectedRegion: {
                 get() {
                     return this.$store.getters["getSelectedRegion"]
@@ -51,21 +50,46 @@
                 }
             }
         },
+        watch: {
+            selectedRegion: {
+                deep: true,
+                handler() {
+                    this.backToManagement()
+                }
+            }
+        },
         methods: {
+            setData() {
+                let data = this.$route.params.data
+                if(!data) {
+                    this.backToManagement()
+                    return false
+                }
+
+                this.selectedVihara = data.id
+                this.formData.name = data.name
+                this.formData.phone_number = data.phone_number
+                this.formData.address = data.address
+                this.formData.region_id = data.region_id
+                this.formData.district_id = data.district_id
+            },
             saveVihara() {
                 this.loading = true
 
-                this.formData.district_id = this.userLogin.district_id
-                this.formData.region_id = this.selectedRegion.id
-
-                request.post('/api/vihara/create', this.formData, this.accessToken)
+                request.post('/api/vihara/update/'+ this.selectedVihara, this.formData, this.accessToken)
                 .then((response) => {
                     this.loading = false
                     if(response.data.success) {
                         alert.success()
                         this.$refs.form.resetForm()
+                        this.backToManagement()
                     }else
                         alert.error()
+                })
+            },
+            backToManagement() {
+                this.$router.push({
+                    name: "Vihara Management"
                 })
             }
         }
@@ -75,6 +99,13 @@
 <style lang="stylus" scoped>
     @import "./../../../../stylus/app.styl"
 
-    #add-vihara
+    #edit-vihara
         padding-top 15px
+
+    .back-to-management
+        padding-left 15px
+        color $orange
+        font-weight 700
+        cursor pointer
+        margin-top 1em
 </style>

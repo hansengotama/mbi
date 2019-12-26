@@ -9,13 +9,21 @@ use Illuminate\Pagination\Paginator;
 class DeceasedRepository implements DeceasedRepositoryInterface
 {
 
-    public function get(string $text, int $page, int $per_page)
+    public function get(string $text, int $page, int $per_page, $district_id, $region_id)
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
 
-        return Deceased::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
+        $deceased = Deceased::where('name', 'LIKE', '%'.$text.'%');
+
+        if($district_id != null)
+            $deceased->where("district_id", $district_id);
+
+        if($region_id != null)
+            $deceased->where("region_id", $region_id);
+
+        return $deceased->paginate($per_page);
     }
 
     public function find(int $id)

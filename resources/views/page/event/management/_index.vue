@@ -57,10 +57,13 @@
         },
         methods: {
             getEvent() {
-                request.get('/api/event?filter[text]='+ this.filter.text + '&filter[page]='+ this.filter.page +'&filter[per_page]=' + this.filter.per_page, this.accessToken)
-                .then((response) => {
-                    this.event = response.data.result
-                })
+                if(this.accessToken) {
+                    request.get('/api/event?filter[text]=' + this.filter.text + '&filter[page]=' + this.filter.page + '&filter[per_page]=' + this.filter.per_page, this.accessToken)
+                    .then((response) => {
+                        if(response.data.success)
+                            this.event = response.data.result
+                    })
+                }
             },
             search(text) {
                 this.filter.text = text

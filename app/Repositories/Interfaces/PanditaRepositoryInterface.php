@@ -2,7 +2,8 @@
 
 namespace App\Repositories\Interfaces;
 
-interface PanditaRepositoryInterface {
+interface PanditaRepositoryInterface
+{
 
     public function get(string $text, int $page, int $per_page);
     public function find(int $id);

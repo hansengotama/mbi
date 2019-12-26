@@ -8,13 +8,18 @@ use Illuminate\Pagination\Paginator;
 
 class CompanyVacancyRepository implements CompanyVacancyRepositoryInterface {
 
-    public function get(string $text, int $page, int $per_page)
+    public function get(string $text, int $page, int $per_page, $district_id)
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
 
-        return CompanyVacancy::where('name', 'LIKE', '%'.$text.'%')->paginate($per_page);
+        $companyVacancy = CompanyVacancy::where('name', 'LIKE', '%'.$text.'%');
+
+        if($district_id != null)
+            $companyVacancy->where("district_id", $district_id);
+
+        return $companyVacancy->paginate($per_page);
     }
 
     public function find(int $id)
