@@ -24,7 +24,8 @@
                 formData: {
                     name: "",
                     phone_number: "",
-                    address: ""
+                    address: "",
+                    region_id: ""
                 },
                 loading: false
             }
@@ -56,7 +57,6 @@
                 this.loading = true
 
                 this.formData.district_id = this.userLogin.district_id
-                this.formData.region_id = this.selectedRegion.id
 
                 request.post('/api/vihara/create', this.formData, this.accessToken)
                 .then((response) => {

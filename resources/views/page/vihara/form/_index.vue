@@ -5,7 +5,9 @@
                 Kecamatan
             </div>
             <div class="input-container">
-                <input type="text" placeholder="kecamatan" :value="selectedRegion.name" disabled>
+                <select v-model="formData.region_id">
+                    <option v-for="data in region" :value="data.id">{{ data.name }}</option>
+                </select>
             </div>
         </div>
         <div class="form-container">
@@ -65,6 +67,19 @@
                 }
             }
         },
+        computed: {
+            region: {
+                get() {
+                    return this.$store.getters["getRegion"]
+                },
+                set(value) {
+                    this.$store.commit("setRegion", value)
+                }
+            }
+        },
+        mounted() {
+            this.formData.region_id = this.selectedRegion.id
+        },
         methods: {
             validate() {
                 let validate = true
@@ -122,8 +137,8 @@
                 this.formData.name = ""
                 this.formData.phone_number = "",
                 this.formData.address = ""
+                this.formData.region_id = this.selectedRegion.id
             }
-
         }
     }
 </script>
@@ -146,12 +161,14 @@
     .vihara-form > .form-container > .input-container
         flex 2
 
+    .vihara-form > .form-container > .input-container > select,
     .vihara-form > .form-container > .input-container > input
         width 100%
         box-shadow 2px 2px 1px 0 #eaeaea
         border 1px solid #eaeaea
         border-radius 3px
         padding 6px 12px
+        background white
 
     .vihara-form > .form-container > .input-container > input.error
         border 1px solid red
