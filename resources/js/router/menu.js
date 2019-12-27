@@ -289,6 +289,14 @@ export default {
                     component: () => import('../../views/page/donation/add/_index.vue')
                 },
                 {
+                    path: 'edit',
+                    name: 'Edit Donation',
+                    meta: {
+                        parentTitle: 'Donasi'
+                    },
+                    component: () => import('../../views/page/donation/edit/_index.vue')
+                },
+                {
                     path: 'management',
                     name: 'Donation Management',
                     title: 'Kelola',

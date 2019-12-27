@@ -50,14 +50,6 @@
                 }
             }
         },
-        watch: {
-            selectedRegion: {
-                deep: true,
-                handler() {
-                    this.backToManagement()
-                }
-            }
-        },
         methods: {
             setData() {
                 let data = this.$route.params.data
