@@ -29,8 +29,8 @@ class RequestKtubController extends Controller
     private function responseRequestKtubNull()
     {
         return [
-            'message' => $message = 'Request Ktub not Found',
-            'code' => $code = 404,
+            'message' => 'Request Ktub not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

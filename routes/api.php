@@ -20,6 +20,11 @@ Route::namespace('API')->group(function () {
         Route::get('/user/check', 'UserController@check');
         Route::post('/logout', 'UserController@logout');
 
+        Route::prefix('assets')->group(function () {
+            Route::post('/upload', 'AssetController@upload');
+            Route::post('/remove', 'AssetController@remove');
+        });
+
         Route::middleware('isSuperAdmin')->group(function () {
             Route::prefix('district')->group(function () {
                 Route::get('/', 'DistrictController@get');

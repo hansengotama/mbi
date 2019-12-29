@@ -29,8 +29,8 @@ class DistrictController extends Controller
     private function responseDistrictNull()
     {
         return [
-            'message' => $message = 'District not Found',
-            'code' => $code = 404,
+            'message' => 'District not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

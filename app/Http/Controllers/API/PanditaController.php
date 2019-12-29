@@ -29,8 +29,8 @@ class PanditaController extends Controller
     private function responsePanditaNull()
     {
         return [
-            'message' => $message = 'Pandita not Found',
-            'code' => $code = 404,
+            'message' => 'Pandita not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

@@ -29,8 +29,8 @@ class CompanyVacancyController extends Controller
     private function responseCompanyVacancyNull()
     {
         return [
-            'message' => $message = 'Company Vacancy not Found',
-            'code' => $code = 404,
+            'message' => 'Company Vacancy not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

@@ -31,8 +31,8 @@ class UserController extends Controller
     private function responseUserNull()
     {
         return [
-            'message' => $message = 'User not Found',
-            'code' => $code = 404,
+            'message' => 'User not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

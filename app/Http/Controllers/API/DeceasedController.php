@@ -29,8 +29,8 @@ class DeceasedController extends Controller
     private function responseDeceasedNull()
     {
         return [
-            'message' => $message = 'Deceased not Found',
-            'code' => $code = 404,
+            'message' => 'Deceased not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

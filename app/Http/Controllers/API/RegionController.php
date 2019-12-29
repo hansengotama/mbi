@@ -29,8 +29,8 @@ class RegionController extends Controller
     private function responseRegionNull()
     {
         return [
-            'message' => $message = 'Region not Found',
-            'code' => $code = 404,
+            'message' => 'Region not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

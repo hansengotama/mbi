@@ -29,8 +29,8 @@ class EventController extends Controller
     private function responseEventNull()
     {
         return [
-            'message' => $message = 'Event not Found',
-            'code' => $code = 404,
+            'message' => 'Event not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

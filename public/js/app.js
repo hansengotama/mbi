@@ -2039,10 +2039,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   components: {
     LayoutHeader: function LayoutHeader() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./layout/header/_index.vue */ "./resources/views/layout/header/_index.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./layout/header/_index.vue */ "./resources/views/layout/header/_index.vue"));
     },
     LayoutSidebar: function LayoutSidebar() {
-      return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ./layout/sidebar/_index.vue */ "./resources/views/layout/sidebar/_index.vue"));
+      return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! ./layout/sidebar/_index.vue */ "./resources/views/layout/sidebar/_index.vue"));
     }
   },
   created: function created() {
@@ -38237,14 +38237,14 @@ __webpack_require__.r(__webpack_exports__);
     active: false,
     show: false,
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ../../views/page/home/_index.vue */ "./resources/views/page/home/_index.vue"));
+      return __webpack_require__.e(/*! import() */ 31).then(__webpack_require__.bind(null, /*! ../../views/page/home/_index.vue */ "./resources/views/page/home/_index.vue"));
     }
   }, {
     path: '/login',
     name: 'Login',
     roles: ['super_admin', 'admin', 'pic_kecamatan'],
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../../views/page/login/_index */ "./resources/views/page/login/_index.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../../views/page/login/_index */ "./resources/views/page/login/_index.vue"));
     }
   }, {
     path: '/logout',
@@ -38266,7 +38266,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kabupaten'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../../views/page/district/add/_index.vue */ "./resources/views/page/district/add/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ../../views/page/district/add/_index.vue */ "./resources/views/page/district/add/_index.vue"));
       }
     }, {
       path: 'edit',
@@ -38275,7 +38275,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kabupaten'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../../views/page/district/edit/_index.vue */ "./resources/views/page/district/edit/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ../../views/page/district/edit/_index.vue */ "./resources/views/page/district/edit/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38285,7 +38285,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kabupaten'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../../views/page/district/management/_index.vue */ "./resources/views/page/district/management/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ../../views/page/district/management/_index.vue */ "./resources/views/page/district/management/_index.vue"));
       }
     }]
   }, {
@@ -38304,7 +38304,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Admin'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ../../views/page/admin/add/_index.vue */ "./resources/views/page/admin/add/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../../views/page/admin/add/_index.vue */ "./resources/views/page/admin/add/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38314,7 +38314,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Admin'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../../views/page/admin/management/_index.vue */ "./resources/views/page/admin/management/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../../views/page/admin/management/_index.vue */ "./resources/views/page/admin/management/_index.vue"));
       }
     }]
   }, {
@@ -38333,7 +38333,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Pengguna'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 32).then(__webpack_require__.bind(null, /*! ../../views/page/user/management/_index.vue */ "./resources/views/page/user/management/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 35).then(__webpack_require__.bind(null, /*! ../../views/page/user/management/_index.vue */ "./resources/views/page/user/management/_index.vue"));
       }
     }]
   }, {
@@ -38352,7 +38352,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kecamatan'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ../../views/page/region/add/_index.vue */ "./resources/views/page/region/add/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../../views/page/region/add/_index.vue */ "./resources/views/page/region/add/_index.vue"));
       }
     }, {
       path: 'edit',
@@ -38361,7 +38361,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kecamatan'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ../../views/page/region/edit/_index.vue */ "./resources/views/page/region/edit/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! ../../views/page/region/edit/_index.vue */ "./resources/views/page/region/edit/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38371,7 +38371,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kecamatan'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ../../views/page/region/management/_index.vue */ "./resources/views/page/region/management/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! ../../views/page/region/management/_index.vue */ "./resources/views/page/region/management/_index.vue"));
       }
     }]
   }, {
@@ -38390,7 +38390,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'PIC Kecamatan'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! ../../views/page/pic_region/add/_index.vue */ "./resources/views/page/pic_region/add/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 32).then(__webpack_require__.bind(null, /*! ../../views/page/pic_region/add/_index.vue */ "./resources/views/page/pic_region/add/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38400,7 +38400,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'PIC Kecamatan'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! ../../views/page/pic_region/management/_index.vue */ "./resources/views/page/pic_region/management/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 33).then(__webpack_require__.bind(null, /*! ../../views/page/pic_region/management/_index.vue */ "./resources/views/page/pic_region/management/_index.vue"));
       }
     }]
   }, {
@@ -38419,7 +38419,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Vihara'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! ../../views/page/vihara/add/_index.vue */ "./resources/views/page/vihara/add/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(24)]).then(__webpack_require__.bind(null, /*! ../../views/page/vihara/add/_index.vue */ "./resources/views/page/vihara/add/_index.vue"));
       }
     }, {
       path: 'edit',
@@ -38428,7 +38428,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Vihara'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../../views/page/vihara/edit/_index.vue */ "./resources/views/page/vihara/edit/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ../../views/page/vihara/edit/_index.vue */ "./resources/views/page/vihara/edit/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38438,7 +38438,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Vihara'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../../views/page/vihara/management/_index.vue */ "./resources/views/page/vihara/management/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(26)]).then(__webpack_require__.bind(null, /*! ../../views/page/vihara/management/_index.vue */ "./resources/views/page/vihara/management/_index.vue"));
       }
     }]
   }, {
@@ -38457,7 +38457,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kegiatan'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ../../views/page/event/add/_index.vue */ "./resources/views/page/event/add/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! ../../views/page/event/add/_index.vue */ "./resources/views/page/event/add/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38467,7 +38467,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Kegiatan'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! ../../views/page/event/management/_index.vue */ "./resources/views/page/event/management/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! ../../views/page/event/management/_index.vue */ "./resources/views/page/event/management/_index.vue"));
       }
     }]
   }, {
@@ -38486,7 +38486,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Orang Meninggal'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../../views/page/deceased/add/_index.vue */ "./resources/views/page/deceased/add/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../../views/page/deceased/add/_index.vue */ "./resources/views/page/deceased/add/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38496,7 +38496,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Orang Meninggal'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../../views/page/deceased/management/_index.vue */ "./resources/views/page/deceased/management/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ../../views/page/deceased/management/_index.vue */ "./resources/views/page/deceased/management/_index.vue"));
       }
     }]
   }, {
@@ -38515,7 +38515,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Donasi'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(34)]).then(__webpack_require__.bind(null, /*! ../../views/page/donation/add/_index.vue */ "./resources/views/page/donation/add/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! ../../views/page/donation/add/_index.vue */ "./resources/views/page/donation/add/_index.vue"));
       }
     }, {
       path: 'edit',
@@ -38524,7 +38524,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Donasi'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(35)]).then(__webpack_require__.bind(null, /*! ../../views/page/donation/edit/_index.vue */ "./resources/views/page/donation/edit/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../../views/page/donation/edit/_index.vue */ "./resources/views/page/donation/edit/_index.vue"));
       }
     }, {
       path: 'management',
@@ -38534,7 +38534,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Donasi'
       },
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(33)]).then(__webpack_require__.bind(null, /*! ../../views/page/donation/management/_index.vue */ "./resources/views/page/donation/management/_index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../../views/page/donation/management/_index.vue */ "./resources/views/page/donation/management/_index.vue"));
       }
     }]
   }, {
@@ -38553,7 +38553,7 @@ __webpack_require__.r(__webpack_exports__);
         parentTitle: 'Permohonan KTUB'
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 31).then(__webpack_require__.bind(null, /*! ../../views/page/request_ktub/management/_index.vue */ "./resources/views/page/request_ktub/management/_index.vue"));
+        return __webpack_require__.e(/*! import() */ 34).then(__webpack_require__.bind(null, /*! ../../views/page/request_ktub/management/_index.vue */ "./resources/views/page/request_ktub/management/_index.vue"));
       }
     }]
   }]

@@ -16,7 +16,7 @@ class isAdminOrPicKecamatan
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role != "admin" && Auth::user()->role != "pic_kecamatan") {
+        if(Auth::user()->role != "admin" && Auth::user()->role != "pic_kecamatan" && Auth::user()->role != "super_admin") {
             abort(403, 'Access denied');
         }
 

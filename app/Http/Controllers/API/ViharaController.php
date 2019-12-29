@@ -29,8 +29,8 @@ class ViharaController extends Controller
     private function responseViharaNull()
     {
         return [
-            'message' => $message = 'Vihara not Found',
-            'code' => $code = 404,
+            'message' => 'Vihara not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];

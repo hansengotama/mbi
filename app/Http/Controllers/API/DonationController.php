@@ -29,8 +29,8 @@ class DonationController extends Controller
     private function responseDonationNull()
     {
         return [
-            'message' => $message = 'Donation not Found',
-            'code' => $code = 404,
+            'message' => 'Donation not Found',
+            'code' => 404,
             'data' => null,
             'success' => false
         ];
