@@ -69,3 +69,7 @@ Route::prefix('deceased')->group(function () {
 Route::prefix('request-ktub')->group(function () {
     Route::get('/management', 'VueController@index');
 });
+
+Route::namespace('API')->group(function () {
+    Route::get('/storage/{region}/{type}/{filename}', 'AssetController@getFile');
+});

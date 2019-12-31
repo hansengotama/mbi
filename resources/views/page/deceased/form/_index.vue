@@ -2,10 +2,20 @@
     <div class="deceased-form">
         <div class="form-container">
             <div class="label">
-                <i class="fa fa-eye" v-show="isEdit"></i> Foto
+                Kecamatan
             </div>
             <div class="input-container">
-                <input type="file" @change="setImage($event)" :class="error.class.photo_url" accept="image/*">
+                <select v-model="formData.region_id">
+                    <option v-for="data in region" :value="data.id">{{ data.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="label">
+                <i class="fa fa-eye" v-show="isEdit" @click="openImage(formData.photo_full_url)"></i> Foto
+            </div>
+            <div class="input-container">
+                <input type="file" @change="setImage($event)" :class="error.class.photo_url" accept="image/*" ref="fileInput">
                 <small class="red">{{ error.message.photo_url }}</small>
             </div>
         </div>
@@ -29,6 +39,15 @@
         </div>
         <div class="form-container">
             <div class="label">
+                Tanggal Meninggal
+            </div>
+            <div class="input-container">
+                <input type="date" placeholder="tanggal meninggal" v-model="formData.deceased_date" :class="error.class.deceased_date">
+                <small class="red">{{ error.message.deceased_date }}</small>
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="label">
                 Tanggal Pemakaman
             </div>
             <div class="input-container">
@@ -43,15 +62,6 @@
             <div class="input-container">
                 <input type="text" placeholder="tempat pemakaman" v-model="formData.buried_at" :class="error.class.buried_at">
                 <small class="red">{{ error.message.buried_at }}</small>
-            </div>
-        </div>
-        <div class="form-container">
-            <div class="label">
-                Tanggal Meninggal
-            </div>
-            <div class="input-container">
-                <input type="date" placeholder="tanggal meninggal" v-model="formData.deceased_date" :class="error.class.deceased_date">
-                <small class="red">{{ error.message.deceased_date }}</small>
             </div>
         </div>
         <div class="form-container">
@@ -75,6 +85,7 @@
 <script>
     import validator from "../../../../helper/validator"
     import request from "../../../../helper/request"
+    import alert from "../../../../helper/alert";
 
     export default {
         props: ['formData', 'loading', 'isEdit', 'accessToken'],
@@ -100,7 +111,8 @@
                         photo_url: ""
                     }
                 },
-                file: null
+                file: null,
+                mounted: false
             }
         },
         computed: {
@@ -112,34 +124,71 @@
                     this.$store.commit("setSelectedRegion", value)
                 }
             },
+            region: {
+                get() {
+                    return this.$store.getters["getRegion"]
+                },
+                set(value) {
+                    this.$store.commit("setRegion", value)
+                }
+            }
+        },
+        watch: {
+            selectedRegion: {
+                handler: function handler() {
+                    if(!this.mounted && this.selectedRegion.id) {
+                        this.mounted = true
+                        this.formData.region_id = this.selectedRegion.id
+                    }
+                },
+                deep: true,
+                immediate: true
+            }
         },
         methods: {
             async validate() {
                 let validate = true
 
-                // if(!this.validateName()) validate = false
-                // if(!this.validateCloseAge()) validate = false
-                // if(!this.validateBuriedDate()) validate = false
-                // if(!this.validateBuriedAt()) validate = false
-                // if(!this.validateDeceasedDate()) validate = false
-                // if(!this.validateType()) validate = false
+                if(!this.validateName()) validate = false
+                if(!this.validateCloseAge()) validate = false
+                if(!this.validateBuriedDate()) validate = false
+                if(!this.validateBuriedAt()) validate = false
+                if(!this.validateDeceasedDate()) validate = false
+                if(!this.validateType()) validate = false
                 if(!this.validatePhotoUrl()) validate = false
 
                 if(validate) {
-                    await this.uploadImage()
-                    // this.$emit('saveDeceased')
+                    if(this.isEdit && this.file != null)
+                        await this.removeImage()
+
+                    if(this.file != null)
+                        this.formData.photo_url = await this.uploadImage()
+
+                    this.$emit('saveDeceased')
                 }
             },
             uploadImage() {
                 let imageFile = new FormData()
-                let filePath = this.selectedRegion.name + "/deceased"
+                let filePath = "idregion" + this.formData.region_id + "/deceased"
                 imageFile.append('file_path', filePath)
                 imageFile.append('file', this.file)
 
-                request.post("/api/assets/upload", imageFile, this.accessToken)
+                return request.post("/api/assets/upload", imageFile, this.accessToken)
                 .then((response) => {
-                    if(response.data.status)
-                        this.formData.photo_url = filePath
+                    let file_path = null
+                    if(response.data.success)
+                        file_path = response.data.result.file_path
+                    else
+                        alert.error()
+
+                    return file_path
+                })
+            },
+            removeImage() {
+                return request.post("/api/assets/remove", {file_path: this.formData.photo_url}, this.accessToken)
+                .then((response) => {
+                    if(!response.data.success)
+                        alert.error()
                 })
             },
             validateName() {
@@ -254,12 +303,21 @@
                 this.formData.buried_at = ""
                 this.formData.type = ""
                 this.formData.photo_url = ""
+                this.formData.region_id = this.selectedRegion.id
                 this.file = null
+                this.resetImageInputFile()
+            },
+            resetImageInputFile() {
+                let input = this.$refs.fileInput
+                input.type = 'text'
+                input.type = 'file'
             },
             setImage(e) {
                 this.file = e.target.files[0]
             },
-
+            openImage(url) {
+                window.open(url, '_target')
+            }
         }
     }
 </script>

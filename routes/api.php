@@ -22,7 +22,6 @@ Route::namespace('API')->group(function () {
 
         Route::prefix('assets')->group(function () {
             Route::post('/upload', 'AssetController@upload');
-            Route::post('/remove', 'AssetController@remove');
         });
 
         Route::middleware('isSuperAdmin')->group(function () {
@@ -36,6 +35,10 @@ Route::namespace('API')->group(function () {
         });
 
         Route::middleware('isAdmin')->group(function () {
+            Route::prefix('assets')->group(function () {
+                Route::post('/remove', 'AssetController@remove');
+            });
+
             Route::prefix('user')->group(function () {
                 Route::get('/', 'UserController@get');
                 Route::get('/{id}', 'UserController@find');

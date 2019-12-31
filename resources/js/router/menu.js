@@ -260,6 +260,14 @@ export default {
                     component: () => import('../../views/page/deceased/add/_index.vue')
                 },
                 {
+                    path: 'edit',
+                    name: 'Edit Deceased',
+                    meta: {
+                        parentTitle: 'Orang Meninggal'
+                    },
+                    component: () => import('../../views/page/deceased/edit/_index.vue')
+                },
+                {
                     path: 'management',
                     name: 'Deceased Management',
                     title: 'Kelola',

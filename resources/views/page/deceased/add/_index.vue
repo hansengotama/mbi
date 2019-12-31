@@ -17,6 +17,7 @@
 <script>
     import request from "../../../../helper/request"
     import alert from "../../../../helper/alert"
+    import moment from "moment"
 
     export default {
         props: ['accessToken'],
@@ -25,11 +26,12 @@
                 formData: {
                     name: "",
                     close_age: "",
-                    buried_date: "",
-                    deceased_date: "",
+                    buried_date: moment().add(3, 'days').format('YYYY-MM-DD'),
+                    deceased_date: moment().format('YYYY-MM-DD'),
                     buried_at: "",
                     type: "",
-                    photo_url: ""
+                    photo_url: "",
+                    region_id: null
                 },
                 loading: false
             }
@@ -51,7 +53,6 @@
         methods: {
             saveDeceased() {
                 this.loading = true
-
                 this.formData.district_id = this.userLogin.district_id
 
                 request.post('/api/deceased/create', this.formData, this.accessToken)

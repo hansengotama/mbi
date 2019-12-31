@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../helper/request */ "./resources/helper/request.js");
 /* harmony import */ var _helper_alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../helper/alert */ "./resources/helper/alert.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -27,6 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -36,11 +39,12 @@ __webpack_require__.r(__webpack_exports__);
       formData: {
         name: "",
         close_age: "",
-        buried_date: "",
-        deceased_date: "",
+        buried_date: moment__WEBPACK_IMPORTED_MODULE_2___default()().add(3, 'days').format('YYYY-MM-DD'),
+        deceased_date: moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD'),
         buried_at: "",
         type: "",
-        photo_url: ""
+        photo_url: "",
+        region_id: null
       },
       loading: false
     };

@@ -64,7 +64,8 @@
                         phone_number: "",
                         address: ""
                     }
-                }
+                },
+                mounted: false
             }
         },
         computed: {
@@ -77,8 +78,17 @@
                 }
             }
         },
-        mounted() {
-            this.formData.region_id = this.selectedRegion.id
+        watch: {
+            selectedRegion: {
+                handler: function handler() {
+                    if(!this.mounted && this.selectedRegion.id) {
+                        this.mounted = true
+                        this.formData.region_id = this.selectedRegion.id
+                    }
+                },
+                deep: true,
+                immediate: true
+            }
         },
         methods: {
             validate() {

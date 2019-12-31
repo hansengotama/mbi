@@ -18,6 +18,15 @@ class Deceased extends Model
         'photo_url'
     ];
 
+    protected $appends = [
+        'photo_full_url'
+    ];
+
+    public function getPhotoFullUrlAttribute()
+    {
+        return url('/').'/storage/'.$this->photo_url;
+    }
+
     public function region() {
         $this->hasOne(Region::class);
     }

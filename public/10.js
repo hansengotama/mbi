@@ -13,6 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helper_validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../helper/validator */ "./resources/helper/validator.js");
 /* harmony import */ var _helper_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../helper/request */ "./resources/helper/request.js");
+/* harmony import */ var _helper_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../helper/alert */ "./resources/helper/alert.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -93,6 +94,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -119,7 +131,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           photo_url: ""
         }
       },
-      file: null
+      file: null,
+      mounted: false
     };
   },
   computed: {
@@ -130,6 +143,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       set: function set(value) {
         this.$store.commit("setSelectedRegion", value);
       }
+    },
+    region: {
+      get: function get() {
+        return this.$store.getters["getRegion"];
+      },
+      set: function set(value) {
+        this.$store.commit("setRegion", value);
+      }
+    }
+  },
+  watch: {
+    selectedRegion: {
+      handler: function handler() {
+        if (!this.mounted && this.selectedRegion.id) {
+          this.mounted = true;
+          this.formData.region_id = this.selectedRegion.id;
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods: {
@@ -142,24 +175,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                validate = true; // if(!this.validateName()) validate = false
-                // if(!this.validateCloseAge()) validate = false
-                // if(!this.validateBuriedDate()) validate = false
-                // if(!this.validateBuriedAt()) validate = false
-                // if(!this.validateDeceasedDate()) validate = false
-                // if(!this.validateType()) validate = false
-
+                validate = true;
+                if (!this.validateName()) validate = false;
+                if (!this.validateCloseAge()) validate = false;
+                if (!this.validateBuriedDate()) validate = false;
+                if (!this.validateBuriedAt()) validate = false;
+                if (!this.validateDeceasedDate()) validate = false;
+                if (!this.validateType()) validate = false;
                 if (!this.validatePhotoUrl()) validate = false;
 
                 if (!validate) {
-                  _context.next = 5;
+                  _context.next = 17;
                   break;
                 }
 
-                _context.next = 5;
+                if (!(this.isEdit && this.file != null)) {
+                  _context.next = 12;
+                  break;
+                }
+
+                _context.next = 12;
+                return this.removeImage();
+
+              case 12:
+                if (!(this.file != null)) {
+                  _context.next = 16;
+                  break;
+                }
+
+                _context.next = 15;
                 return this.uploadImage();
 
-              case 5:
+              case 15:
+                this.formData.photo_url = _context.sent;
+
+              case 16:
+                this.$emit('saveDeceased');
+
+              case 17:
               case "end":
                 return _context.stop();
             }
@@ -174,14 +227,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return validate;
     }(),
     uploadImage: function uploadImage() {
-      var _this = this;
-
       var imageFile = new FormData();
-      var filePath = this.selectedRegion.name + "/deceased";
+      var filePath = "idregion" + this.formData.region_id + "/deceased";
       imageFile.append('file_path', filePath);
       imageFile.append('file', this.file);
-      _helper_request__WEBPACK_IMPORTED_MODULE_2__["default"].post("/api/assets/upload", imageFile, this.accessToken).then(function (response) {
-        if (response.data.status) _this.formData.photo_url = filePath;
+      return _helper_request__WEBPACK_IMPORTED_MODULE_2__["default"].post("/api/assets/upload", imageFile, this.accessToken).then(function (response) {
+        var file_path = null;
+        if (response.data.success) file_path = response.data.result.file_path;else _helper_alert__WEBPACK_IMPORTED_MODULE_3__["default"].error();
+        return file_path;
+      });
+    },
+    removeImage: function removeImage() {
+      return _helper_request__WEBPACK_IMPORTED_MODULE_2__["default"].post("/api/assets/remove", {
+        file_path: this.formData.photo_url
+      }, this.accessToken).then(function (response) {
+        if (!response.data.success) _helper_alert__WEBPACK_IMPORTED_MODULE_3__["default"].error();
       });
     },
     validateName: function validateName() {
@@ -295,10 +355,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.formData.buried_at = "";
       this.formData.type = "";
       this.formData.photo_url = "";
+      this.formData.region_id = this.selectedRegion.id;
       this.file = null;
+      this.resetImageInputFile();
+    },
+    resetImageInputFile: function resetImageInputFile() {
+      var input = this.$refs.fileInput;
+      input.type = 'text';
+      input.type = 'file';
     },
     setImage: function setImage(e) {
       this.file = e.target.files[0];
+    },
+    openImage: function openImage(url) {
+      window.open(url, '_target');
     }
   }
 });
@@ -372,6 +442,51 @@ var render = function() {
   return _c("div", { staticClass: "deceased-form" }, [
     _c("div", { staticClass: "form-container" }, [
       _c("div", { staticClass: "label" }, [
+        _vm._v("\n            Kecamatan\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-container" }, [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.region_id,
+                expression: "formData.region_id"
+              }
+            ],
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.formData,
+                  "region_id",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
+              }
+            }
+          },
+          _vm._l(_vm.region, function(data) {
+            return _c("option", { domProps: { value: data.id } }, [
+              _vm._v(_vm._s(data.name))
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-container" }, [
+      _c("div", { staticClass: "label" }, [
         _c("i", {
           directives: [
             {
@@ -381,13 +496,19 @@ var render = function() {
               expression: "isEdit"
             }
           ],
-          staticClass: "fa fa-eye"
+          staticClass: "fa fa-eye",
+          on: {
+            click: function($event) {
+              return _vm.openImage(_vm.formData.photo_full_url)
+            }
+          }
         }),
         _vm._v(" Foto\n        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "input-container" }, [
         _c("input", {
+          ref: "fileInput",
           class: _vm.error.class.photo_url,
           attrs: { type: "file", accept: "image/*" },
           on: {
@@ -473,6 +594,40 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "form-container" }, [
       _c("div", { staticClass: "label" }, [
+        _vm._v("\n            Tanggal Meninggal\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-container" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.deceased_date,
+              expression: "formData.deceased_date"
+            }
+          ],
+          class: _vm.error.class.deceased_date,
+          attrs: { type: "date", placeholder: "tanggal meninggal" },
+          domProps: { value: _vm.formData.deceased_date },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formData, "deceased_date", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("small", { staticClass: "red" }, [
+          _vm._v(_vm._s(_vm.error.message.deceased_date))
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-container" }, [
+      _c("div", { staticClass: "label" }, [
         _vm._v("\n            Tanggal Pemakaman\n        ")
       ]),
       _vm._v(" "),
@@ -535,40 +690,6 @@ var render = function() {
         _vm._v(" "),
         _c("small", { staticClass: "red" }, [
           _vm._v(_vm._s(_vm.error.message.buried_at))
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-container" }, [
-      _c("div", { staticClass: "label" }, [
-        _vm._v("\n            Tanggal Meninggal\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-container" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.formData.deceased_date,
-              expression: "formData.deceased_date"
-            }
-          ],
-          class: _vm.error.class.deceased_date,
-          attrs: { type: "date", placeholder: "tanggal meninggal" },
-          domProps: { value: _vm.formData.deceased_date },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.formData, "deceased_date", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("small", { staticClass: "red" }, [
-          _vm._v(_vm._s(_vm.error.message.deceased_date))
         ])
       ])
     ]),
