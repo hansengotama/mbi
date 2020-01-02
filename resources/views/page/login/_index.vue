@@ -113,8 +113,8 @@
 
                             this.accessToken = response.data.result.access_token
                             VueCookie.set('access_token', response.data.result.access_token)
-                            this.$emit('isLogin', true)
                             this.userLogin = response.data.result
+                            this.$emit('isLogin', true)
 
                             this.$router.push({
                                 name: 'Home'

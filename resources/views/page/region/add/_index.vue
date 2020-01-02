@@ -50,6 +50,7 @@
                     this.loading = false
                     if(response.data.success) {
                         alert.success()
+                        this.$emit('getRegion')
                         this.$refs.form.resetForm()
                     }else
                         alert.error()

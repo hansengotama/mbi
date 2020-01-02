@@ -7,7 +7,6 @@
             <template slot="body">
                 <vihara-form :formData="formData"
                              :loading="loading"
-                             :selectedRegion="selectedRegion"
                              @saveVihara="saveVihara"
                              ref="form"
                 ></vihara-form>
@@ -39,16 +38,6 @@
         components: {
             Panel: () => import('../../../../components/panel/_index'),
             ViharaForm: () => import('../form/_index')
-        },
-        computed: {
-            selectedRegion: {
-                get() {
-                    return this.$store.getters["getSelectedRegion"]
-                },
-                set(value) {
-                    this.$store.commit("setSelectedRegion", value)
-                }
-            }
         },
         methods: {
             setData() {

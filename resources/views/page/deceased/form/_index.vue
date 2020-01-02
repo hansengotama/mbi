@@ -5,9 +5,10 @@
                 Kecamatan
             </div>
             <div class="input-container">
-                <select v-model="formData.region_id">
+                <select v-model="formData.region_id" :class="error.class.region_id">
                     <option v-for="data in region" :value="data.id">{{ data.name }}</option>
                 </select>
+                <small class="red">{{ error.message.region_id }}</small>
             </div>
         </div>
         <div class="form-container">
@@ -99,7 +100,8 @@
                         deceased_date: "",
                         buried_at: "",
                         type: "",
-                        photo_url: ""
+                        photo_url: "",
+                        region_id: ""
                     },
                     class: {
                         name: "",
@@ -108,7 +110,8 @@
                         deceased_date: "",
                         buried_at: "",
                         type: "",
-                        photo_url: ""
+                        photo_url: "",
+                        region_id: ""
                     }
                 },
                 file: null,
@@ -156,6 +159,7 @@
                 if(!this.validateDeceasedDate()) validate = false
                 if(!this.validateType()) validate = false
                 if(!this.validatePhotoUrl()) validate = false
+                if(!this.validateRegionId()) validate = false
 
                 if(validate) {
                     if(this.isEdit && this.file != null)
@@ -295,6 +299,20 @@
 
                 return validate
             },
+            validateRegionId() {
+                let validate = true
+
+                if(this.formData.region_id == null) {
+                    validate = false
+                    this.error.class.region_id = "error"
+                    this.error.message.region_id = " Kecamatan harus di dipilih"
+                }else {
+                    this.error.class.region_id = ""
+                    this.error.message.region_id = ""
+                }
+
+                return validate
+            },
             resetForm() {
                 this.formData.name = ""
                 this.formData.close_age = ""
@@ -352,6 +370,7 @@
         padding 6px 12px
         background white
 
+    .deceased-form > .form-container > .input-container > select.error,
     .deceased-form > .form-container > .input-container > input.error
         border 1px solid red
         box-shadow 2px 2px 1px 0 red

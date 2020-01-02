@@ -100,6 +100,7 @@
                     if(response.data.success) {
                         alert.success()
                         this.getRegion()
+                        this.$emit('getRegion')
                     }else
                         alert.error()
                 })

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Event;
+use App\Models\EventDetail;
 use App\Repositories\Interfaces\EventRepositoryInterface;
 use Illuminate\Pagination\Paginator;
 
@@ -23,12 +24,12 @@ class EventRepository implements EventRepositoryInterface
         if($region_id != null)
             $event->where("region_id", $region_id);
 
-        return $event->paginate($per_page);
+        return $event->with('eventDetail')->paginate($per_page);
     }
 
     public function create(array $data)
     {
-        return Event::create([
+        $event = Event::create([
             'name' => $data['name'],
             'vihara_id' => $data['vihara_id'],
             'description' => $data['description'],
@@ -37,13 +38,28 @@ class EventRepository implements EventRepositoryInterface
             'district_id' => $data['district_id'],
             'region_id' => $data['region_id']
         ]);
+
+
+        foreach ($data['detail'] as $datum) {
+            EventDetail::create([
+                'event_id' => $event->id,
+                'date_from' => $datum['date_from'],
+                'date_until' => $datum['date_until'],
+                'time_from' => (isset($datum['time_from'])) ? $datum['time_from'] : null,
+                'time_until' => (isset($datum['time_until'])) ? $datum['time_until'] : null,
+            ]);
+        }
+
+        return $event;
     }
 
     public function update(int $id, array $data)
     {
         $event = $this->find($id);
 
-        return $event->update([
+        EventDetail::where('event_id', $id)->delete();
+
+        $event->update([
             'name' => $data['name'],
             'vihara_id' => $data['vihara_id'],
             'description' => $data['description'],
@@ -52,16 +68,29 @@ class EventRepository implements EventRepositoryInterface
             'district_id' => $data['district_id'],
             'region_id' => $data['region_id']
         ]);
+
+        foreach ($data['detail'] as $datum) {
+            EventDetail::create([
+                'event_id' => $event->id,
+                'date_from' => $datum['date_from'],
+                'date_until' => $datum['date_until'],
+                'time_from' => (isset($datum['time_from'])) ? $datum['time_from'] : null,
+                'time_until' => (isset($datum['time_until'])) ? $datum['time_until'] : null,
+            ]);
+        }
+
+        return $event;
     }
 
     public function find(int $id)
     {
-        return Event::find($id);
+        return Event::with('eventDetail')->find($id);
     }
 
     public function delete(int $id)
     {
         $event = $this->find($id);
+        EventDetail::where('event_id', $id)->delete();
 
         return $event->delete();
     }

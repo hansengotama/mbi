@@ -26,6 +26,7 @@ class EventService implements EventServiceInterface
         $formData['poster_url'] = $request['poster_url'];
         $formData['district_id'] = $request['district_id'];
         $formData['region_id'] = $request['region_id'];
+        $formData['detail'] = $request['detail'];
 
         return $formData;
     }

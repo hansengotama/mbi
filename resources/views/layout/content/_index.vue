@@ -1,12 +1,17 @@
 <template>
     <div id="content">
-        <router-view :accessToken="accessToken"></router-view>
+        <router-view :accessToken="accessToken" @getRegion="getRegion"></router-view>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['accessToken']
+        props: ['accessToken'],
+        methods: {
+            getRegion() {
+                this.$emit('getRegion')
+            }
+        }
     }
 </script>
 

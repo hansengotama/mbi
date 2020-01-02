@@ -5,7 +5,7 @@
             <div class="content-container">
                 <layout-sidebar :user="userLogin" :region="region"></layout-sidebar>
                 <div class="content">
-                    <router-view :accessToken="accessToken"></router-view>
+                    <router-view :accessToken="accessToken" @getRegion="getRegion"></router-view>
                 </div>
             </div>
         </div>
@@ -68,12 +68,12 @@
             this.checkIsLogin()
         },
         methods: {
-            async checkIsLogin() {
+            checkIsLogin() {
                 this.accessToken = VueCookie.get('access_token')
 
                 if(this.accessToken) {
-                    await request.get('/api/user/check', this.accessToken)
-                    .then((response) => {
+                    request.get('/api/user/check', this.accessToken)
+                    .then( (response) => {
                         if(response.data.success && (response.data.result.role == 'admin'
                             || response.data.result.role == 'super_admin'
                             || response.data.result.role == 'pic_kecamatan')) {
@@ -87,28 +87,34 @@
                 }else
                     this.isLogin(false)
             },
-            isLogin(status) {
+            async isLogin(status) {
                 this.isLogined = status
-                if(this.userLogin.role == "pic_kecamatan")
-                    this.getUserRegion()
-                else if(this.userLogin.role == "admin")
-                    this.getRegion()
-
+                await this.getRegion()
                 this.$forceUpdate()
             },
+            async getRegion() {
+                if(this.userLogin.role == "pic_kecamatan")
+                    await this.getUserRegion()
+                else if(this.userLogin.role == "admin")
+                    await this.getAllRegion()
+            },
             getUserRegion() {
-                request.get('/api/region/' + this.userLogin.region_id, this.accessToken)
+                return request.get('/api/region/' + this.userLogin.region_id, this.accessToken)
                 .then((response) => {
                     if(response.data.success)
                         this.region = response.data.result.data
                 })
             },
-            getRegion() {
-                request.get('/api/region?filter[district_id]=' + this.userLogin.district_id, this.accessToken)
+            getAllRegion() {
+                return request.get('/api/region?filter[district_id]=' + this.userLogin.district_id, this.accessToken)
                 .then((response) => {
                     if(response.data.success) {
-                        this.region = response.data.result.data
-                        this.selectedRegion = response.data.result.data[0]
+                        if(response.data.result.data.length > 0)
+                            this.region = response.data.result.data
+                        else
+                            this.region = [{id: null, name: 'Kabupaten tidak ditemukan'}]
+
+                        this.selectedRegion = this.region[0]
                     }
                 })
             }

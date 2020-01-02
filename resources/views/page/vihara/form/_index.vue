@@ -5,9 +5,10 @@
                 Kecamatan
             </div>
             <div class="input-container">
-                <select v-model="formData.region_id">
+                <select v-model="formData.region_id" :class="error.class.region_id">
                     <option v-for="data in region" :value="data.id">{{ data.name }}</option>
                 </select>
+                <small class="red">{{ error.message.region_id }}</small>
             </div>
         </div>
         <div class="form-container">
@@ -50,19 +51,21 @@
     import validator from "../../../../helper/validator"
 
     export default {
-        props: ['formData', 'loading', 'selectedRegion'],
+        props: ['formData', 'loading'],
         data() {
             return {
                 error: {
                     message: {
                         name: "",
                         phone_number: "",
-                        address: ""
+                        address: "",
+                        region_id: ""
                     },
                     class: {
                         name: "",
                         phone_number: "",
-                        address: ""
+                        address: "",
+                        region_id: ""
                     }
                 },
                 mounted: false
@@ -76,11 +79,20 @@
                 set(value) {
                     this.$store.commit("setRegion", value)
                 }
+            },
+            selectedRegion: {
+                get() {
+                    return this.$store.getters["getSelectedRegion"]
+                },
+                set(value) {
+                    this.$store.commit("setSelectedRegion", value)
+                }
             }
         },
         watch: {
             selectedRegion: {
                 handler: function handler() {
+                    console.log(this.selectedRegion.id)
                     if(!this.mounted && this.selectedRegion.id) {
                         this.mounted = true
                         this.formData.region_id = this.selectedRegion.id
@@ -97,6 +109,7 @@
                 if(!this.validateName()) validate = false
                 if(!this.validatePhoneNumber()) validate = false
                 if(!this.validateAddress()) validate = false
+                if(!this.validateRegionId()) validate = false
 
                 if(validate)
                     this.$emit('saveVihara')
@@ -143,6 +156,20 @@
 
                 return validate
             },
+            validateRegionId() {
+                let validate = true
+
+                if(this.formData.region_id == null) {
+                    validate = false
+                    this.error.class.region_id = "error"
+                    this.error.message.region_id = " Kecamatan harus di dipilih"
+                }else {
+                    this.error.class.region_id = ""
+                    this.error.message.region_id = ""
+                }
+
+                return validate
+            },
             resetForm() {
                 this.formData.name = ""
                 this.formData.phone_number = "",
@@ -180,6 +207,7 @@
         padding 6px 12px
         background white
 
+    .vihara-form > .form-container > .input-container > select.error,
     .vihara-form > .form-container > .input-container > input.error
         border 1px solid red
         box-shadow 2px 2px 1px 0 red

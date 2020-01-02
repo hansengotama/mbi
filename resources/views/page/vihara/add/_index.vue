@@ -4,7 +4,6 @@
             <template slot="body">
                 <vihara-form :formData="formData"
                              :loading="loading"
-                             :selectedRegion="selectedRegion"
                              @saveVihara="saveVihara"
                              ref="form"
                 ></vihara-form>
@@ -25,7 +24,7 @@
                     name: "",
                     phone_number: "",
                     address: "",
-                    region_id: ""
+                    region_id: null
                 },
                 loading: false
             }
@@ -41,14 +40,6 @@
                 },
                 set(value) {
                     this.$store.commit("setUserLogin", value)
-                }
-            },
-            selectedRegion: {
-                get() {
-                    return this.$store.getters["getSelectedRegion"]
-                },
-                set(value) {
-                    this.$store.commit("setSelectedRegion", value)
                 }
             }
         },

@@ -66,6 +66,7 @@ class EventController extends Controller
             'description' => 'required',
             'address' => 'required',
             'poster_url' => 'required',
+            'detail' => 'required'
         ]);;
 
         if ($validator->fails()) {

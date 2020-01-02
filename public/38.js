@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[38],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/page/event/form/_index.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
@@ -87,32 +87,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -122,16 +96,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       error: {
         message: {
-          region_id: "",
-          vihara_id: "",
+          region_id: null,
+          vihara_id: null,
           name: "",
           description: "",
           address: "",
           poster_url: ""
         },
         "class": {
-          region_id: "",
-          vihara_id: "",
+          region_id: null,
+          vihara_id: null,
           name: "",
           description: "",
           address: "",
@@ -183,16 +157,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       _helper_request__WEBPACK_IMPORTED_MODULE_2__["default"].get('/api/vihara?filter[region_id]=' + this.formData.region_id, this.accessToken).then(function (response) {
         if (response.data.success) {
-          if (response.data.result.data[0]) {
-            _this.vihara = response.data.result.data;
-            _this.formData.vihara_id = response.data.result.data[0].id;
-          } else {
-            _this.vihara = [{
-              id: null,
-              name: 'Vihara tidak ditemukan'
-            }];
-            _this.formData.vihara_id = null;
-          }
+          _this.vihara = response.data.result.data;
+          if (response.data.result.data[0].id) _this.formData.vihara_id = response.data.result.data[0].id;else _this.formData.vihara_id = null;
         }
       });
     },
@@ -335,32 +301,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return validate;
     },
     validateViharaId: function validateViharaId() {
-      var validate = true;
-
       if (this.formData.vihara_id == null) {
-        validate = false;
         this.error["class"].vihara_id = "error";
         this.error.message.vihara_id = " Vihara harus di dipilih";
       } else {
         this.error["class"].vihara_id = "";
         this.error.message.vihara_id = "";
       }
-
-      return validate;
     },
     validateRegionId: function validateRegionId() {
-      var validate = true;
-
       if (this.formData.region_id == null) {
-        validate = false;
         this.error["class"].region_id = "error";
         this.error.message.region_id = " Kecamatan harus di dipilih";
       } else {
         this.error["class"].region_id = "";
         this.error.message.region_id = "";
       }
-
-      return validate;
     },
     resetForm: function resetForm() {
       this.formData.name = "";
@@ -384,16 +340,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     openImage: function openImage(url) {
       window.open(url, '_target');
-    },
-    addDetail: function addDetail() {
-      this.formData.detail.push([{
-        from: "",
-        to: "",
-        isAdd: false
-      }]);
-    },
-    removeDetail: function removeDetail(index) {
-      this.formData.detail.splice(index, 1);
     }
   }
 });
@@ -412,7 +358,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-20ba7582] {\n  color: #f77321;\n}\n.blue[data-v-20ba7582] {\n  color: #0000f5;\n}\n.soft-blue[data-v-20ba7582] {\n  color: #0076bd;\n}\n.red[data-v-20ba7582] {\n  color: #f00;\n}\n.display-flex[data-v-20ba7582] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-20ba7582] {\n  display: block;\n}\nhtml[data-v-20ba7582],\nbody[data-v-20ba7582] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-20ba7582],\nbody[data-v-20ba7582] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-20ba7582]:active,\ninput[data-v-20ba7582]:focus,\nbutton[data-v-20ba7582]:active,\nbutton[data-v-20ba7582]:focus,\nselect[data-v-20ba7582]:active,\nselect[data-v-20ba7582]:focus {\n  outline: none;\n}\ninput.error[data-v-20ba7582] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-20ba7582],\ntr[data-v-20ba7582] {\n  width: 100%;\n}\ntable > tr > th[data-v-20ba7582] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-20ba7582] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-20ba7582] {\n  overflow-x: auto;\n}\n.text-center[data-v-20ba7582] {\n  text-align: center;\n}\n.mt-1[data-v-20ba7582] {\n  margin-top: 1em;\n}\n.mt-2[data-v-20ba7582] {\n  margin-top: 2em;\n}\n.mt-3[data-v-20ba7582] {\n  margin-top: 3em;\n}\n.mt-4[data-v-20ba7582] {\n  margin-top: 4em;\n}\n.mt-5[data-v-20ba7582] {\n  margin-top: 5em;\n}\n.event-form[data-v-20ba7582] {\n  margin: 1em;\n  margin-top: -1em;\n}\n.event-form > .form-container[data-v-20ba7582] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  margin-top: 2em;\n}\n.event-form > .form-detail-container[data-v-20ba7582] {\n  display: -webkit-box;\n  display: flex;\n  margin-top: 2em;\n}\n.event-form > .form-container > .label[data-v-20ba7582],\n.event-form > .form-detail-container > .label[data-v-20ba7582] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.event-form > .form-container > .label > i[data-v-20ba7582] {\n  cursor: pointer;\n}\n.event-form > .form-container > .input-container[data-v-20ba7582] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.event-form > .form-detail-container > .detail[data-v-20ba7582] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.event-form > .form-detail-container > .detail > .detail-container[data-v-20ba7582] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  margin-top: 2em;\n}\n.event-form > .form-detail-container > .detail > .detail-container[data-v-20ba7582]:first-child {\n  margin-top: 0;\n}\n.event-form > .form-detail-container > .detail > .detail-container > .from[data-v-20ba7582],\n.event-form > .form-detail-container > .detail > .detail-container > .until[data-v-20ba7582] {\n  -webkit-box-flex: 5;\n          flex: 5;\n}\n.event-form > .form-detail-container > .detail > .detail-container > .from > input[data-v-20ba7582],\n.event-form > .form-detail-container > .detail > .detail-container > .until > input[data-v-20ba7582] {\n  width: 100%;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n  border: 1px solid #eaeaea;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 6px 12px;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n}\n.event-form > .form-detail-container > .detail > .detail-container > .strip[data-v-20ba7582],\n.event-form > .form-detail-container > .detail > .detail-container > .add[data-v-20ba7582] {\n  -webkit-box-flex: 1;\n          flex: 1;\n  text-align: center;\n}\n.event-form > .form-detail-container > .detail > .detail-container > .add[data-v-20ba7582] {\n  cursor: pointer;\n}\n.event-form > .form-container > .input-container > select[data-v-20ba7582],\n.event-form > .form-container > .input-container > input[data-v-20ba7582] {\n  width: 100%;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n  border: 1px solid #eaeaea;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 6px 12px;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n}\n.event-form > .form-container > .input-container > select.error[data-v-20ba7582],\n.event-form > .form-container > .input-container > input.error[data-v-20ba7582] {\n  border: 1px solid #f00;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n}\n.event-form > .button-container[data-v-20ba7582] {\n  margin-top: 2em;\n}\n.event-form > .button-container > button[data-v-20ba7582] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.event-form > .button-container > .loading[data-v-20ba7582] {\n  margin-left: -25px;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-20ba7582] {\n  color: #f77321;\n}\n.blue[data-v-20ba7582] {\n  color: #0000f5;\n}\n.soft-blue[data-v-20ba7582] {\n  color: #0076bd;\n}\n.red[data-v-20ba7582] {\n  color: #f00;\n}\n.display-flex[data-v-20ba7582] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-20ba7582] {\n  display: block;\n}\nhtml[data-v-20ba7582],\nbody[data-v-20ba7582] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-20ba7582],\nbody[data-v-20ba7582] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-20ba7582]:active,\ninput[data-v-20ba7582]:focus,\nbutton[data-v-20ba7582]:active,\nbutton[data-v-20ba7582]:focus,\nselect[data-v-20ba7582]:active,\nselect[data-v-20ba7582]:focus {\n  outline: none;\n}\ninput.error[data-v-20ba7582] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-20ba7582],\ntr[data-v-20ba7582] {\n  width: 100%;\n}\ntable > tr > th[data-v-20ba7582] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-20ba7582] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-20ba7582] {\n  overflow-x: auto;\n}\n.text-center[data-v-20ba7582] {\n  text-align: center;\n}\n.mt-1[data-v-20ba7582] {\n  margin-top: 1em;\n}\n.mt-2[data-v-20ba7582] {\n  margin-top: 2em;\n}\n.mt-3[data-v-20ba7582] {\n  margin-top: 3em;\n}\n.mt-4[data-v-20ba7582] {\n  margin-top: 4em;\n}\n.mt-5[data-v-20ba7582] {\n  margin-top: 5em;\n}\n.event-form[data-v-20ba7582] {\n  margin: 1em;\n  margin-top: -1em;\n}\n.event-form > .form-container[data-v-20ba7582] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  margin-top: 2em;\n}\n.event-form > .form-container > .label[data-v-20ba7582] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.event-form > .form-container > .label > i[data-v-20ba7582] {\n  cursor: pointer;\n}\n.event-form > .form-container > .input-container[data-v-20ba7582] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.event-form > .form-container > .input-container > select[data-v-20ba7582],\n.event-form > .form-container > .input-container > input[data-v-20ba7582] {\n  width: 100%;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n  border: 1px solid #eaeaea;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 6px 12px;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n}\n.event-form > .form-container > .input-container > input.error[data-v-20ba7582] {\n  border: 1px solid #f00;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n}\n.event-form > .button-container[data-v-20ba7582] {\n  margin-top: 2em;\n}\n.event-form > .button-container > button[data-v-20ba7582] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.event-form > .button-container > .loading[data-v-20ba7582] {\n  margin-left: -25px;\n}\n", ""]);
 
 // exports
 
@@ -482,7 +428,6 @@ var render = function() {
                 expression: "formData.region_id"
               }
             ],
-            class: _vm.error.class.region_id,
             on: {
               change: [
                 function($event) {
@@ -512,11 +457,7 @@ var render = function() {
             ])
           }),
           0
-        ),
-        _vm._v(" "),
-        _c("small", { staticClass: "red" }, [
-          _vm._v(_vm._s(_vm.error.message.region_id))
-        ])
+        )
       ])
     ]),
     _vm._v(" "),
@@ -537,7 +478,6 @@ var render = function() {
                 expression: "formData.vihara_id"
               }
             ],
-            class: _vm.error.class.vihara_id,
             on: {
               change: function($event) {
                 var $$selectedVal = Array.prototype.filter
@@ -562,11 +502,7 @@ var render = function() {
             ])
           }),
           0
-        ),
-        _vm._v(" "),
-        _c("small", { staticClass: "red" }, [
-          _vm._v(_vm._s(_vm.error.message.vihara_id))
-        ])
+        )
       ])
     ]),
     _vm._v(" "),
@@ -709,103 +645,6 @@ var render = function() {
           _vm._v(_vm._s(_vm.error.message.address))
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-detail-container" }, [
-      _c("div", { staticClass: "label" }, [
-        _vm._v("\n            Rincian\n        ")
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "detail" },
-        _vm._l(_vm.formData.detail, function(detail, index) {
-          return _c("div", { key: index, staticClass: "detail-container" }, [
-            _c("div", { staticClass: "from" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: detail.from,
-                    expression: "detail.from"
-                  }
-                ],
-                attrs: { type: "datetime-local" },
-                domProps: { value: detail.from },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(detail, "from", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("small", { staticClass: "red" }, [
-                _vm._v(_vm._s(_vm.error.message.address))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "strip" }, [_vm._v("s/d")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "until" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: detail.to,
-                    expression: "detail.to"
-                  }
-                ],
-                attrs: { type: "datetime-local" },
-                domProps: { value: detail.to },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(detail, "to", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("small", { staticClass: "red" }, [
-                _vm._v(_vm._s(_vm.error.message.address))
-              ])
-            ]),
-            _vm._v(" "),
-            detail.isAdd
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "add",
-                    on: {
-                      click: function($event) {
-                        return _vm.addDetail()
-                      }
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-plus" })]
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass: "add",
-                    on: {
-                      click: function($event) {
-                        return _vm.removeDetail(index)
-                      }
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-trash" })]
-                )
-          ])
-        }),
-        0
-      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "button-container" }, [

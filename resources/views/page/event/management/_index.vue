@@ -17,7 +17,9 @@
                         </tr>
                         <tr v-for="(data, index) in event.data" v-else>
                             <td>{{ index + 1 }}</td>
-                            <td>{{ data.poster_url }}</td>
+                            <td @click="openImage(data.poster_full_url)">
+                                <img :src="data.poster_full_url">
+                            </td>
                             <td>{{ data.name }}</td>
                             <td>{{ data.description }}</td>
                             <td>{{ data.address }}</td>
@@ -75,7 +77,10 @@
                 this.filter.per_page = data.per_page
 
                 this.getEvent()
-            }
+            },
+            openImage(url) {
+                window.open(url, '_target')
+            },
         }
     }
 </script>
@@ -89,4 +94,9 @@
     .table-container
         margin-top 2em
         margin-bottom 1em
+
+    img
+        width 80px
+        height 80px
+        cursor pointer
 </style>

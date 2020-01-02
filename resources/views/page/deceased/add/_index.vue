@@ -1,6 +1,6 @@
 <template>
     <div id="add-deceased">
-        <panel title="Tambah Deceased">
+        <panel title="Tambah orang meninggal">
             <template slot="body">
                 <deceased-form :formData="formData"
                                :loading="loading"

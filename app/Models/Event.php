@@ -16,7 +16,20 @@ class Event extends Model
         'poster_url'
     ];
 
+    protected $appends = [
+        'poster_full_url'
+    ];
+
+    public function getPosterFullUrlAttribute()
+    {
+        return url('/').'/storage/'.$this->poster_url;
+    }
+
     public function vihara() {
         return $this->hasOne(Vihara::class);
+    }
+
+    public function eventDetail() {
+        return $this->hasMany(EventDetail::class);
     }
 }
