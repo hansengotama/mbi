@@ -8,7 +8,6 @@ class CompanyVacancy extends Model
 {
     protected $fillable = [
         'district_id',
-        'region_id',
         'name',
         'logo_url',
         'city',

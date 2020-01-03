@@ -17,8 +17,6 @@ class CreateCompanyVacanciesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('district_id');
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
-            $table->unsignedBigInteger('region_id');
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name');
             $table->string('logo_url');
             $table->string('city');

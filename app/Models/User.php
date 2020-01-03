@@ -22,7 +22,8 @@ class User extends Authenticatable
         'place_of_birth',
         'blood_type',
         'gender',
-        'ktub_number'
+        'ktub_number',
+        'ktub_editable'
     ];
 
     protected $hidden = [

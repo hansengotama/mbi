@@ -13,6 +13,12 @@ export default {
             component: () => import('../../views/page/home/_index.vue')
         },
         {
+            path: '/edit-profile',
+            name: 'Edit Profile',
+            roles: ['super_admin', 'admin', 'pic_kecamatan'],
+            component: () => import('../../views/page/profile/edit/_index')
+        },
+        {
             path: '/login',
             name: 'Login',
             roles: ['super_admin', 'admin', 'pic_kecamatan'],

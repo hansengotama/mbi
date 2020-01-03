@@ -10,8 +10,10 @@
                             <th>Nama</th>
                             <th>Nomor Rekening</th>
                             <th>Nama Rekening</th>
+                            <th>Nama Bank</th>
                             <th>Nomor Rekening (2)</th>
                             <th>Nama Rekening (2)</th>
+                            <th>Nama Bank(2)</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                         <tr v-if="district.data.length == 0">
@@ -22,6 +24,7 @@
                             <td>{{ data.name }}</td>
                             <td>{{ data.account_number_1 }}</td>
                             <td>{{ data.account_name_1 }}</td>
+                            <td>{{ data.bank_name_1 }}</td>
                             <td>
                                 <span v-if="data.account_number_2">{{ data.account_number_2 }}</span>
                                 <span v-else>-</span>
@@ -30,9 +33,12 @@
                                 <span v-if="data.account_name_2">{{ data.account_name_2 }}</span>
                                 <span v-else>-</span>
                             </td>
+                            <td>
+                                <span v-if="data.bank_name_2">{{ data.bank_name_2 }}</span>
+                                <span v-else>-</span>
+                            </td>
                             <td width="150px" class="text-center">
                                 <i class="fa fa-edit" @click="editDistrict(data)"></i>
-                                <i class="fa fa-trash" @click="confirmationDeleteDistrict(data)"></i>
                             </td>
                         </tr>
                     </table>

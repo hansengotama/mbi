@@ -67,7 +67,7 @@
         </div>
         <div class="form-container">
             <div class="label">
-                Tipe
+                Tipe Pemakamanc
             </div>
             <div class="input-container">
                 <input type="text" placeholder="tipe" v-model="formData.type" :class="error.class.type">

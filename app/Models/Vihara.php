@@ -8,6 +8,7 @@ class Vihara extends Model
 {
     protected $fillable = [
         'district_id',
+        'vihara_id',
         'region_id',
         'name',
         'phone_number',

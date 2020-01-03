@@ -36,8 +36,10 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         account_number_1: "",
         account_name_1: "",
+        bank_name_1: "",
         account_number_2: "",
-        account_name_2: ""
+        account_name_2: "",
+        bank_name_2: ""
       },
       loading: false,
       activeSecondAccountNumber: {
@@ -85,7 +87,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-6776bf5b] {\n  color: #f77321;\n}\n.blue[data-v-6776bf5b] {\n  color: #0000f5;\n}\n.soft-blue[data-v-6776bf5b] {\n  color: #0076bd;\n}\n.red[data-v-6776bf5b] {\n  color: #f00;\n}\n.display-flex[data-v-6776bf5b] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-6776bf5b] {\n  display: block;\n}\nhtml[data-v-6776bf5b],\nbody[data-v-6776bf5b] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-6776bf5b],\nbody[data-v-6776bf5b] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-6776bf5b]:active,\ninput[data-v-6776bf5b]:focus,\nbutton[data-v-6776bf5b]:active,\nbutton[data-v-6776bf5b]:focus,\nselect[data-v-6776bf5b]:active,\nselect[data-v-6776bf5b]:focus {\n  outline: none;\n}\ninput.error[data-v-6776bf5b] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-6776bf5b],\ntr[data-v-6776bf5b] {\n  width: 100%;\n}\ntable > tr > th[data-v-6776bf5b] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-6776bf5b] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-6776bf5b] {\n  overflow-x: auto;\n}\n.text-center[data-v-6776bf5b] {\n  text-align: center;\n}\n.mt-1[data-v-6776bf5b] {\n  margin-top: 1em;\n}\n.mt-2[data-v-6776bf5b] {\n  margin-top: 2em;\n}\n.mt-3[data-v-6776bf5b] {\n  margin-top: 3em;\n}\n.mt-4[data-v-6776bf5b] {\n  margin-top: 4em;\n}\n.mt-5[data-v-6776bf5b] {\n  margin-top: 5em;\n}\n#add-district[data-v-6776bf5b] {\n  padding-top: 15px;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-6776bf5b] {\n  color: #f77321;\n}\n.blue[data-v-6776bf5b] {\n  color: #0000f5;\n}\n.soft-blue[data-v-6776bf5b] {\n  color: #0076bd;\n}\n.red[data-v-6776bf5b] {\n  color: #f00;\n}\n.display-flex[data-v-6776bf5b] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-6776bf5b] {\n  display: block;\n}\nhtml[data-v-6776bf5b],\nbody[data-v-6776bf5b] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-6776bf5b],\nbody[data-v-6776bf5b] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-6776bf5b]:active,\ninput[data-v-6776bf5b]:focus,\nbutton[data-v-6776bf5b]:active,\nbutton[data-v-6776bf5b]:focus,\nselect[data-v-6776bf5b]:active,\nselect[data-v-6776bf5b]:focus {\n  outline: none;\n}\ninput.error[data-v-6776bf5b] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-6776bf5b],\ntr[data-v-6776bf5b] {\n  width: 100%;\n}\ntable > tr > th[data-v-6776bf5b] {\n  padding: 10px 12px;\n  padding-top: 0;\n  min-width: 50px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-6776bf5b] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-6776bf5b] {\n  overflow-x: auto;\n}\n.text-center[data-v-6776bf5b] {\n  text-align: center;\n}\n.mt-1[data-v-6776bf5b] {\n  margin-top: 1em;\n}\n.mt-2[data-v-6776bf5b] {\n  margin-top: 2em;\n}\n.mt-3[data-v-6776bf5b] {\n  margin-top: 3em;\n}\n.mt-4[data-v-6776bf5b] {\n  margin-top: 4em;\n}\n.mt-5[data-v-6776bf5b] {\n  margin-top: 5em;\n}\n#add-district[data-v-6776bf5b] {\n  padding-top: 15px;\n}\n", ""]);
 
 // exports
 

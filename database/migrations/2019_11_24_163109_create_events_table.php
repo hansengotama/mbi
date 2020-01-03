@@ -15,12 +15,12 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('vihara_id');
-            $table->foreign('vihara_id')->references('id')->on('viharas')->onDelete('cascade');
             $table->unsignedBigInteger('district_id');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->unsignedBigInteger('vihara_id')->nullable();
+            $table->foreign('vihara_id')->references('id')->on('viharas')->onDelete('cascade');
             $table->string('name');
             $table->longText('description');
             $table->longText('address');

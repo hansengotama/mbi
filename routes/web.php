@@ -73,3 +73,5 @@ Route::prefix('request-ktub')->group(function () {
 Route::namespace('API')->group(function () {
     Route::get('/storage/{region}/{type}/{filename}', 'AssetController@getFile');
 });
+
+Route::get('edit-profile', 'VueController@index');

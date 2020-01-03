@@ -103,6 +103,7 @@
                 if(!this.validateBirthOfDate()) validate = false
                 if(!this.validatePhoneNumber()) validate = false
 
+                window.scrollTo(0, 0)
                 if(validate == true) this.$emit('saveAdmin')
             },
             validateName() {
@@ -187,10 +188,10 @@
                 this.formData.district_id = this.district[0].id
                 this.formData.name = ""
                 this.formData.email = ""
-                this.formData.password = ""
+                this.formData.password = "jayalahmbi"
                 this.formData.birth_of_date = ""
                 this.formData.phone_number = ""
-                this.formData.password_confirmation = ""
+                this.formData.password_confirmation = "window.scrollTo(0, 0)"
             }
         }
     }

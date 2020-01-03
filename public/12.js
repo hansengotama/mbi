@@ -26,6 +26,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -48,6 +49,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeLogout: function closeLogout() {
       this.showLogout = false;
+    },
+    editProfile: function editProfile() {
+      if (this.$router.history.current.name != "Edit Profile") {
+        this.$router.push({
+          name: "Edit Profile"
+        });
+      }
     },
     logout: function logout() {
       this.$emit('isLogin', false);
@@ -72,7 +80,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-46d709a9] {\n  color: #f77321;\n}\n.blue[data-v-46d709a9] {\n  color: #0000f5;\n}\n.soft-blue[data-v-46d709a9] {\n  color: #0076bd;\n}\n.red[data-v-46d709a9] {\n  color: #f00;\n}\n.display-flex[data-v-46d709a9] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-46d709a9] {\n  display: block;\n}\nhtml[data-v-46d709a9],\nbody[data-v-46d709a9] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-46d709a9],\nbody[data-v-46d709a9] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-46d709a9]:active,\ninput[data-v-46d709a9]:focus,\nbutton[data-v-46d709a9]:active,\nbutton[data-v-46d709a9]:focus,\nselect[data-v-46d709a9]:active,\nselect[data-v-46d709a9]:focus {\n  outline: none;\n}\ninput.error[data-v-46d709a9] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-46d709a9],\ntr[data-v-46d709a9] {\n  width: 100%;\n}\ntable > tr > th[data-v-46d709a9] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-46d709a9] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-46d709a9] {\n  overflow-x: auto;\n}\n.text-center[data-v-46d709a9] {\n  text-align: center;\n}\n.mt-1[data-v-46d709a9] {\n  margin-top: 1em;\n}\n.mt-2[data-v-46d709a9] {\n  margin-top: 2em;\n}\n.mt-3[data-v-46d709a9] {\n  margin-top: 3em;\n}\n.mt-4[data-v-46d709a9] {\n  margin-top: 4em;\n}\n.mt-5[data-v-46d709a9] {\n  margin-top: 5em;\n}\n.header[data-v-46d709a9] {\n  width: 100%;\n  display: -webkit-box;\n  display: flex;\n  padding: 0.4em 1em;\n  border-bottom: 1px solid #eaeaea;\n  position: fixed;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  z-index: 10;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n}\n.header > .logo-container[data-v-46d709a9] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.header > .logo-container > div[data-v-46d709a9] {\n  font-size: 18px;\n  margin: 0 8px;\n}\n.header > .logo-container > .fa[data-v-46d709a9] {\n  font-size: 15px;\n  cursor: pointer;\n}\n.header > .profile-container[data-v-46d709a9] {\n  border: 1px solid #eaeaea;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px;\n  cursor: pointer;\n}\n.header > .profile-container > .logout-container[data-v-46d709a9] {\n  position: absolute;\n  top: 49px;\n  right: 14px;\n}\n.header > .profile-container > .logout-container > .logout-text[data-v-46d709a9] {\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  padding: 10px 50px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  border: 1px solid #eaeaea;\n}\n.header > .profile-container > .logout-container > .logout-text[data-v-46d709a9]:hover {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  color: #fff;\n}\n.header > .profile-container > img[data-v-46d709a9] {\n  width: 33px;\n  height: 33px;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.header > .profile-container > .text[data-v-46d709a9] {\n  font-size: 14px;\n  margin: 0 5px;\n}\n.header > .profile-container > .fas[data-v-46d709a9] {\n  color: #a4aaba;\n}\n.header > .profile-container:hover > .fas[data-v-46d709a9] {\n  color: #000;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-46d709a9] {\n  color: #f77321;\n}\n.blue[data-v-46d709a9] {\n  color: #0000f5;\n}\n.soft-blue[data-v-46d709a9] {\n  color: #0076bd;\n}\n.red[data-v-46d709a9] {\n  color: #f00;\n}\n.display-flex[data-v-46d709a9] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-46d709a9] {\n  display: block;\n}\nhtml[data-v-46d709a9],\nbody[data-v-46d709a9] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-46d709a9],\nbody[data-v-46d709a9] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-46d709a9]:active,\ninput[data-v-46d709a9]:focus,\nbutton[data-v-46d709a9]:active,\nbutton[data-v-46d709a9]:focus,\nselect[data-v-46d709a9]:active,\nselect[data-v-46d709a9]:focus {\n  outline: none;\n}\ninput.error[data-v-46d709a9] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-46d709a9],\ntr[data-v-46d709a9] {\n  width: 100%;\n}\ntable > tr > th[data-v-46d709a9] {\n  padding: 10px 12px;\n  padding-top: 0;\n  min-width: 50px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-46d709a9] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-46d709a9] {\n  overflow-x: auto;\n}\n.text-center[data-v-46d709a9] {\n  text-align: center;\n}\n.mt-1[data-v-46d709a9] {\n  margin-top: 1em;\n}\n.mt-2[data-v-46d709a9] {\n  margin-top: 2em;\n}\n.mt-3[data-v-46d709a9] {\n  margin-top: 3em;\n}\n.mt-4[data-v-46d709a9] {\n  margin-top: 4em;\n}\n.mt-5[data-v-46d709a9] {\n  margin-top: 5em;\n}\n.header[data-v-46d709a9] {\n  width: 100%;\n  display: -webkit-box;\n  display: flex;\n  padding: 0.4em 1em;\n  border-bottom: 1px solid #eaeaea;\n  position: fixed;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  z-index: 10;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n}\n.header > .logo-container[data-v-46d709a9] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.header > .logo-container > div[data-v-46d709a9] {\n  font-size: 18px;\n  margin: 0 8px;\n}\n.header > .logo-container > .fa[data-v-46d709a9] {\n  font-size: 15px;\n  cursor: pointer;\n}\n.header > .profile-container[data-v-46d709a9] {\n  border: 1px solid #eaeaea;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px;\n  cursor: pointer;\n}\n.header > .profile-container > .logout-container[data-v-46d709a9] {\n  position: absolute;\n  top: 49px;\n  right: 14px;\n}\n.header > .profile-container > .logout-container > .logout-text[data-v-46d709a9] {\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  padding: 10px 50px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  border: 1px solid #eaeaea;\n}\n.header > .profile-container > .logout-container > .edit-profile-text[data-v-46d709a9] {\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  padding: 10px 50px;\n  border: 1px solid #eaeaea;\n  border-bottom: 0;\n}\n.header > .profile-container > .logout-container > .logout-text[data-v-46d709a9]:hover,\n.header > .profile-container > .logout-container > .edit-profile-text[data-v-46d709a9]:hover {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  color: #fff;\n}\n.header > .profile-container > img[data-v-46d709a9] {\n  width: 33px;\n  height: 33px;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.header > .profile-container > .text[data-v-46d709a9] {\n  font-size: 14px;\n  margin: 0 5px;\n}\n.header > .profile-container > .fas[data-v-46d709a9] {\n  color: #a4aaba;\n}\n.header > .profile-container:hover > .fas[data-v-46d709a9] {\n  color: #000;\n}\n", ""]);
 
 // exports
 
@@ -160,6 +168,19 @@ var render = function() {
         _vm._v(" "),
         _vm.showLogout
           ? _c("div", { staticClass: "logout-container" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "edit-profile-text",
+                  on: {
+                    click: function($event) {
+                      return _vm.editProfile()
+                    }
+                  }
+                },
+                [_vm._v("Edit Profile")]
+              ),
+              _vm._v(" "),
               _c(
                 "div",
                 {

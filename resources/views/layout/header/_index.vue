@@ -9,6 +9,7 @@
             <div class="text">{{ user.name }}</div>
             <i class="fas fa-caret-down"></i>
             <div class="logout-container" v-if="showLogout">
+                <div class="edit-profile-text" @click="editProfile()">Edit Profile</div>
                 <div class="logout-text" @click="logout()">Logout</div>
             </div>
         </div>
@@ -43,6 +44,13 @@
             },
             closeLogout() {
                 this.showLogout = false
+            },
+            editProfile() {
+                if(this.$router.history.current.name != "Edit Profile") {
+                    this.$router.push({
+                        name: "Edit Profile"
+                    })
+                }
             },
             logout() {
                 this.$emit('isLogin', false)
@@ -100,7 +108,14 @@
         border-bottom-right-radius 5px
         border 1px solid #eaeaea
 
-    .header > .profile-container > .logout-container > .logout-text:hover
+    .header > .profile-container > .logout-container > .edit-profile-text
+        background white
+        padding 10px 50px
+        border 1px solid #eaeaea
+        border-bottom 0
+
+    .header > .profile-container > .logout-container > .logout-text:hover,
+    .header > .profile-container > .logout-container > .edit-profile-text:hover
         background $orange
         color white
 

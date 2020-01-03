@@ -11,6 +11,15 @@
         </div>
         <div class="form-container">
             <div class="label">
+                Nama Bank
+            </div>
+            <div class="input-container">
+                <input type="text" placeholder="nama bank" v-model="formData.bank_name_1" :class="error.class.bank_name_1">
+                <small class="red">{{ error.message.bank_name_1 }}</small>
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="label">
                 Nomor Rekening
             </div>
             <div class="input-container">
@@ -29,6 +38,15 @@
         </div>
         <div class="form-container checkbox" @click="toggleActiveSecondAccountNumber">
             <input type="checkbox" class="checkbox" v-model="activeSecondAccountNumber.status"> Aktifkan akun rekening kedua
+        </div>
+        <div class="form-container" v-show="activeSecondAccountNumber.status">
+            <div class="label">
+                Nama Bank (2)
+            </div>
+            <div class="input-container">
+                <input type="text" placeholder="nama bank (2)" v-model="formData.bank_name_2" :class="error.class.bank_name_2">
+                <small class="red">{{ error.message.bank_name_2 }}</small>
+            </div>
         </div>
         <div class="form-container" v-show="activeSecondAccountNumber.status">
             <div class="label">
@@ -67,15 +85,19 @@
                 error: {
                     class: {
                         name: "",
+                        bank_name_1: "",
                         account_number_1: "",
                         account_name_1: "",
+                        bank_name_2: "",
                         account_number_2: "",
                         account_name_2: ""
                     },
                     message: {
                         name: "",
+                        bank_name_1: "",
                         account_number_1: "",
                         account_name_1: "",
+                        bank_name_2: "",
                         account_number_2: "",
                         account_name_2: ""
                     }
@@ -88,13 +110,16 @@
                 if(!this.validateName()) validate = false
                 if(!this.validateAccountNumber()) validate = false
                 if(!this.validateAccountName()) validate = false
+                if(!this.validateBankName()) validate = false
                 if(!this.validateSecondAccountNumber()) validate = false
                 if(!this.validateSecondAccountName()) validate = false
+                if(!this.validateSecondBankName()) validate = false
 
                 if(validate) {
                     if(!this.activeSecondAccountNumber.status) {
                         this.formData.account_number_2 = ""
                         this.formData.account_name_2 = ""
+                        this.formData.bank_name_2 = ""
                     }
 
                     this.$emit('saveDistrict')
@@ -142,6 +167,20 @@
 
                 return validate
             },
+            validateBankName() {
+                let validate = true
+
+                if(validator.required(this.formData.bank_name_1)) {
+                    validate = false
+                    this.error.class.bank_name_1 = "error"
+                    this.error.message.bank_name_1 = "Nama Bank harus terisi"
+                }else {
+                    this.error.class.bank_name_1 = ""
+                    this.error.message.bank_name_1 = ""
+                }
+
+                return validate
+            },
             validateSecondAccountNumber() {
                 let validate = true
 
@@ -170,6 +209,20 @@
 
                 return validate
             },
+            validateSecondBankName() {
+                let validate = true
+
+                if(this.activeSecondAccountNumber.status && validator.required(this.formData.bank_name_2)) {
+                    validate = false
+                    this.error.class.bank_name_2 = "error"
+                    this.error.message.bank_name_2 = "Nama bank (2) harus terisi"
+                }else {
+                    this.error.class.bank_name_2 = ""
+                    this.error.message.bank_name_2 = ""
+                }
+
+                return validate
+            },
             toggleActiveSecondAccountNumber() {
                 this.activeSecondAccountNumber.status = !this.activeSecondAccountNumber.status
 
@@ -178,13 +231,16 @@
             resetSecondError() {
                 this.validateSecondAccountNumber()
                 this.validateSecondAccountName()
+                this.validateSecondBankName()
             },
             resetForm() {
                 this.formData.name = ""
                 this.formData.account_number_1 = ""
                 this.formData.account_name_1 = ""
+                this.formData.bank_name_1 = ""
                 this.formData.account_number_2 = ""
                 this.formData.account_name_2 = ""
+                this.formData.bank_name_2 = ""
             }
         }
     }

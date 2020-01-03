@@ -26,6 +26,7 @@
                             <td>{{ data.email }}</td>
                             <td>{{ data.phone_number }}</td>
                             <td width="100px" class="text-center">
+                                <i class="fa fa-key" @click="confirmationResetPassword(data)"></i>
                                 <i class="fa fa-trash" @click="confirmationRemoveAdmin(data)"></i>
                             </td>
                         </tr>
@@ -71,8 +72,10 @@
                     request.get('/api/district', this.accessToken)
                     .then((response) => {
                         if (response.data.success) {
-                            this.district = response.data.result.data
-                            this.selectedDistrictId = response.data.result.data[0].id
+                            if(response.data.result.data[0]) this.district = response.data.result.data
+                            else this.district = [{id: null, name: 'Kebupaten tidak ditemukan'}]
+
+                            this.selectedDistrictId = this.district[0].id
                             this.getAdmin()
                         }
                     })
@@ -110,10 +113,34 @@
                         this.removeAdmin(data)
                 })
             },
+            confirmationResetPassword(data) {
+                let password = "jayalahmbi"
+
+                alert.confirmation('Apakah kamu yakin untuk atur ulang password admin ' + data.name + ' menjadi '+ '"' +password+ '"' +' ?', 'Ganti', 'Tidak')
+                .then((dialog) => {
+                    if(dialog.value)
+                        this.resetPasswordAdmin(data, password)
+                })
+            },
+            resetPasswordAdmin(data, password) {
+                alert.loading()
+
+                data.password = password
+                request.post('/api/user/update/' + data.id, data, this.accessToken)
+                .then((response) => {
+                    if(response.data.success) {
+                        alert.success()
+                        this.getAdmin()
+                    }else {
+                        alert.error()
+                    }
+                })
+            },
             removeAdmin(data) {
                 alert.loading()
 
                 data.role = "user"
+                delete data.password
                 request.post('/api/user/update/' + data.id, data, this.accessToken)
                 .then((response) => {
                     if(response.data.success) {
@@ -166,7 +193,7 @@
         background white
         margin-right 15px
         padding 0 5px
-        width 200px
+        width 220px
 
     option
         cursor pointer !important
@@ -180,4 +207,7 @@
 
     td > .fa-trash
         background red
+
+    td > .fa-key
+        background $orange
 </style>

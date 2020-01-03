@@ -20,6 +20,8 @@ class CreateDistrictsTable extends Migration
             $table->string('account_number_2')->nullable();
             $table->string('account_name_1');
             $table->string('account_name_2')->nullable();
+            $table->string('bank_name_1');
+            $table->string('bank_name_2')->nullable();
             $table->timestamps();
         });
     }

@@ -50,6 +50,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -89,8 +90,11 @@ __webpack_require__.r(__webpack_exports__);
       if (this.accessToken) {
         _helper_request__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/district', this.accessToken).then(function (response) {
           if (response.data.success) {
-            _this.district = response.data.result.data;
-            _this.selectedDistrictId = response.data.result.data[0].id;
+            if (response.data.result.data[0]) _this.district = response.data.result.data;else _this.district = [{
+              id: null,
+              name: 'Kebupaten tidak ditemukan'
+            }];
+            _this.selectedDistrictId = _this.district[0].id;
 
             _this.getAdmin();
           }
@@ -122,16 +126,40 @@ __webpack_require__.r(__webpack_exports__);
         if (dialog.value) _this3.removeAdmin(data);
       });
     },
-    removeAdmin: function removeAdmin(data) {
+    confirmationResetPassword: function confirmationResetPassword(data) {
       var _this4 = this;
 
+      var password = "jayalahmbi";
+      _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].confirmation('Apakah kamu yakin untuk atur ulang password admin ' + data.name + ' menjadi ' + '"' + password + '"' + ' ?', 'Ganti', 'Tidak').then(function (dialog) {
+        if (dialog.value) _this4.resetPasswordAdmin(data, password);
+      });
+    },
+    resetPasswordAdmin: function resetPasswordAdmin(data, password) {
+      var _this5 = this;
+
       _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].loading();
-      data.role = "user";
+      data.password = password;
       _helper_request__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/user/update/' + data.id, data, this.accessToken).then(function (response) {
         if (response.data.success) {
           _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].success();
 
-          _this4.getAdmin();
+          _this5.getAdmin();
+        } else {
+          _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].error();
+        }
+      });
+    },
+    removeAdmin: function removeAdmin(data) {
+      var _this6 = this;
+
+      _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].loading();
+      data.role = "user";
+      delete data.password;
+      _helper_request__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/user/update/' + data.id, data, this.accessToken).then(function (response) {
+        if (response.data.success) {
+          _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].success();
+
+          _this6.getAdmin();
         } else {
           _helper_alert__WEBPACK_IMPORTED_MODULE_1__["default"].error();
         }
@@ -154,7 +182,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-ea2cc2d0] {\n  color: #f77321;\n}\n.blue[data-v-ea2cc2d0] {\n  color: #0000f5;\n}\n.soft-blue[data-v-ea2cc2d0] {\n  color: #0076bd;\n}\n.red[data-v-ea2cc2d0] {\n  color: #f00;\n}\n.display-flex[data-v-ea2cc2d0] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-ea2cc2d0] {\n  display: block;\n}\nhtml[data-v-ea2cc2d0],\nbody[data-v-ea2cc2d0] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-ea2cc2d0],\nbody[data-v-ea2cc2d0] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-ea2cc2d0]:active,\ninput[data-v-ea2cc2d0]:focus,\nbutton[data-v-ea2cc2d0]:active,\nbutton[data-v-ea2cc2d0]:focus,\nselect[data-v-ea2cc2d0]:active,\nselect[data-v-ea2cc2d0]:focus {\n  outline: none;\n}\ninput.error[data-v-ea2cc2d0] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-ea2cc2d0],\ntr[data-v-ea2cc2d0] {\n  width: 100%;\n}\ntable > tr > th[data-v-ea2cc2d0] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-ea2cc2d0] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-ea2cc2d0] {\n  overflow-x: auto;\n}\n.text-center[data-v-ea2cc2d0] {\n  text-align: center;\n}\n.mt-1[data-v-ea2cc2d0] {\n  margin-top: 1em;\n}\n.mt-2[data-v-ea2cc2d0] {\n  margin-top: 2em;\n}\n.mt-3[data-v-ea2cc2d0] {\n  margin-top: 3em;\n}\n.mt-4[data-v-ea2cc2d0] {\n  margin-top: 4em;\n}\n.mt-5[data-v-ea2cc2d0] {\n  margin-top: 5em;\n}\n#district-management-admin[data-v-ea2cc2d0] {\n  padding-top: 15px;\n}\n.back-to-management[data-v-ea2cc2d0] {\n  padding-left: 15px;\n  color: #f77321;\n  font-weight: 700;\n  cursor: pointer;\n  margin-top: 1em;\n}\n.table-container[data-v-ea2cc2d0] {\n  margin-top: 2em;\n  margin-bottom: 1em;\n}\n.add-button[data-v-ea2cc2d0] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  cursor: pointer;\n}\n.filter-container[data-v-ea2cc2d0] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: end;\n          align-items: flex-end;\n  margin-top: -1em;\n}\n.filter-container > select[data-v-ea2cc2d0] {\n  height: 36px;\n  border: 2px solid #eaeaea;\n  border-radius: 8px;\n  -webkit-border-radius: 8px;\n  -moz-border-radius: 8px;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  margin-right: 15px;\n  padding: 0 5px;\n  width: 200px;\n}\noption[data-v-ea2cc2d0] {\n  cursor: pointer !important;\n}\ntd > .fa[data-v-ea2cc2d0],\ntd > .fas[data-v-ea2cc2d0] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n}\ntd > .fa-trash[data-v-ea2cc2d0] {\n  background: #f00;\n  -webkit-background: #f00;\n  -moz-background: #f00;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-ea2cc2d0] {\n  color: #f77321;\n}\n.blue[data-v-ea2cc2d0] {\n  color: #0000f5;\n}\n.soft-blue[data-v-ea2cc2d0] {\n  color: #0076bd;\n}\n.red[data-v-ea2cc2d0] {\n  color: #f00;\n}\n.display-flex[data-v-ea2cc2d0] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-ea2cc2d0] {\n  display: block;\n}\nhtml[data-v-ea2cc2d0],\nbody[data-v-ea2cc2d0] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-ea2cc2d0],\nbody[data-v-ea2cc2d0] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-ea2cc2d0]:active,\ninput[data-v-ea2cc2d0]:focus,\nbutton[data-v-ea2cc2d0]:active,\nbutton[data-v-ea2cc2d0]:focus,\nselect[data-v-ea2cc2d0]:active,\nselect[data-v-ea2cc2d0]:focus {\n  outline: none;\n}\ninput.error[data-v-ea2cc2d0] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-ea2cc2d0],\ntr[data-v-ea2cc2d0] {\n  width: 100%;\n}\ntable > tr > th[data-v-ea2cc2d0] {\n  padding: 10px 12px;\n  padding-top: 0;\n  min-width: 50px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-ea2cc2d0] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-ea2cc2d0] {\n  overflow-x: auto;\n}\n.text-center[data-v-ea2cc2d0] {\n  text-align: center;\n}\n.mt-1[data-v-ea2cc2d0] {\n  margin-top: 1em;\n}\n.mt-2[data-v-ea2cc2d0] {\n  margin-top: 2em;\n}\n.mt-3[data-v-ea2cc2d0] {\n  margin-top: 3em;\n}\n.mt-4[data-v-ea2cc2d0] {\n  margin-top: 4em;\n}\n.mt-5[data-v-ea2cc2d0] {\n  margin-top: 5em;\n}\n#district-management-admin[data-v-ea2cc2d0] {\n  padding-top: 15px;\n}\n.back-to-management[data-v-ea2cc2d0] {\n  padding-left: 15px;\n  color: #f77321;\n  font-weight: 700;\n  cursor: pointer;\n  margin-top: 1em;\n}\n.table-container[data-v-ea2cc2d0] {\n  margin-top: 2em;\n  margin-bottom: 1em;\n}\n.add-button[data-v-ea2cc2d0] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  cursor: pointer;\n}\n.filter-container[data-v-ea2cc2d0] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: end;\n          align-items: flex-end;\n  margin-top: -1em;\n}\n.filter-container > select[data-v-ea2cc2d0] {\n  height: 36px;\n  border: 2px solid #eaeaea;\n  border-radius: 8px;\n  -webkit-border-radius: 8px;\n  -moz-border-radius: 8px;\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  margin-right: 15px;\n  padding: 0 5px;\n  width: 220px;\n}\noption[data-v-ea2cc2d0] {\n  cursor: pointer !important;\n}\ntd > .fa[data-v-ea2cc2d0],\ntd > .fas[data-v-ea2cc2d0] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n}\ntd > .fa-trash[data-v-ea2cc2d0] {\n  background: #f00;\n  -webkit-background: #f00;\n  -moz-background: #f00;\n}\ntd > .fa-key[data-v-ea2cc2d0] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\n", ""]);
 
 // exports
 
@@ -317,6 +345,15 @@ var render = function() {
                                 attrs: { width: "100px" }
                               },
                               [
+                                _c("i", {
+                                  staticClass: "fa fa-key",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.confirmationResetPassword(data)
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
                                 _c("i", {
                                   staticClass: "fa fa-trash",
                                   on: {

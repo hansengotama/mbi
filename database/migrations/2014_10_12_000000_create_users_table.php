@@ -15,10 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('district_id');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->unsignedBigInteger('district_id')->nullable();
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->unsignedBigInteger('region_id')->nullable();
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('regions');
             $table->string('name');
             $table->string('email')->unique();
             $table->date('birth_of_date');
@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('blood_type')->nullable();
             $table->string('gender')->nullable();;
             $table->string('ktub_number')->nullable();;
+            $table->boolean('ktub_editable')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

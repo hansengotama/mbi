@@ -25,8 +25,10 @@
                     name: "",
                     account_number_1: "",
                     account_name_1: "",
+                    bank_name_1: "",
                     account_number_2: "",
-                    account_name_2: ""
+                    account_name_2: "",
+                    bank_name_2: "",
                 },
                 loading: false,
                 activeSecondAccountNumber: {

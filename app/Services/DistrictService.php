@@ -27,6 +27,8 @@ class DistrictService implements DistrictServiceInterface
         $formData['account_number_2'] = isset($request['account_number_2']) ? $request['account_number_2'] : null;
         $formData['account_name_1'] = $request['account_name_1'];
         $formData['account_name_2'] = isset($request['account_name_2']) ? $request['account_name_2'] : null;
+        $formData['bank_name_1'] = $request['bank_name_1'];
+        $formData['bank_name_2'] = isset($request['bank_name_2']) ? $request['bank_name_2'] : null;
 
         return $formData;
     }

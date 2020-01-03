@@ -5,7 +5,7 @@
                 Kecamatan
             </div>
             <div class="input-container">
-                <select v-model="formData.region_id" :class="error.class.region_id" @change="regionChangeed()">
+                <select v-model="formData.region_id" :class="error.class.region_id" @change="regionChanged()">
                     <option v-for="data in region" :value="data.id">{{ data.name }}</option>
                 </select>
                 <small class="red">{{ error.message.region_id }}</small>
@@ -144,6 +144,11 @@
         watch: {
             selectedRegion: {
                 handler: function handler() {
+                    if(this.region[0].id == null) {
+                        this.vihara = [{id: null, name: 'Vihara tidak ditemukan'}]
+                        this.formData.vihara_id = null
+                    }
+
                     if(!this.mounted && this.selectedRegion.id) {
                         this.mounted = true
                         this.formData.region_id = this.selectedRegion.id
@@ -155,7 +160,7 @@
             }
         },
         methods: {
-            regionChangeed() {
+            regionChanged() {
                 this.getVihara()
             },
             getVihara() {

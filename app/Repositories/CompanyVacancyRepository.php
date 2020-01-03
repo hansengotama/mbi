@@ -30,7 +30,6 @@ class CompanyVacancyRepository implements CompanyVacancyRepositoryInterface {
     public function create(array $data)
     {
         return CompanyVacancy::create([
-            'region_id' => $data['region_id'],
             'name' => $data['name'],
             'logo_url' => $data['logo_url'],
             'city' => $data['city'],
@@ -51,7 +50,6 @@ class CompanyVacancyRepository implements CompanyVacancyRepositoryInterface {
         $companyVacancy = $this->find($id);
 
         return $companyVacancy->update([
-            'region_id' => $data['region_id'],
             'name' => $data['name'],
             'logo_url' => $data['logo_url'],
             'city' => $data['city'],

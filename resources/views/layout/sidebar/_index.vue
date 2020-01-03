@@ -83,19 +83,21 @@
 
             this.menu = menu.data
 
-            if(this.$router.app._route.matched.length == 0 || (this.$router.app._route.matched[0] && this.$router.app._route.matched[0].name == 'Home'))
-                this.selectedMenuTitle = "Home"
-            else {
-                this.selectedMenuTitle = this.$router.app._route.matched[1].meta.parentTitle
+            if(this.$router.app._route.matched[0].name != 'Edit Profile') {
+                if(this.$router.app._route.matched.length == 0 || (this.$router.app._route.matched[0] && this.$router.app._route.matched[0].name == 'Home'))
+                    this.selectedMenuTitle = "Home"
+                else {
+                    this.selectedMenuTitle = this.$router.app._route.matched[1].meta.parentTitle
 
-                this.menu.forEach((data) => {
-                    if(data.title == this.selectedMenuTitle)
-                        data.active = true
-                    else
-                        data.active = false
+                    this.menu.forEach((data) => {
+                        if(data.title == this.selectedMenuTitle)
+                            data.active = true
+                        else
+                            data.active = false
 
-                    return true
-                })
+                        return true
+                    })
+                }
             }
         }
     }

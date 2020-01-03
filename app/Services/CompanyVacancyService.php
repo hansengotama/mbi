@@ -20,7 +20,6 @@ class CompanyVacancyService implements CompanyVacancyServiceInterface
 
     private function modelMapping(array $request) {
         $formData = [];
-        $formData['region_id'] = $request['region_id'];
         $formData['district_id'] = $request['district_id'];
         $formData['name'] = $request['name'];
         $formData['logo_url'] = $request['logo_url'];

@@ -98,10 +98,10 @@
                     district_id: "",
                     name: "",
                     email: "",
-                    password: "",
+                    password: "jayalahmbi",
                     birth_of_date: "",
                     phone_number: "",
-                    password_confirmation: "",
+                    password_confirmation: "jayalahmbi",
                     role: "admin",
                 },
                 loading: false,
@@ -148,9 +148,14 @@
                     request.get('/api/district', this.accessToken)
                     .then((response) => {
                         if (response.data.success) {
-                            this.district = response.data.result.data
-                            this.formData.district_id = response.data.result.data[0].id
-                            this.selectedDistrict = response.data.result.data[0]
+                            if(response.data.result.data[0]) {
+                                this.district = response.data.result.data
+                                this.selectedDistrict = response.data.result.data[0]
+                            }else {
+                                this.district = [{id: null, name: 'Kabupaten tidak ditemukan'}]
+                            }
+
+                            this.formData.district_id = this.district[0].id
                         }
                     })
                 }

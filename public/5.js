@@ -69,6 +69,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['formData', 'loading', 'activeSecondAccountNumber'],
@@ -77,15 +95,19 @@ __webpack_require__.r(__webpack_exports__);
       error: {
         "class": {
           name: "",
+          bank_name_1: "",
           account_number_1: "",
           account_name_1: "",
+          bank_name_2: "",
           account_number_2: "",
           account_name_2: ""
         },
         message: {
           name: "",
+          bank_name_1: "",
           account_number_1: "",
           account_name_1: "",
+          bank_name_2: "",
           account_number_2: "",
           account_name_2: ""
         }
@@ -98,13 +120,16 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.validateName()) validate = false;
       if (!this.validateAccountNumber()) validate = false;
       if (!this.validateAccountName()) validate = false;
+      if (!this.validateBankName()) validate = false;
       if (!this.validateSecondAccountNumber()) validate = false;
       if (!this.validateSecondAccountName()) validate = false;
+      if (!this.validateSecondBankName()) validate = false;
 
       if (validate) {
         if (!this.activeSecondAccountNumber.status) {
           this.formData.account_number_2 = "";
           this.formData.account_name_2 = "";
+          this.formData.bank_name_2 = "";
         }
 
         this.$emit('saveDistrict');
@@ -152,6 +177,20 @@ __webpack_require__.r(__webpack_exports__);
 
       return validate;
     },
+    validateBankName: function validateBankName() {
+      var validate = true;
+
+      if (_helper_validator__WEBPACK_IMPORTED_MODULE_0__["default"].required(this.formData.bank_name_1)) {
+        validate = false;
+        this.error["class"].bank_name_1 = "error";
+        this.error.message.bank_name_1 = "Nama Bank harus terisi";
+      } else {
+        this.error["class"].bank_name_1 = "";
+        this.error.message.bank_name_1 = "";
+      }
+
+      return validate;
+    },
     validateSecondAccountNumber: function validateSecondAccountNumber() {
       var validate = true;
 
@@ -180,6 +219,20 @@ __webpack_require__.r(__webpack_exports__);
 
       return validate;
     },
+    validateSecondBankName: function validateSecondBankName() {
+      var validate = true;
+
+      if (this.activeSecondAccountNumber.status && _helper_validator__WEBPACK_IMPORTED_MODULE_0__["default"].required(this.formData.bank_name_2)) {
+        validate = false;
+        this.error["class"].bank_name_2 = "error";
+        this.error.message.bank_name_2 = "Nama bank (2) harus terisi";
+      } else {
+        this.error["class"].bank_name_2 = "";
+        this.error.message.bank_name_2 = "";
+      }
+
+      return validate;
+    },
     toggleActiveSecondAccountNumber: function toggleActiveSecondAccountNumber() {
       this.activeSecondAccountNumber.status = !this.activeSecondAccountNumber.status;
       if (!this.activeSecondAccountNumber.status) this.resetSecondError();
@@ -187,13 +240,16 @@ __webpack_require__.r(__webpack_exports__);
     resetSecondError: function resetSecondError() {
       this.validateSecondAccountNumber();
       this.validateSecondAccountName();
+      this.validateSecondBankName();
     },
     resetForm: function resetForm() {
       this.formData.name = "";
       this.formData.account_number_1 = "";
       this.formData.account_name_1 = "";
+      this.formData.bank_name_1 = "";
       this.formData.account_number_2 = "";
       this.formData.account_name_2 = "";
+      this.formData.bank_name_2 = "";
     }
   }
 });
@@ -212,7 +268,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-47b7bf14] {\n  color: #f77321;\n}\n.blue[data-v-47b7bf14] {\n  color: #0000f5;\n}\n.soft-blue[data-v-47b7bf14] {\n  color: #0076bd;\n}\n.red[data-v-47b7bf14] {\n  color: #f00;\n}\n.display-flex[data-v-47b7bf14] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-47b7bf14] {\n  display: block;\n}\nhtml[data-v-47b7bf14],\nbody[data-v-47b7bf14] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-47b7bf14],\nbody[data-v-47b7bf14] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-47b7bf14]:active,\ninput[data-v-47b7bf14]:focus,\nbutton[data-v-47b7bf14]:active,\nbutton[data-v-47b7bf14]:focus,\nselect[data-v-47b7bf14]:active,\nselect[data-v-47b7bf14]:focus {\n  outline: none;\n}\ninput.error[data-v-47b7bf14] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-47b7bf14],\ntr[data-v-47b7bf14] {\n  width: 100%;\n}\ntable > tr > th[data-v-47b7bf14] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-47b7bf14] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-47b7bf14] {\n  overflow-x: auto;\n}\n.text-center[data-v-47b7bf14] {\n  text-align: center;\n}\n.mt-1[data-v-47b7bf14] {\n  margin-top: 1em;\n}\n.mt-2[data-v-47b7bf14] {\n  margin-top: 2em;\n}\n.mt-3[data-v-47b7bf14] {\n  margin-top: 3em;\n}\n.mt-4[data-v-47b7bf14] {\n  margin-top: 4em;\n}\n.mt-5[data-v-47b7bf14] {\n  margin-top: 5em;\n}\n.district-form[data-v-47b7bf14] {\n  margin: 1em;\n  margin-top: -1em;\n}\n.district-form > .form-container[data-v-47b7bf14] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  margin-top: 2em;\n}\n.district-form > .form-container > .label[data-v-47b7bf14] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.district-form > .form-container.checkbox[data-v-47b7bf14] {\n  cursor: pointer;\n}\n.district-form > .form-container > .checkbox[data-v-47b7bf14] {\n  margin-right: 5px;\n  cursor: pointer;\n}\n.district-form > .form-container > .input-container[data-v-47b7bf14] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.district-form > .form-container > .input-container > input[data-v-47b7bf14] {\n  width: 100%;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n  border: 1px solid #eaeaea;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 6px 12px;\n}\n.district-form > .form-container > .input-container > input.error[data-v-47b7bf14] {\n  border: 1px solid #f00;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n}\n.district-form > .button-container[data-v-47b7bf14] {\n  margin-top: 2em;\n}\n.district-form > .button-container > button[data-v-47b7bf14] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.district-form > .button-container > .loading[data-v-47b7bf14] {\n  margin-left: -25px;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-47b7bf14] {\n  color: #f77321;\n}\n.blue[data-v-47b7bf14] {\n  color: #0000f5;\n}\n.soft-blue[data-v-47b7bf14] {\n  color: #0076bd;\n}\n.red[data-v-47b7bf14] {\n  color: #f00;\n}\n.display-flex[data-v-47b7bf14] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-47b7bf14] {\n  display: block;\n}\nhtml[data-v-47b7bf14],\nbody[data-v-47b7bf14] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-47b7bf14],\nbody[data-v-47b7bf14] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-47b7bf14]:active,\ninput[data-v-47b7bf14]:focus,\nbutton[data-v-47b7bf14]:active,\nbutton[data-v-47b7bf14]:focus,\nselect[data-v-47b7bf14]:active,\nselect[data-v-47b7bf14]:focus {\n  outline: none;\n}\ninput.error[data-v-47b7bf14] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-47b7bf14],\ntr[data-v-47b7bf14] {\n  width: 100%;\n}\ntable > tr > th[data-v-47b7bf14] {\n  padding: 10px 12px;\n  padding-top: 0;\n  min-width: 50px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-47b7bf14] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-47b7bf14] {\n  overflow-x: auto;\n}\n.text-center[data-v-47b7bf14] {\n  text-align: center;\n}\n.mt-1[data-v-47b7bf14] {\n  margin-top: 1em;\n}\n.mt-2[data-v-47b7bf14] {\n  margin-top: 2em;\n}\n.mt-3[data-v-47b7bf14] {\n  margin-top: 3em;\n}\n.mt-4[data-v-47b7bf14] {\n  margin-top: 4em;\n}\n.mt-5[data-v-47b7bf14] {\n  margin-top: 5em;\n}\n.district-form[data-v-47b7bf14] {\n  margin: 1em;\n  margin-top: -1em;\n}\n.district-form > .form-container[data-v-47b7bf14] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  margin-top: 2em;\n}\n.district-form > .form-container > .label[data-v-47b7bf14] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.district-form > .form-container.checkbox[data-v-47b7bf14] {\n  cursor: pointer;\n}\n.district-form > .form-container > .checkbox[data-v-47b7bf14] {\n  margin-right: 5px;\n  cursor: pointer;\n}\n.district-form > .form-container > .input-container[data-v-47b7bf14] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.district-form > .form-container > .input-container > input[data-v-47b7bf14] {\n  width: 100%;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n  border: 1px solid #eaeaea;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 6px 12px;\n}\n.district-form > .form-container > .input-container > input.error[data-v-47b7bf14] {\n  border: 1px solid #f00;\n  box-shadow: 2px;\n  -webkit-box-shadow: 2px;\n  -moz-box-shadow: 2px;\n}\n.district-form > .button-container[data-v-47b7bf14] {\n  margin-top: 2em;\n}\n.district-form > .button-container > button[data-v-47b7bf14] {\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n  border: none;\n  border-bottom: 3px solid #b8860b;\n  color: #fff;\n  padding: 5px 18px;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.district-form > .button-container > .loading[data-v-47b7bf14] {\n  margin-left: -25px;\n}\n", ""]);
 
 // exports
 
@@ -295,6 +351,40 @@ var render = function() {
         _vm._v(" "),
         _c("small", { staticClass: "red" }, [
           _vm._v(_vm._s(_vm.error.message.name))
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-container" }, [
+      _c("div", { staticClass: "label" }, [
+        _vm._v("\n            Nama Bank\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-container" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.bank_name_1,
+              expression: "formData.bank_name_1"
+            }
+          ],
+          class: _vm.error.class.bank_name_1,
+          attrs: { type: "text", placeholder: "nama bank" },
+          domProps: { value: _vm.formData.bank_name_1 },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formData, "bank_name_1", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("small", { staticClass: "red" }, [
+          _vm._v(_vm._s(_vm.error.message.bank_name_1))
         ])
       ])
     ]),
@@ -420,6 +510,54 @@ var render = function() {
           }
         }),
         _vm._v(" Aktifkan akun rekening kedua\n    ")
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.activeSecondAccountNumber.status,
+            expression: "activeSecondAccountNumber.status"
+          }
+        ],
+        staticClass: "form-container"
+      },
+      [
+        _c("div", { staticClass: "label" }, [
+          _vm._v("\n            Nama Bank (2)\n        ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-container" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.bank_name_2,
+                expression: "formData.bank_name_2"
+              }
+            ],
+            class: _vm.error.class.bank_name_2,
+            attrs: { type: "text", placeholder: "nama bank (2)" },
+            domProps: { value: _vm.formData.bank_name_2 },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "bank_name_2", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("small", { staticClass: "red" }, [
+            _vm._v(_vm._s(_vm.error.message.bank_name_2))
+          ])
+        ])
       ]
     ),
     _vm._v(" "),

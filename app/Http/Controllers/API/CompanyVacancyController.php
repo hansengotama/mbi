@@ -59,7 +59,6 @@ class CompanyVacancyController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'region_id' => 'required|exists:regions,id',
             'name' => 'required',
             'logo_url' => 'required',
             'city' => 'required',
@@ -103,7 +102,6 @@ class CompanyVacancyController extends Controller
         if($checkCompanyVacancyNull) return $this->responseCompanyVacancyNull();
         else {
             $validator = Validator::make($request->all(), [
-                'region_id' => 'required|exists:regions,id',
                 'name' => 'required',
                 'logo_url' => 'required',
                 'city' => 'required',

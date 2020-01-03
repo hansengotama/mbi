@@ -18,9 +18,9 @@ class CreateRequestKtubsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('accepted_admin_id')->nullable();
-            $table->foreign('accepted_admin_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('accepted_admin_id')->references('id')->on('users');
             $table->unsignedBigInteger('district_id');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->string('id_number');
             $table->string('family_card_number');
             $table->string('last_education');

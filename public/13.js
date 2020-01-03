@@ -109,10 +109,10 @@ __webpack_require__.r(__webpack_exports__);
         district_id: "",
         name: "",
         email: "",
-        password: "",
+        password: "jayalahmbi",
         birth_of_date: "",
         phone_number: "",
-        password_confirmation: "",
+        password_confirmation: "jayalahmbi",
         role: "admin"
       },
       loading: false,
@@ -169,9 +169,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.accessToken) {
         _helper_request__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/district', this.accessToken).then(function (response) {
           if (response.data.success) {
-            _this2.district = response.data.result.data;
-            _this2.formData.district_id = response.data.result.data[0].id;
-            _this2.selectedDistrict = response.data.result.data[0];
+            if (response.data.result.data[0]) {
+              _this2.district = response.data.result.data;
+              _this2.selectedDistrict = response.data.result.data[0];
+            } else {
+              _this2.district = [{
+                id: null,
+                name: 'Kabupaten tidak ditemukan'
+              }];
+            }
+
+            _this2.formData.district_id = _this2.district[0].id;
           }
         });
       }
@@ -238,7 +246,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-787cd1d8] {\n  color: #f77321;\n}\n.blue[data-v-787cd1d8] {\n  color: #0000f5;\n}\n.soft-blue[data-v-787cd1d8] {\n  color: #0076bd;\n}\n.red[data-v-787cd1d8] {\n  color: #f00;\n}\n.display-flex[data-v-787cd1d8] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-787cd1d8] {\n  display: block;\n}\nhtml[data-v-787cd1d8],\nbody[data-v-787cd1d8] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-787cd1d8],\nbody[data-v-787cd1d8] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-787cd1d8]:active,\ninput[data-v-787cd1d8]:focus,\nbutton[data-v-787cd1d8]:active,\nbutton[data-v-787cd1d8]:focus,\nselect[data-v-787cd1d8]:active,\nselect[data-v-787cd1d8]:focus {\n  outline: none;\n}\ninput.error[data-v-787cd1d8] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-787cd1d8],\ntr[data-v-787cd1d8] {\n  width: 100%;\n}\ntable > tr > th[data-v-787cd1d8] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-787cd1d8] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-787cd1d8] {\n  overflow-x: auto;\n}\n.text-center[data-v-787cd1d8] {\n  text-align: center;\n}\n.mt-1[data-v-787cd1d8] {\n  margin-top: 1em;\n}\n.mt-2[data-v-787cd1d8] {\n  margin-top: 2em;\n}\n.mt-3[data-v-787cd1d8] {\n  margin-top: 3em;\n}\n.mt-4[data-v-787cd1d8] {\n  margin-top: 4em;\n}\n.mt-5[data-v-787cd1d8] {\n  margin-top: 5em;\n}\n#add-admin[data-v-787cd1d8] {\n  padding-top: 15px;\n}\ntd > .fa[data-v-787cd1d8],\ntd > .fas[data-v-787cd1d8] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\n.modal-body > .identity-container[data-v-787cd1d8] {\n  margin-top: 5px;\n}\n.modal-body > .identity-container > .name[data-v-787cd1d8],\n.modal-body > .identity-container > .email[data-v-787cd1d8],\n.modal-body > .identity-container > .phone-number[data-v-787cd1d8],\n.modal-body > .identity-container > .choose-district-container[data-v-787cd1d8] {\n  display: -webkit-box;\n  display: flex;\n  margin-top: 8px;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.modal-body > .identity-container > .name > .title[data-v-787cd1d8],\n.modal-body > .identity-container > .email > .title[data-v-787cd1d8],\n.modal-body > .identity-container > .phone-number > .title[data-v-787cd1d8],\n.modal-body > .identity-container > .choose-district-container > .title[data-v-787cd1d8] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.modal-body > .identity-container > .name > .value[data-v-787cd1d8],\n.modal-body > .identity-container > .email > .value[data-v-787cd1d8],\n.modal-body > .identity-container > .phone-number > .value[data-v-787cd1d8],\n.modal-body > .identity-container > .choose-district-container > .value[data-v-787cd1d8] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.modal-body > .identity-container > .choose-district-container > .value > select[data-v-787cd1d8] {\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 4px 6px;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-787cd1d8] {\n  color: #f77321;\n}\n.blue[data-v-787cd1d8] {\n  color: #0000f5;\n}\n.soft-blue[data-v-787cd1d8] {\n  color: #0076bd;\n}\n.red[data-v-787cd1d8] {\n  color: #f00;\n}\n.display-flex[data-v-787cd1d8] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-787cd1d8] {\n  display: block;\n}\nhtml[data-v-787cd1d8],\nbody[data-v-787cd1d8] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-787cd1d8],\nbody[data-v-787cd1d8] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-787cd1d8]:active,\ninput[data-v-787cd1d8]:focus,\nbutton[data-v-787cd1d8]:active,\nbutton[data-v-787cd1d8]:focus,\nselect[data-v-787cd1d8]:active,\nselect[data-v-787cd1d8]:focus {\n  outline: none;\n}\ninput.error[data-v-787cd1d8] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-787cd1d8],\ntr[data-v-787cd1d8] {\n  width: 100%;\n}\ntable > tr > th[data-v-787cd1d8] {\n  padding: 10px 12px;\n  padding-top: 0;\n  min-width: 50px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-787cd1d8] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-787cd1d8] {\n  overflow-x: auto;\n}\n.text-center[data-v-787cd1d8] {\n  text-align: center;\n}\n.mt-1[data-v-787cd1d8] {\n  margin-top: 1em;\n}\n.mt-2[data-v-787cd1d8] {\n  margin-top: 2em;\n}\n.mt-3[data-v-787cd1d8] {\n  margin-top: 3em;\n}\n.mt-4[data-v-787cd1d8] {\n  margin-top: 4em;\n}\n.mt-5[data-v-787cd1d8] {\n  margin-top: 5em;\n}\n#add-admin[data-v-787cd1d8] {\n  padding-top: 15px;\n}\ntd > .fa[data-v-787cd1d8],\ntd > .fas[data-v-787cd1d8] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\n.modal-body > .identity-container[data-v-787cd1d8] {\n  margin-top: 5px;\n}\n.modal-body > .identity-container > .name[data-v-787cd1d8],\n.modal-body > .identity-container > .email[data-v-787cd1d8],\n.modal-body > .identity-container > .phone-number[data-v-787cd1d8],\n.modal-body > .identity-container > .choose-district-container[data-v-787cd1d8] {\n  display: -webkit-box;\n  display: flex;\n  margin-top: 8px;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.modal-body > .identity-container > .name > .title[data-v-787cd1d8],\n.modal-body > .identity-container > .email > .title[data-v-787cd1d8],\n.modal-body > .identity-container > .phone-number > .title[data-v-787cd1d8],\n.modal-body > .identity-container > .choose-district-container > .title[data-v-787cd1d8] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.modal-body > .identity-container > .name > .value[data-v-787cd1d8],\n.modal-body > .identity-container > .email > .value[data-v-787cd1d8],\n.modal-body > .identity-container > .phone-number > .value[data-v-787cd1d8],\n.modal-body > .identity-container > .choose-district-container > .value[data-v-787cd1d8] {\n  -webkit-box-flex: 2;\n          flex: 2;\n}\n.modal-body > .identity-container > .choose-district-container > .value > select[data-v-787cd1d8] {\n  background: #fff;\n  -webkit-background: #fff;\n  -moz-background: #fff;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n  padding: 4px 6px;\n}\n", ""]);
 
 // exports
 

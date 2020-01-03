@@ -56,6 +56,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -149,7 +155,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Public+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".orange[data-v-209507b5] {\n  color: #f77321;\n}\n.blue[data-v-209507b5] {\n  color: #0000f5;\n}\n.soft-blue[data-v-209507b5] {\n  color: #0076bd;\n}\n.red[data-v-209507b5] {\n  color: #f00;\n}\n.display-flex[data-v-209507b5] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-209507b5] {\n  display: block;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-209507b5]:active,\ninput[data-v-209507b5]:focus,\nbutton[data-v-209507b5]:active,\nbutton[data-v-209507b5]:focus,\nselect[data-v-209507b5]:active,\nselect[data-v-209507b5]:focus {\n  outline: none;\n}\ninput.error[data-v-209507b5] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-209507b5],\ntr[data-v-209507b5] {\n  width: 100%;\n}\ntable > tr > th[data-v-209507b5] {\n  padding-bottom: 12px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-209507b5] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-209507b5] {\n  overflow-x: auto;\n}\n.text-center[data-v-209507b5] {\n  text-align: center;\n}\n.mt-1[data-v-209507b5] {\n  margin-top: 1em;\n}\n.mt-2[data-v-209507b5] {\n  margin-top: 2em;\n}\n.mt-3[data-v-209507b5] {\n  margin-top: 3em;\n}\n.mt-4[data-v-209507b5] {\n  margin-top: 4em;\n}\n.mt-5[data-v-209507b5] {\n  margin-top: 5em;\n}\n#district-management[data-v-209507b5] {\n  padding-top: 15px;\n}\n.table-container[data-v-209507b5] {\n  margin-top: 2em;\n  margin-bottom: 1em;\n}\ntd > .fa[data-v-209507b5],\ntd > .fas[data-v-209507b5] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n}\ntd > .fa-edit[data-v-209507b5] {\n  margin-right: 4px;\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\ntd > .fa-trash[data-v-209507b5] {\n  background: #f00;\n  -webkit-background: #f00;\n  -moz-background: #f00;\n}\n", ""]);
+exports.push([module.i, ".orange[data-v-209507b5] {\n  color: #f77321;\n}\n.blue[data-v-209507b5] {\n  color: #0000f5;\n}\n.soft-blue[data-v-209507b5] {\n  color: #0076bd;\n}\n.red[data-v-209507b5] {\n  color: #f00;\n}\n.display-flex[data-v-209507b5] {\n  display: -webkit-box;\n  display: flex;\n}\n.display-block[data-v-209507b5] {\n  display: block;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  font-family: 'Public Sans', sans-serif !important;\n  font-size: 14px;\n}\nhtml[data-v-209507b5],\nbody[data-v-209507b5] {\n  width: 100%;\n  min-height: 100%;\n}\ninput[data-v-209507b5]:active,\ninput[data-v-209507b5]:focus,\nbutton[data-v-209507b5]:active,\nbutton[data-v-209507b5]:focus,\nselect[data-v-209507b5]:active,\nselect[data-v-209507b5]:focus {\n  outline: none;\n}\ninput.error[data-v-209507b5] {\n  border-color: #f00 !important;\n  margin-bottom: 5px;\n}\ntable[data-v-209507b5],\ntr[data-v-209507b5] {\n  width: 100%;\n}\ntable > tr > th[data-v-209507b5] {\n  padding: 10px 12px;\n  padding-top: 0;\n  min-width: 50px;\n  text-transform: uppercase;\n  font-size: 14px;\n  font-weight: normal;\n  border-bottom: 2px solid #f0f0f0;\n}\ntable > tr > td[data-v-209507b5] {\n  padding: 10px 15px;\n  border-left: none;\n  border-right: none;\n}\n.table-container[data-v-209507b5] {\n  overflow-x: auto;\n}\n.text-center[data-v-209507b5] {\n  text-align: center;\n}\n.mt-1[data-v-209507b5] {\n  margin-top: 1em;\n}\n.mt-2[data-v-209507b5] {\n  margin-top: 2em;\n}\n.mt-3[data-v-209507b5] {\n  margin-top: 3em;\n}\n.mt-4[data-v-209507b5] {\n  margin-top: 4em;\n}\n.mt-5[data-v-209507b5] {\n  margin-top: 5em;\n}\n#district-management[data-v-209507b5] {\n  padding-top: 15px;\n}\n.table-container[data-v-209507b5] {\n  margin-top: 2em;\n  margin-bottom: 1em;\n}\ntd > .fa[data-v-209507b5],\ntd > .fas[data-v-209507b5] {\n  padding: 6px;\n  color: #fff;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  cursor: pointer;\n}\ntd > .fa-edit[data-v-209507b5] {\n  margin-right: 4px;\n  background: #f77321;\n  -webkit-background: #f77321;\n  -moz-background: #f77321;\n}\ntd > .fa-trash[data-v-209507b5] {\n  background: #f00;\n  -webkit-background: #f00;\n  -moz-background: #f00;\n}\n", ""]);
 
 // exports
 
@@ -228,9 +234,13 @@ var render = function() {
                       _vm._v(" "),
                       _c("th", [_vm._v("Nama Rekening")]),
                       _vm._v(" "),
+                      _c("th", [_vm._v("Nama Bank")]),
+                      _vm._v(" "),
                       _c("th", [_vm._v("Nomor Rekening (2)")]),
                       _vm._v(" "),
                       _c("th", [_vm._v("Nama Rekening (2)")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Nama Bank(2)")]),
                       _vm._v(" "),
                       _c("th", { staticClass: "text-center" }, [_vm._v("Aksi")])
                     ]),
@@ -259,6 +269,8 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.account_name_1))]),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.bank_name_1))]),
+                            _vm._v(" "),
                             _c("td", [
                               data.account_number_2
                                 ? _c("span", [
@@ -275,6 +287,12 @@ var render = function() {
                                 : _c("span", [_vm._v("-")])
                             ]),
                             _vm._v(" "),
+                            _c("td", [
+                              data.bank_name_2
+                                ? _c("span", [_vm._v(_vm._s(data.bank_name_2))])
+                                : _c("span", [_vm._v("-")])
+                            ]),
+                            _vm._v(" "),
                             _c(
                               "td",
                               {
@@ -287,17 +305,6 @@ var render = function() {
                                   on: {
                                     click: function($event) {
                                       return _vm.editDistrict(data)
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("i", {
-                                  staticClass: "fa fa-trash",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.confirmationDeleteDistrict(
-                                        data
-                                      )
                                     }
                                   }
                                 })

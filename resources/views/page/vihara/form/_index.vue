@@ -92,7 +92,6 @@
         watch: {
             selectedRegion: {
                 handler: function handler() {
-                    console.log(this.selectedRegion.id)
                     if(!this.mounted && this.selectedRegion.id) {
                         this.mounted = true
                         this.formData.region_id = this.selectedRegion.id

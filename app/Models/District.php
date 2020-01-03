@@ -12,5 +12,7 @@ class District extends Model
         'account_number_2',
         'account_name_1',
         'account_name_2',
+        'bank_name_1',
+        'bank_name_2',
     ];
 }

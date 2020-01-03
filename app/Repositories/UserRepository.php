@@ -16,7 +16,7 @@ class UserRepository implements UserRepositoryInterface {
             'email' => $data['email'],
             'birth_of_date' => $data['birth_of_date'],
             'phone_number' => $data['phone_number'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
             'role' => $data['role'],
             'district_id' => $data['district_id']
         ]);

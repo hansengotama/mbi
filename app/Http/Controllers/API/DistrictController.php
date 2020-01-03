@@ -61,7 +61,8 @@ class DistrictController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'account_number_1' => 'required',
-            'account_name_1' => 'required'
+            'account_name_1' => 'required',
+            'bank_name_1' => 'required'
         ]);;
 
         if ($validator->fails()) {
@@ -94,7 +95,8 @@ class DistrictController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'account_number_1' => 'required',
-                'account_name_1' => 'required'
+                'account_name_1' => 'required',
+                'bank_name_1' => 'required'
             ]);
 
             if ($validator->fails()) {
