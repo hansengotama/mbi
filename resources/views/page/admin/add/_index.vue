@@ -67,7 +67,7 @@
                                 <div class="value">{{ selectedUser.phone_number }}</div>
                             </div>
                             <div class="choose-district-container">
-                                <div class="title">District</div>
+                                <div class="title">Kabupaten</div>
                                 <div class="value">
                                     <select v-model="selectedDistrict">
                                         <option :value="data" v-for="data in district">{{ data.name }}</option>

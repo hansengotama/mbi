@@ -112,7 +112,7 @@
                         if(response.data.result.data.length > 0)
                             this.region = response.data.result.data
                         else
-                            this.region = [{id: null, name: 'Kabupaten tidak ditemukan'}]
+                            this.region = [{id: null, name: 'Kecamatan tidak ditemukan'}]
 
                         this.selectedRegion = this.region[0]
                     }

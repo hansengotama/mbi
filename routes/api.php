@@ -18,6 +18,7 @@ Route::namespace('API')->group(function () {
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/user/check', 'UserController@check');
+        Route::post('/user/check/password', 'UserController@checkUserPassword');
         Route::post('/logout', 'UserController@logout');
 
         Route::prefix('assets')->group(function () {
@@ -64,19 +65,19 @@ Route::namespace('API')->group(function () {
             });
 
             Route::prefix('donation')->group(function () {
+                Route::get('/', 'DonationController@get');
+                Route::get('/{id}', 'DonationController@find');
                 Route::post('/create', 'DonationController@create');
                 Route::post('/update/{id}', 'DonationController@update');
                 Route::post('/delete/{id}', 'DonationController@delete');
-                Route::get('/', 'DonationController@get');
-                Route::get('/{id}', 'DonationController@find');
             });
 
             Route::prefix('company-vacancy')->group(function () {
+                Route::get('/', 'CompanyVacancyController@get');
+                Route::get('/{id}', 'CompanyVacancyController@find');
                 Route::post('/create', 'CompanyVacancyController@create');
                 Route::post('/update/{id}', 'CompanyVacancyController@update');
                 Route::post('/delete/{id}', 'CompanyVacancyController@delete');
-                Route::get('/', 'CompanyVacancyController@get');
-                Route::get('/{id}', 'CompanyVacancyController@find');
             });
         });
 
@@ -90,27 +91,27 @@ Route::namespace('API')->group(function () {
             });
 
             Route::prefix('pandita')->group(function () {
+                Route::get('/', 'PanditaController@get');
+                Route::get('/{id}', 'PanditaController@find');
                 Route::post('/create', 'PanditaController@create');
                 Route::post('/update/{id}', 'PanditaController@update');
                 Route::post('/delete/{id}', 'PanditaController@delete');
-                Route::get('/', 'PanditaController@get');
-                Route::get('/{id}', 'PanditaController@find');
             });
 
             Route::prefix('event')->group(function () {
+                Route::get('/', 'EventController@get');
+                Route::get('/{id}', 'EventController@find');
                 Route::post('/create', 'EventController@create');
                 Route::post('/update/{id}', 'EventController@update');
                 Route::post('/delete/{id}', 'EventController@delete');
-                Route::get('/', 'EventController@get');
-                Route::get('/{id}', 'EventController@find');
             });
 
             Route::prefix('deceased')->group(function () {
+                Route::get('/', 'DeceasedController@get');
+                Route::get('/{id}', 'DeceasedController@find');
                 Route::post('/create', 'DeceasedController@create');
                 Route::post('/update/{id}', 'DeceasedController@update');
                 Route::post('/delete/{id}', 'DeceasedController@delete');
-                Route::get('/', 'DeceasedController@get');
-                Route::get('/{id}', 'DeceasedController@find');
             });
         });
     });

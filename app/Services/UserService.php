@@ -30,6 +30,7 @@ class UserService implements UserServiceInterface
         $formData['phone_number'] = $request['phone_number'];
         $formData['password'] = $request['password'];
         $formData['district_id'] = $request['district_id'];
+        $formData['region_id'] = $request['region_id'];
 
         return $formData;
     }

@@ -78,10 +78,20 @@
         mounted() {
             this.getUser()
         },
+        computed: {
+            userLogin: {
+                get() {
+                    return this.$store.getters["getUserLogin"];
+                },
+                set(value) {
+                    this.$store.commit("setUserLogin", value);
+                }
+            }
+        },
         methods: {
             getUser() {
                 if(this.accessToken) {
-                    request.get('/api/user?filter[text]=' + this.filter.text + '&filter[page]=' + this.filter.page + '&filter[per_page]=' + this.filter.per_page, this.accessToken)
+                    request.get('/api/user?filter[text]=' + this.filter.text + '&filter[page]=' + this.filter.page + '&filter[per_page]=' + this.filter.per_page + '&filter[district_id]=' + this.userLogin.district_id, this.accessToken)
                     .then((response) => {
                         if(response.data.success)
                             this.user = response.data.result

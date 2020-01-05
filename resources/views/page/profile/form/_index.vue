@@ -1,15 +1,5 @@
 <template>
-    <div class="district-form">
-        <div class="form-container">
-            <div class="label">
-                Admin Kabupaten
-            </div>
-            <div class="input-container">
-                <select v-model="formData.district_id">
-                    <option :value="data.id" v-for="data in district">{{ data.name }}</option>
-                </select>
-            </div>
-        </div>
+    <div class="profile-form">
         <div class="form-container">
             <div class="label">
                 Nama
@@ -30,11 +20,11 @@
         </div>
         <div class="form-container">
             <div class="label">
-                Kata Sandi
+                Tanggal Lahir
             </div>
             <div class="input-container">
-                <input type="text" placeholder="kata sandi" v-model="formData.password" :class="error.class.password">
-                <small class="red">{{ error.message.password }}</small>
+                <input type="date" v-model="formData.birth_of_date" :class="error.class.birth_of_date">
+                <small class="red">{{ error.message.birth_of_date }}</small>
             </div>
         </div>
         <div class="form-container">
@@ -44,15 +34,6 @@
             <div class="input-container">
                 <input type="text" placeholder="nomor telepon" v-model="formData.phone_number" :class="error.class.phone_number">
                 <small class="red">{{ error.message.phone_number }}</small>
-            </div>
-        </div>
-        <div class="form-container">
-            <div class="label">
-                Tanggal Lahir
-            </div>
-            <div class="input-container">
-                <input type="date" placeholder="tanggal lahir" v-model="formData.birth_of_date" :class="error.class.birth_of_date">
-                <small class="red">{{ error.message.birth_of_date }}</small>
             </div>
         </div>
         <div class="button-container">
@@ -68,23 +49,19 @@
     import validator from "../../../../helper/validator"
 
     export default {
-        props: ['formData', 'loading', 'district'],
+        props: ['formData', 'loading'],
         data() {
             return {
                 error: {
-                    class: {
-                        district_id: "",
+                    message: {
                         name: "",
                         email: "",
-                        password: "",
                         birth_of_date: "",
                         phone_number: ""
                     },
-                    message: {
-                        district_id: "",
+                    class: {
                         name: "",
                         email: "",
-                        password: "",
                         birth_of_date: "",
                         phone_number: ""
                     }
@@ -94,14 +71,14 @@
         methods: {
             validate() {
                 let validate = true
+
                 if(!this.validateName()) validate = false
                 if(!this.validateEmail()) validate = false
-                if(!this.validatePassword()) validate = false
                 if(!this.validateBirthOfDate()) validate = false
                 if(!this.validatePhoneNumber()) validate = false
 
-                window.scrollTo(0, 0)
-                if(validate == true) this.$emit('saveAdmin')
+                if(validate)
+                    this.$emit('saveProfile')
             },
             validateName() {
                 let validate = true
@@ -124,31 +101,9 @@
                     validate = false
                     this.error.class.email = "error"
                     this.error.message.email = "Email harus terisi"
-                }else if(validator.emailFormat(this.formData.email)) {
-                    validate = false
-                    this.error.class.email = "error"
-                    this.error.message.email = "Format email harus sesuai"
                 }else {
                     this.error.class.email = ""
                     this.error.message.email = ""
-                }
-
-                return validate
-            },
-            validatePassword() {
-                let validate = true
-
-                if(validator.required(this.formData.password)) {
-                    validate = false
-                    this.error.class.password = "error"
-                    this.error.message.password = "Kata sandi harus terisi"
-                } else if(this.formData.password.length < 8) {
-                    validate = false
-                    this.error.class.password = "error"
-                    this.error.message.password = "Kata sandi harus terdiri dari 8 karakter atau lebih"
-                }else {
-                    this.error.class.password = ""
-                    this.error.message.password = ""
                 }
 
                 return validate
@@ -182,13 +137,10 @@
                 return validate
             },
             resetForm() {
-                this.formData.district_id = this.district[0].id
                 this.formData.name = ""
                 this.formData.email = ""
-                this.formData.password = "jayalahmbi"
                 this.formData.birth_of_date = ""
                 this.formData.phone_number = ""
-                this.formData.password_confirmation = "jayalahmbi"
             }
         }
     }
@@ -197,45 +149,36 @@
 <style lang="stylus" scoped>
     @import "./../../../../stylus/app.styl"
 
-    .district-form
+    .profile-form
         margin 1em
         margin-top -1em
 
-    .district-form > .form-container
+    .profile-form > .form-container
         display flex
         align-items center
         margin-top 2em
 
-    .district-form > .form-container > .label
+    .profile-form > .form-container > .label
         flex 1
 
-    .district-form > .form-container.checkbox
-        cursor pointer
-
-    .district-form > .form-container > .checkbox
-        margin-right 5px
-        cursor pointer
-
-    .district-form > .form-container > .input-container
+    .profile-form > .form-container > .input-container
         flex 2
 
-    .district-form > .form-container > .input-container > select,
-    .district-form > .form-container > .input-container > input
+    .profile-form > .form-container > .input-container > input
         width 100%
         box-shadow 2px 2px 1px 0 #eaeaea
         border 1px solid #eaeaea
         border-radius 3px
         padding 6px 12px
-        background white
 
-    .district-form > .form-container > .input-container > input.error
+    .profile-form > .form-container > .input-container > input.error
         border 1px solid red
         box-shadow 2px 2px 1px 0 red
 
-    .district-form > .button-container
+    .profile-form > .button-container
         margin-top 2em
 
-    .district-form > .button-container > button
+    .profile-form > .button-container > button
         background $orange
         border none
         border-bottom 3px solid darkgoldenrod
@@ -245,7 +188,6 @@
         text-transform uppercase
         cursor pointer
 
-    .district-form > .button-container > .loading
+    .profile-form > .button-container > .loading
         margin-left -25px
 </style>
-

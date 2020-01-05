@@ -83,7 +83,7 @@
 
             this.menu = menu.data
 
-            if(this.$router.app._route.matched[0].name != 'Edit Profile') {
+            if(! (this.$router.app._route.matched[0].name == 'Edit Profile' || this.$router.app._route.matched[0].name == 'Change Password')) {
                 if(this.$router.app._route.matched.length == 0 || (this.$router.app._route.matched[0] && this.$router.app._route.matched[0].name == 'Home'))
                     this.selectedMenuTitle = "Home"
                 else {

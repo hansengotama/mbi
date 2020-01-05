@@ -1,13 +1,14 @@
 <template>
-    <div class="district-form">
+    <div class="pic-region-form">
         <div class="form-container">
             <div class="label">
-                Admin Kabupaten
+                PIC Kecamatan
             </div>
             <div class="input-container">
-                <select v-model="formData.district_id">
-                    <option :value="data.id" v-for="data in district">{{ data.name }}</option>
+                <select v-model="formData.region_id" :class="error.class.region_id">
+                    <option v-for="data in regionData" :value="data.id">{{ data.name }}</option>
                 </select>
+                <small class="red">{{ error.message.region_id }}</small>
             </div>
         </div>
         <div class="form-container">
@@ -68,12 +69,12 @@
     import validator from "../../../../helper/validator"
 
     export default {
-        props: ['formData', 'loading', 'district'],
+        props: ['formData', 'loading', 'regionData', 'selectedRegion'],
         data() {
             return {
                 error: {
                     class: {
-                        district_id: "",
+                        region_id: "",
                         name: "",
                         email: "",
                         password: "",
@@ -81,7 +82,7 @@
                         phone_number: ""
                     },
                     message: {
-                        district_id: "",
+                        region_id: "",
                         name: "",
                         email: "",
                         password: "",
@@ -91,6 +92,9 @@
                 }
             }
         },
+        mounted() {
+            this.formData.region_id = this.selectedRegion.id
+        },
         methods: {
             validate() {
                 let validate = true
@@ -99,9 +103,10 @@
                 if(!this.validatePassword()) validate = false
                 if(!this.validateBirthOfDate()) validate = false
                 if(!this.validatePhoneNumber()) validate = false
+                if(!this.validateRegionId()) validate = false
 
                 window.scrollTo(0, 0)
-                if(validate == true) this.$emit('saveAdmin')
+                if(validate == true) this.$emit('savePicRegion')
             },
             validateName() {
                 let validate = true
@@ -181,14 +186,28 @@
 
                 return validate
             },
+            validateRegionId() {
+                let validate = true
+
+                if(this.formData.region_id == null) {
+                    validate = false
+                    this.error.class.region_id = "error"
+                    this.error.message.region_id = " Kecamatan harus di dipilih"
+                }else {
+                    this.error.class.region_id = ""
+                    this.error.message.region_id = ""
+                }
+
+                return validate
+            },
             resetForm() {
-                this.formData.district_id = this.district[0].id
                 this.formData.name = ""
                 this.formData.email = ""
                 this.formData.password = "jayalahmbi"
                 this.formData.birth_of_date = ""
                 this.formData.phone_number = ""
                 this.formData.password_confirmation = "jayalahmbi"
+                this.formData.region_id = this.selectedRegion.id
             }
         }
     }
@@ -197,30 +216,30 @@
 <style lang="stylus" scoped>
     @import "./../../../../stylus/app.styl"
 
-    .district-form
+    .pic-region-form
         margin 1em
         margin-top -1em
 
-    .district-form > .form-container
+    .pic-region-form > .form-container
         display flex
         align-items center
         margin-top 2em
 
-    .district-form > .form-container > .label
+    .pic-region-form > .form-container > .label
         flex 1
 
-    .district-form > .form-container.checkbox
+    .pic-region-form > .form-container.checkbox
         cursor pointer
 
-    .district-form > .form-container > .checkbox
+    .pic-region-form > .form-container > .checkbox
         margin-right 5px
         cursor pointer
 
-    .district-form > .form-container > .input-container
+    .pic-region-form > .form-container > .input-container
         flex 2
 
-    .district-form > .form-container > .input-container > select,
-    .district-form > .form-container > .input-container > input
+    .pic-region-form > .form-container > .input-container > select,
+    .pic-region-form > .form-container > .input-container > input
         width 100%
         box-shadow 2px 2px 1px 0 #eaeaea
         border 1px solid #eaeaea
@@ -228,14 +247,15 @@
         padding 6px 12px
         background white
 
-    .district-form > .form-container > .input-container > input.error
+    .pic-region-form > .form-container > .input-container > input.error,
+    .pic-region-form > .form-container > .input-container > select.error
         border 1px solid red
         box-shadow 2px 2px 1px 0 red
 
-    .district-form > .button-container
+    .pic-region-form > .button-container
         margin-top 2em
 
-    .district-form > .button-container > button
+    .pic-region-form > .button-container > button
         background $orange
         border none
         border-bottom 3px solid darkgoldenrod
@@ -245,7 +265,7 @@
         text-transform uppercase
         cursor pointer
 
-    .district-form > .button-container > .loading
+    .pic-region-form > .button-container > .loading
         margin-left -25px
 </style>
 

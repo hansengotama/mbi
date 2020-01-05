@@ -18,7 +18,8 @@ class UserRepository implements UserRepositoryInterface {
             'phone_number' => $data['phone_number'],
             'password' => $data['password'],
             'role' => $data['role'],
-            'district_id' => $data['district_id']
+            'district_id' => $data['district_id'],
+            'region_id' => $data['region_id'],
         ]);
     }
 
@@ -38,7 +39,8 @@ class UserRepository implements UserRepositoryInterface {
             'phone_number' => $data['phone_number'],
             'password' => $data['password'],
             'role' => $data['role'],
-            'district_id' => $data['district_id']
+            'district_id' => $data['district_id'],
+            'region_id' => $data['region_id'],
         ]);
     }
 

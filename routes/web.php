@@ -75,3 +75,4 @@ Route::namespace('API')->group(function () {
 });
 
 Route::get('edit-profile', 'VueController@index');
+Route::get('change-password', 'VueController@index');

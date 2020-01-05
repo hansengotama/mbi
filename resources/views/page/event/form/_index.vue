@@ -149,7 +149,7 @@
                         this.formData.vihara_id = null
                     }
 
-                    if(!this.mounted && this.selectedRegion.id) {
+                    if(!this.mounted && this.selectedRegion.name) {
                         this.mounted = true
                         this.formData.region_id = this.selectedRegion.id
                         this.getVihara()

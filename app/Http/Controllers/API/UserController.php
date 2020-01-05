@@ -55,8 +55,14 @@ class UserController extends Controller
         }else {
             $credentials = $request->only('email', 'password');
 
-            if (!Auth::attempt($credentials)) $response = $this->responseUserNull();
-            else {
+            if (!Auth::attempt($credentials)) {
+                $response = [
+                    'message' => 'Unauthorized',
+                    'code' => 401,
+                    'data' => null,
+                    'success' => false
+                ];
+            } else {
                 $user = $request->user();
                 $user['access_token'] = $user->createToken('Personal Access Token')->accessToken;
 
@@ -82,15 +88,19 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validate = [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'birth_of_date' => 'required|date',
             'phone_number' => 'required',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8',
             'password_confirmation' => 'required|min:8',
-            'district_id' => 'required|exists:districts,id'
-        ]);
+        ];
+
+        if(isset($request->district_id)) $validate = array_merge($validate, ['district_id' => 'exists:districts,id']);
+        if(isset($request->region_id)) $validate = array_merge($validate, ['region_id' => 'exists:regions,id']);
+
+        $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
             $response = [
@@ -107,7 +117,8 @@ class UserController extends Controller
             $tempData['birth_of_date'] = $request->birth_of_date;
             $tempData['phone_number'] = $request->phone_number;
             $tempData['password'] = Hash::make($request->password);
-            $tempData['district_id'] = $request->district_id;
+            $tempData['district_id'] = (!isset($request->district_id)) ? null : $request->district_id;
+            $tempData['region_id'] = (!isset($request->region_id)) ? null : $request->region_id;
 
             $data = $this->userService->create($tempData);
             $response = [
@@ -152,14 +163,14 @@ class UserController extends Controller
             $validate = [
                 'name' => 'required',
                 'birth_of_date' => 'required|date',
-                'phone_number' => 'required',
-                'district_id' => 'required|exists:districts,id'
+                'phone_number' => 'required'
             ];
 
-            if ($user->email != $request->email)
-                $validate = array_merge($validate, ['email' => 'required|email|unique:users']);
-            else
-                $validate = array_merge($validate, ['email' => 'required|email']);
+            if(isset($request->district_id)) $validate = array_merge($validate, ['district_id' => 'exists:districts,id']);
+            if(isset($request->region_id)) $validate = array_merge($validate, ['region_id' => 'exists:regions,id']);
+
+            if ($user->email != $request->email) $validate = array_merge($validate, ['email' => 'required|email|unique:users']);
+            else $validate = array_merge($validate, ['email' => 'required|email']);
 
             $validator = Validator::make($request->all(), $validate);
 
@@ -177,7 +188,8 @@ class UserController extends Controller
                 $tempData['role'] = $request->role;
                 $tempData['birth_of_date'] = $request->birth_of_date;
                 $tempData['phone_number'] = $request->phone_number;
-                $tempData['district_id'] = $request->district_id;
+                $tempData['district_id'] = (!isset($request->district_id)) ? null : $request->district_id;
+                $tempData['region_id'] = (!isset($request->region_id)) ? null : $request->region_id;
                 $tempData['password'] = ($request->password == null) ? $user->password : Hash::make($request->password);
 
                 $data = $this->userService->update($id, $tempData);
@@ -225,5 +237,41 @@ class UserController extends Controller
         }
 
         return api_response($response['success'], $response['code'], $response['message'], $response['data']);
+    }
+
+    public function checkUserPassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required'
+        ]);
+
+        $user = Auth::user();
+
+
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'code' => 422,
+                'message' => 'Error Validation',
+                'data' => $validator->errors()->messages()
+            ];
+        }else {
+            if (!Hash::check($request->password, $user->password)) {
+                $response = [
+                    'message' => 'Unauthorized',
+                    'code' => 401,
+                    'data' => null,
+                    'success' => false
+                ];
+            } else {
+                $response = [
+                    'message' => 'Success',
+                    'code' => 200,
+                    'data' => null,
+                    'success' => true
+                ];
+            }
+        }
+
+        return $response;
     }
 }

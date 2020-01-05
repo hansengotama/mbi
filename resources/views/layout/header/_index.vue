@@ -9,7 +9,8 @@
             <div class="text">{{ user.name }}</div>
             <i class="fas fa-caret-down"></i>
             <div class="logout-container" v-if="showLogout">
-                <div class="edit-profile-text" @click="editProfile()">Edit Profile</div>
+                <div class="edit-profile-text" @click="editProfile()">Profile</div>
+                <div class="change-password" @click="changePassword()">Ganti Password</div>
                 <div class="logout-text" @click="logout()">Logout</div>
             </div>
         </div>
@@ -58,6 +59,13 @@
                 this.$router.push({
                     name: "Logout"
                 })
+            },
+            changePassword() {
+                if(this.$router.history.current.name != "Change Password") {
+                    this.$router.push({
+                        name: "Change Password"
+                    })
+                }
             }
         },
     }
@@ -114,8 +122,15 @@
         border 1px solid #eaeaea
         border-bottom 0
 
+    .header > .profile-container > .logout-container > .change-password
+        background white
+        padding 10px 50px
+        border 1px solid #eaeaea
+        border-bottom 0
+
     .header > .profile-container > .logout-container > .logout-text:hover,
-    .header > .profile-container > .logout-container > .edit-profile-text:hover
+    .header > .profile-container > .logout-container > .edit-profile-text:hover,
+    .header > .profile-container > .logout-container > .change-password:hover
         background $orange
         color white
 

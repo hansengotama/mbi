@@ -19,6 +19,12 @@ export default {
             component: () => import('../../views/page/profile/edit/_index')
         },
         {
+            path: '/change-password',
+            name: 'Change Password',
+            roles: ['super_admin', 'admin', 'pic_kecamatan'],
+            component: () => import('../../views/page/profile/change_password/_index')
+        },
+        {
             path: '/login',
             name: 'Login',
             roles: ['super_admin', 'admin', 'pic_kecamatan'],
