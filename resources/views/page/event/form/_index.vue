@@ -59,29 +59,45 @@
             </div>
         </div>
         <div class="form-detail-container">
-            <div class="label">
+            <div class="label" style="margin-top: 10px">
                 Rincian
             </div>
             <div class="detail">
-                <div class="detail-container" v-for="(detail, index) in formData.detail" :key="index">
+                <div class="detail-container" v-for="(data, index) in formData.detail" :key="index">
                     <div class="from">
-                        <input type="datetime-local" v-model="detail.from">
-                        <small class="red">{{ error.message.address }}</small>
+                        <div class="date">
+                            <input type="date" v-model="formData.detail[index].date_from" :class="error.class.detail[index].date_from">
+                            <small class="red">{{ error.message.detail[index].date_from }}</small>
+                        </div>
+                        <div class="time">
+                            <input type="time" v-model="formData.detail[index].time_from" :class="error.class.detail[index].time_from">
+                            <small class="red">{{ error.message.detail[index].time_from }}</small>
+                        </div>
                     </div>
                     <div class="strip">s/d</div>
                     <div class="until">
-                        <input type="datetime-local" v-model="detail.to">
-                        <small class="red">{{ error.message.address }}</small>
+                        <div class="date">
+                            <input type="date" v-model="formData.detail[index].date_until" :class="error.class.detail[index].date_until">
+                            <small class="red">{{ error.message.detail[index].date_until }}</small>
+                        </div>
+                        <div class="time">
+                            <input type="time" v-model="formData.detail[index].time_until" :class="error.class.detail[index].time_until">
+                            <small class="red">{{ error.message.detail[index].time_until }}</small>
+                        </div>
                     </div>
-                    <div class="add" @click="addDetail()" v-if="detail.isAdd">
-                        <i class="fa fa-plus"></i>
-                    </div>
-                    <div class="add" @click="removeDetail(index)" v-else>
+                    <div class="add" @click="removeDetail(index)">
                         <i class="fa fa-trash"></i>
                     </div>
                 </div>
             </div>
         </div>
+        <div style="display: flex">
+            <div style="flex: 1"></div>
+            <div style="flex: 2; margin-top: 1em">
+                <div style="padding: 8px 6px; background: #eaeaea; color: black; font-weight: 700; text-align: center; cursor: pointer" @click="addDetail()">tambah</div>
+            </div>
+        </div>
+
         <div class="button-container">
             <button v-if="!loading" @click="validate()">simpan</button>
             <div class="loading" v-else>
@@ -108,6 +124,14 @@
                         description: "",
                         address: "",
                         poster_url: "",
+                        detail: [
+                            {
+                                date_from: "",
+                                date_until: "",
+                                time_from: "",
+                                time_until: "",
+                            }
+                        ]
                     },
                     class: {
                         region_id: "",
@@ -116,6 +140,14 @@
                         description: "",
                         address: "",
                         poster_url: "",
+                        detail: [
+                            {
+                                date_from: "",
+                                date_until: "",
+                                time_from: "",
+                                time_until: "",
+                            }
+                        ]
                     }
                 },
                 file: null,
@@ -143,13 +175,13 @@
         },
         watch: {
             selectedRegion: {
-                handler: function handler() {
-                    if(this.region[0].id == null) {
-                        this.vihara = [{id: null, name: 'Vihara tidak ditemukan'}]
-                        this.formData.vihara_id = null
-                    }
-
+                handler() {
                     if(!this.mounted && this.selectedRegion.name) {
+                        if(this.region[0].id == null) {
+                            this.vihara = [{id: null, name: 'Vihara tidak ditemukan'}]
+                            this.formData.vihara_id = null
+                        }
+
                         this.mounted = true
                         this.formData.region_id = this.selectedRegion.id
                         this.getVihara()
@@ -186,6 +218,7 @@
                 if(!this.validatePosterUrl()) validate = false
                 if(!this.validateViharaId()) validate = false
                 if(!this.validateRegionId()) validate = false
+                if(!this.validateDetail()) validate = false
 
                 if(validate) {
                     if(this.isEdit && this.file != null)
@@ -311,6 +344,31 @@
 
                 return validate
             },
+            validateDetail() {
+                let validate = true
+
+                for(let i = 0; i < this.formData.detail.length; i++) {
+                    if(validator.required(this.formData.detail[i].date_until)) {
+                        validate = false
+                        this.error.class.detail[i].date_until = "error"
+                        this.error.message.detail[i].date_until = "Harus diisi"
+                    }else {
+                        this.error.class.detail[i].date_until = ""
+                        this.error.message.detail[i].date_until = ""
+                    }
+
+                    if(validator.required(this.formData.detail[i].date_from)) {
+                        validate = false
+                        this.error.class.detail[i].date_from = "error"
+                        this.error.message.detail[i].date_from = "Harus diisi"
+                    }else {
+                        this.error.class.detail[i].date_from = ""
+                        this.error.message.detail[i].date_from = ""
+                    }
+                }
+
+                return validate
+            },
             resetForm() {
                 this.formData.name = ""
                 this.formData.close_age = ""
@@ -321,6 +379,12 @@
                 this.formData.poster_url = ""
                 this.formData.region_id = this.selectedRegion.id
                 this.file = null
+                for(let i = 0; i < this.detail.length; i++) {
+                    this.detail[i].date_from = ""
+                    this.detail[i].date_until = ""
+                    this.detail[i].time_from = ""
+                    this.detail[i].time_until = ""
+                }
                 this.resetImageInputFile()
             },
             resetImageInputFile() {
@@ -335,16 +399,34 @@
                 window.open(url, '_target')
             },
             addDetail() {
-                this.formData.detail.push([
-                    {
-                        from: "",
-                        to: "",
-                        isAdd: false
-                    }
-                ])
+                this.formData.detail.push({
+                    date_from: "",
+                    date_until: "",
+                    time_from: "",
+                    time_until: ""
+                })
+
+                this.error.message.detail.push({
+                    date_from: "",
+                    date_until: "",
+                    time_from: "",
+                    time_until: ""
+                })
+
+                this.error.class.detail.push({
+                    date_from: "",
+                    date_until: "",
+                    time_from: "",
+                    time_until: ""
+                })
             },
             removeDetail(index) {
-                this.formData.detail.splice(index, 1);
+                if(this.formData.detail.length <= 1) alert.error()
+                else {
+                    this.formData.detail.splice(index, 1)
+                    this.error.class.detail.splice(index, 1)
+                    this.error.message.detail.splice(index, 1)
+                }
             }
         }
     }
@@ -390,9 +472,19 @@
     .event-form > .form-detail-container > .detail > .detail-container > .from,
     .event-form > .form-detail-container > .detail > .detail-container > .until
         flex 5
+        display flex
 
-    .event-form > .form-detail-container > .detail > .detail-container > .from > input,
-    .event-form > .form-detail-container > .detail > .detail-container > .until > input
+    .event-form > .form-detail-container > .detail > .detail-container > .from > .date,
+    .event-form > .form-detail-container > .detail > .detail-container > .from > .time,
+    .event-form > .form-detail-container > .detail > .detail-container > .until > .date,
+    .event-form > .form-detail-container > .detail > .detail-container > .until > .time
+        flex 1
+        margin-right 2px
+
+    .event-form > .form-detail-container > .detail > .detail-container > .from > .date > input,
+    .event-form > .form-detail-container > .detail > .detail-container > .from > .time > input,
+    .event-form > .form-detail-container > .detail > .detail-container > .until > .date > input,
+    .event-form > .form-detail-container > .detail > .detail-container > .until > .time > input
         width 100%
         box-shadow 2px 2px 1px 0 #eaeaea
         border 1px solid #eaeaea
@@ -417,6 +509,10 @@
         padding 6px 12px
         background white
 
+    .event-form > .form-detail-container > .detail > .detail-container > .from > .date > input.error,
+    .event-form > .form-detail-container > .detail > .detail-container > .from > .time > input.error,
+    .event-form > .form-detail-container > .detail > .detail-container > .until > .date > input.error,
+    .event-form > .form-detail-container > .detail > .detail-container > .until > .time > input.error,
     .event-form > .form-container > .input-container > select.error,
     .event-form > .form-container > .input-container > input.error
         border 1px solid red

@@ -32,9 +32,10 @@
                     poster_url: "",
                     detail: [
                         {
-                            from: "",
-                            to: "",
-                            isAdd: true
+                            date_from: "",
+                            date_until: "",
+                            time_from: "",
+                            time_until: "",
                         }
                     ]
                 },
