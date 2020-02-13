@@ -99,10 +99,13 @@
                     await this.getAllRegion()
             },
             getUserRegion() {
+                console.log(this.userLogin)
                 return request.get('/api/region/' + this.userLogin.region_id, this.accessToken)
                 .then((response) => {
-                    if(response.data.success)
-                        this.region = response.data.result.data
+                    if(response.data.success) {
+                        this.region = [{id: response.data.result.id, name: response.data.result.name}]
+                        this.selectedRegion = this.region[0]
+                    }
                 })
             },
             getAllRegion() {

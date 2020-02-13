@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../../components/panel/_index */ "./resources/components/panel/_index.vue"));
     },
     AdminForm: function AdminForm() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./../form/_index */ "./resources/views/page/admin/form/_index.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./../form/_index */ "./resources/views/page/admin/form/_index.vue"));
     },
     Search: function Search() {
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../../../../components/search/_index */ "./resources/components/search/_index.vue"));

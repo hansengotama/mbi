@@ -234,6 +234,14 @@ export default {
             component: Content,
             children: [
                 {
+                    path: 'edit',
+                    name: 'Edit Event',
+                    meta: {
+                        parentTitle: 'Kegiatan'
+                    },
+                    component: () => import('../../views/page/event/edit/_index.vue')
+                },
+                {
                     path: 'add',
                     name: 'Add Event',
                     title: 'Tambahkan',

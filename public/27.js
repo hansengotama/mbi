@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../../components/panel/_index */ "./resources/components/panel/_index.vue"));
     },
     EventForm: function EventForm() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../form/_index */ "./resources/views/page/event/form/_index.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../form/_index */ "./resources/views/page/event/form/_index.vue"));
     }
   },
   computed: {

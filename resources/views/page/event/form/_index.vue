@@ -307,6 +307,7 @@
                     this.error.class.poster_url = "error"
                     this.error.message.poster_url = " Poster harus terisi"
                 }else if(this.file != null && dataType[0] != "image") {
+                    validate = false
                     this.error.class.poster_url = "error"
                     this.error.message.poster_url = "File yang diupload harus berupa image"
                 }else {
@@ -371,19 +372,16 @@
             },
             resetForm() {
                 this.formData.name = ""
-                this.formData.close_age = ""
-                this.formData.buried_date = ""
-                this.formData.event_date = ""
-                this.formData.buried_at = ""
-                this.formData.type = ""
+                this.formData.description = ""
                 this.formData.poster_url = ""
+                this.formData.address = ""
                 this.formData.region_id = this.selectedRegion.id
                 this.file = null
-                for(let i = 0; i < this.detail.length; i++) {
-                    this.detail[i].date_from = ""
-                    this.detail[i].date_until = ""
-                    this.detail[i].time_from = ""
-                    this.detail[i].time_until = ""
+                for(let i = 0; i < this.formData.detail.length; i++) {
+                    this.formData.detail[i].date_from = ""
+                    this.formData.detail[i].date_until = ""
+                    this.formData.detail[i].time_from = ""
+                    this.formData.detail[i].time_until = ""
                 }
                 this.resetImageInputFile()
             },

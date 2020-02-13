@@ -49,8 +49,6 @@ Route::namespace('API')->group(function () {
             });
 
             Route::prefix('region')->group(function () {
-                Route::get('/', 'RegionController@get');
-                Route::get('/{id}', 'RegionController@find');
                 Route::post('/create', 'RegionController@create');
                 Route::post('/update/{id}', 'RegionController@update');
                 Route::post('/delete/{id}', 'RegionController@delete');
@@ -82,6 +80,11 @@ Route::namespace('API')->group(function () {
         });
 
         Route::middleware('isAdminOrPicKecamatan')->group(function () {
+            Route::prefix('region')->group(function () {
+                Route::get('/', 'RegionController@get');
+                Route::get('/{id}', 'RegionController@find');
+            });
+
             Route::prefix('vihara')->group(function () {
                 Route::get('/', 'ViharaController@get');
                 Route::get('/{id}', 'ViharaController@find');
